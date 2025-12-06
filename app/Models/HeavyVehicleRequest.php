@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class HeavyVehicleRequest extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'user_id', 'brand_id', 'model_id', 'quantity', 'city', 'description',
+        'fuel_type', 'condition', 'manufacturing_year_id'
+    ];
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function brand(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function brandModel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(BrandModel::class, 'model_id');
+    }
+
+    public function year(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(ManufacturingYear::class, 'manufacturing_year_id');
+    }
+
+    public function quotations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Quotation::class, 'request_id');
+    }
+}
