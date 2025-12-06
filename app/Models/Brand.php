@@ -10,7 +10,7 @@ class Brand extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name_en', 'name_ar'];
+    protected $fillable = ['name_en', 'name_ar', 'logo'];
 
     public function models(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
