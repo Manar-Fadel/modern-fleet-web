@@ -21,4 +21,8 @@ class BrandModel extends Model
     {
         return $this->hasMany(HeavyVehicle::class, 'model_id');
     }
+    public function heavyVehicleRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(HeavyVehicleRequest::class, 'model_id');
+    }
 }

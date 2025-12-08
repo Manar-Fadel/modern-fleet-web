@@ -25,14 +25,20 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Company::class);
     }
-
     public function heavyVehicleRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(HeavyVehicleRequest::class);
     }
-
     public function logs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(SystemLog::class);
+    }
+    public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+    public function city(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(City::class);
     }
 }

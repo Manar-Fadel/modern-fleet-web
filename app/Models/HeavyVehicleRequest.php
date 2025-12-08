@@ -11,7 +11,7 @@ class HeavyVehicleRequest extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'user_id', 'brand_id', 'model_id', 'quantity', 'city', 'description',
+        'user_id', 'brand_id', 'model_id', 'quantity', 'description',
         'fuel_type', 'condition', 'manufacturing_year_id'
     ];
 
@@ -38,5 +38,13 @@ class HeavyVehicleRequest extends Model
     public function quotations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Quotation::class, 'request_id');
+    }
+    public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+    public function city(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(City::class);
     }
 }
