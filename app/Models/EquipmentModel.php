@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BrandModel extends Model
+class EquipmentModel extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'brand_models';
     protected $fillable = ['brand_id', 'name_en', 'name_ar'];
 
     public function brand(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(EquipmentBrand::class);
     }
 
     public function heavyVehicles(): \Illuminate\Database\Eloquent\Relations\HasMany

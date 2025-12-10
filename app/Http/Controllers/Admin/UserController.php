@@ -52,7 +52,7 @@ class UserController extends Controller
         $models = User::when(!is_null($from_date) && !is_null($to_date), function ($query) use ($from_date, $to_date) {
                         $query->where('created_at', '>=', $from_date)
                                 ->whereDate('created_at', '<=', $to_date);
-                        })->where('user_type', Constants::DEALER);
+                        })->where('user', Constants::COMPANY);
 
         $models = $models->when(! empty($trusted_status), function ($query) use ($trusted_status) {
                     if ($trusted_status == 'TRUSTED') {
@@ -147,7 +147,7 @@ class UserController extends Controller
     public function store(CreateDealerRequest $request): \Illuminate\Http\RedirectResponse
     {
         $model = new User();
-        $model->user_type = Constants::DEALER;
+        $model->type = Constants::DEALER;
         $model->full_name = $request->get('full_name');
         $model->email = $request->get('email');
         $model->password = Hash::make($request->get('password'));

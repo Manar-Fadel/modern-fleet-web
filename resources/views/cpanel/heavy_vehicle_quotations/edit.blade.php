@@ -1,0 +1,19 @@
+@extends('cpanel.layout.default')
+@section('content')
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Edit Quotation #{{ $heavyVehicleQuotation->id }}
+            </h3>
+        </div>
+        <div class="card-body">
+            <form method="POST"
+                  action="{{ route('admin.heavy-vehicle-quotations.update', $heavyVehicleQuotation) }}">
+                @method('PUT')
+                @include('cpanel.heavy_vehicle_quotations._form', [
+                    'heavyVehicleQuotation' => $heavyVehicleQuotation
+                ])
+            </form>
+        </div>
+    </div>
+@endsection

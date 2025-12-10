@@ -6,16 +6,16 @@
     <div class="sidebar-header hidden lg:flex items-center relative px-3 lg:px-6 shrink-0"
          id="sidebar_header">
         <a class="dark:hidden" href="{{ route('admin.dashboard') }}">
-            <img class="default-logo min-h-[22px] max-w-none" src="{{ URL::asset("assets/logo.png") }}"
+            <img class="default-logo min-h-[22px] max-w-none" src="{{ URL::asset("logo.png") }}"
                  style="width: 70px;"/>
-            <img class="small-logo min-h-[22px] max-w-none" src="{{ URL::asset("assets/logo.png") }}"
+            <img class="small-logo min-h-[22px] max-w-none" src="{{ URL::asset("logo.png") }}"
                  style="width: 70px;"/>
         </a>
         <a class="hidden dark:block" href="{{ route('admin.dashboard') }}">
             <img class="default-logo min-h-[22px] max-w-none" style="width: 70px;"
-                 src="{{ URL::asset("assets/logo.png") }}"/>
+                 src="{{ URL::asset("logo.png") }}"/>
             <img class="small-logo min-h-[22px] max-w-none"  style="width: 70px;"
-                 src="{{ URL::asset("assets/logo.png") }}"/>
+                 src="{{ URL::asset("logo.png") }}"/>
         </a>
         <button
             class="btn btn-icon btn-icon-md size-[30px] rounded-lg border border-gray-200 dark:border-gray-300 bg-light text-gray-500 hover:text-gray-700 toggle absolute left-full top-2/4 -translate-x-2/4 -translate-y-2/4"
@@ -23,11 +23,10 @@
             <i class="ki-filled ki-black-left-line toggle-active:rotate-180 transition-all duration-300">
             </i>
         </button>
-
-        CAR RADAR
+        Modern Fleet
     </div>
-    <div class="sidebar-content flex grow shrink-0 pt-2 lg:pt-0 pe-2" id="sidebar_content">
-        <div class="scrollable-y-hover grow shrink-0 flex ps-2 lg:ps-5 pr-1 lg:pe-3" data-scrollable="true"
+    <div class="sidebar-content flex grow pt-2 lg:pt-0 pe-2" id="sidebar_content">
+        <div class="scrollable-y-hover grow flex ps-2 lg:ps-5 pr-1 lg:pe-3" data-scrollable="true"
              data-scrollable-dependencies="#sidebar_header" data-scrollable-height="auto" data-scrollable-offset="0px"
              data-scrollable-wrappers="#sidebar_content" id="sidebar_scrollable">
             <!-- Sidebar Menu -->
@@ -45,8 +44,6 @@
                         </span>
                     </a>
                 </div>
-
-                <?php $user = auth()->user(); ?>
 
                 <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
                     <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]" tabindex="0">
@@ -86,7 +83,7 @@
                           </i>
                          </span>
                         <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
-                            Advertisements & News
+                             Heavy Vehicles & Cars Stock
                         </span>
                         <span class="menu-arrow text-gray-400 w-[20px] shrink-0 justify-end ml-1 mr-[-10px]">
                           <i class="ki-filled ki-plus text-2xs menu-item-show:hidden">
@@ -99,36 +96,36 @@
 
                         <div class="menu-item">
                             <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
+                               href="{{ route("admin.heavy-vehicle-categories.index") }}" tabindex="0">
+                               <span
+                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
+                               </span>
+                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
+                                    Heavy Vehicles Categories
+                               </span>
+                            </a>
+                        </div>
+
+                        <div class="menu-item">
+                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
+                               href="{{ route("admin.heavy-vehicles.index") }}" tabindex="0">
+                               <span
+                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
+                               </span>
+                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
+                                    Heavy Vehicles Stock
+                               </span>
+                            </a>
+                        </div>
+
+                        <div class="menu-item">
+                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
                                href="{{ route("admin.cars.index") }}" tabindex="0">
                                <span
                                    class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
                                </span>
                                 <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Adv. & News
-                               </span>
-                            </a>
-                        </div>
-
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.cars.slider") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Advertisement Cars In Slider
-                               </span>
-                            </a>
-                        </div>
-
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.cars.news") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Car News Section
+                                    Cars Stock
                                </span>
                             </a>
                         </div>
@@ -143,7 +140,7 @@
                           </i>
                          </span>
                         <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
-                            Users
+                            Users (Companies & Individuals)
                         </span>
                         <span class="menu-arrow text-gray-400 w-[20px] shrink-0 justify-end ml-1 mr-[-10px]">
                           <i class="ki-filled ki-plus text-2xs menu-item-show:hidden">
@@ -156,24 +153,24 @@
 
                         <div class="menu-item">
                             <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.users.index") }}" tabindex="0">
+                               href="{{ route("admin.companies.index") }}" tabindex="0">
                                <span
                                    class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
                                </span>
                                 <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Dealers
+                                Companies Accounts
                                </span>
                             </a>
                         </div>
 
                         <div class="menu-item">
                             <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.bank-delegates.index") }}" tabindex="0">
+                               href="{{ route("admin.individuals.index") }}" tabindex="0">
                                <span
                                    class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
                                </span>
                                 <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Bank Delegates
+                                Individuals Accounts
                                </span>
                             </a>
                         </div>
@@ -200,88 +197,52 @@
                     <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
                         <div class="menu-item">
                             <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.orders.index") }}" tabindex="0">
+                               href="{{ route("admin.heavy-vehicle-orders.index") }}" tabindex="0">
                                <span
                                    class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
                                </span>
                                 <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Orders by Date
+                                Heavy Vehicles Orders by Date
                                </span>
                             </a>
-
                             <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.offers.index") }}" tabindex="0">
+                               href="{{ route("admin.car-orders.index") }}" tabindex="0">
                                <span
                                    class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
                                </span>
                                 <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Offers by Date
+                                Car Orders by Date
                                </span>
                             </a>
-                        </div>
-                    </div>
-                </div>
 
-                <!--div class="menu-item pt-2.25 pb-px">
-                    <span class="menu-heading uppercase text-2sm font-medium text-gray-500 pl-[10px] pr-[10px]">
-                     Notifications
-                    </span>
-                </div>
-                <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
-                    <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]" tabindex="0">
-                 <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                  <i class="ki-filled ki-notification text-lg">
-                  </i>
-                 </span>
-                 <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
-                    System Notifications
-                 </span>
-                 <span class="menu-arrow text-gray-400 w-[20px] shrink-0 justify-end ml-1 mr-[-10px]">
-                  <i class="ki-filled ki-plus text-2xs menu-item-show:hidden">
-                  </i>
-                  <i class="ki-filled ki-minus text-2xs hidden menu-item-show:inline-flex">
-                  </i>
-                </span>
-                    </div>
-                    <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
-                        <div class="menu-item">
                             <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.notifications.index") }}" tabindex="0">
-                                <span class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                                </span>
+                               href="{{ route("admin.heavy-vehicle-quotations.index") }}" tabindex="0">
+                               <span
+                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
+                               </span>
                                 <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                    All Sent Notifications Logs
-                                </span>
+                                Heavy Vehicles Quotations
+                               </span>
                             </a>
+                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
+                               href="{{ route("admin.car-quotations.index") }}" tabindex="0">
+                               <span
+                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
+                               </span>
+                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
+                                Car Quotations
+                               </span>
+                            </a>
+
                         </div>
                     </div>
                 </div>
-
-                <div class="menu-item pt-2.25 pb-px">
-                    <span class="menu-heading uppercase text-2sm font-medium text-gray-500 pl-[10px] pr-[10px]">
-                     Logs
-                    </span>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       href="{{ route("admin.logs.index") }}"
-                       tabindex="0">
-                         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                          <i class="ki-filled ki-setting-2 text-lg">
-                          </i>
-                         </span>
-                        <span class="menu-title text-sm font-medium text-gray-800">
-                          System Logs
-                         </span>
-                    </a>
-                </div -->
 
                 <div class="menu-item pt-2.25 pb-px">
                     <span class="menu-heading uppercase text-2sm font-medium text-gray-500 pl-[10px] pr-[10px]">
                      Contact
                     </span>
                 </div>
-
                 <div class="menu-item">
                     <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
                        href="{{ route("admin.contact.index") }}"
@@ -301,7 +262,6 @@
                     Settings
                     </span>
                 </div>
-
                 <div class="menu-item">
                     <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
                          href="{{ route("admin.settings.index") }}"
@@ -316,19 +276,37 @@
                     </a>
                 </div>
 
-                <div class="menu-item">
-                    <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       href="{{ route("admin.jobs.index") }}"
-                       tabindex="0">
-                     <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                      <i class="ki-filled ki-setting text-lg">
-                      </i>
-                     </span>
-                        <span class="menu-title text-sm font-medium text-gray-800">
-                            Queued Jobs
-                     </span>
-                    </a>
+                <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
+                    <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]" tabindex="0">
+                         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                          <i class="ki-filled ki-data text-lg">
+                          </i>
+                         </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
+                            Queued Jobs Monitoring
+                        </span>
+                        <span class="menu-arrow text-gray-400 w-[20px] shrink-0 justify-end ml-1 mr-[-10px]">
+                          <i class="ki-filled ki-plus text-2xs menu-item-show:hidden">
+                          </i>
+                          <i class="ki-filled ki-minus text-2xs hidden menu-item-show:inline-flex">
+                          </i>
+                        </span>
+                    </div>
+                    <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
+                        <div class="menu-item">
+                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
+                               href="{{ route("admin.queue-monitor.index") }}" tabindex="0">
+                               <span
+                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
+                               </span>
+                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
+                                Queued Jobs Monitoring
+                               </span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
 
             </div>
             <!-- End of Sidebar Menu -->

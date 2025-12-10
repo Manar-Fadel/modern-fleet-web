@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Brand;
-use App\Models\BrandModel;
+use App\Models\EquipmentBrand;
+use App\Models\EquipmentModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -86,14 +86,14 @@ class BrandsModelsSeeder extends Seeder
         ];
 
         foreach ($modelsByBrand as $brandName => $models) {
-            $brand = Brand::where('name_en', $brandName)->first();
+            $brand = EquipmentBrand::where('name_en', $brandName)->first();
 
             if (!$brand) {
                 continue;
             }
 
             foreach ($models as $model) {
-                BrandModel::updateOrCreate(
+                EquipmentModel::updateOrCreate(
                     [
                         'brand_id' => $brand->id,
                         'name_en'  => $model[0],

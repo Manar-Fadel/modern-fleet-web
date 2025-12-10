@@ -14,7 +14,7 @@ class PurchaseOrder extends Model
 
     public function quotation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Quotation::class);
+        return $this->belongsTo(HeavyVehicleQuotation::class);
     }
 
     public function payments(): \Illuminate\Database\Eloquent\Relations\HasMany

@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BrandModelResource;
 use App\Managers\AdminManager;
-use App\Models\Brand;
-use App\Models\BrandModel;
+use App\Models\EquipmentBrand;
+use App\Models\EquipmentModel;
 use App\Models\HeavyVehicleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -15,12 +15,12 @@ class BrandController extends Controller
 {
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        $brands = Brand::query()->orderBy('id', 'DESC')->paginate(21);
+        $brands = EquipmentBrand::query()->orderBy('id', 'DESC')->paginate(21);
         return view('cpanel.brand.index', ['brands' => $brands]);
     }
     public function brandModels($id): \Illuminate\Http\JsonResponse
     {
-        $models = BrandModel::where('brand_id', $id)->orderBy('model_name_en', 'ASC')->get();
+        $models = EquipmentModel::where('brand_id', $id)->orderBy('name_en', 'ASC')->get();
         return response()->json(BrandModelResource::collection($models));
     }
     public function store(Request $request): \Illuminate\Http\RedirectResponse
@@ -30,7 +30,7 @@ class BrandController extends Controller
             return redirect()->back();
         }
 
-        $model = new Brand;
+        $model = new EquipmentBrand;
         $model->name_ar = $request->get('name_ar');
         $model->name_en = $request->get('name_en');
         if ($request->has('image')) {
@@ -52,11 +52,11 @@ class BrandController extends Controller
             return redirect()->back();
         }
 
-        $brand  = Brand::find($request->get('brand_id'));
-        if (!$brand instanceof Brand){
-            Session::flash('error', 'Brand not found');
+        $brand  = EquipmentBrand::find($request->get('brand_id'));
+        if (!$brand instanceof EquipmentBrand){
+            Session::flash('error', 'EquipmentBrand not found');
         }
-        $model = new BrandModel();
+        $model = new EquipmentModel();
         $model->brand_id = $request->get('brand_id');
         $model->name_ar = $request->get('name_ar');
         $model->name_en = $request->get('name_en');
@@ -70,8 +70,8 @@ class BrandController extends Controller
     }
     public function update($id): \Illuminate\Http\RedirectResponse
     {
-        $model = Brand::find($id);
-        if ($model instanceof Brand) {
+        $model = EquipmentBrand::find($id);
+        if ($model instanceof EquipmentBrand) {
             $model->fill(request()->all());
             if ($model->save()) {
                 $model->touch();
@@ -84,12 +84,12 @@ class BrandController extends Controller
 
     public function delete($id): \Illuminate\Http\RedirectResponse
     {
-        $model = Brand::find($id);
-        if ($model instanceof Brand) {
+        $model = EquipmentBrand::find($id);
+        if ($model instanceof EquipmentBrand) {
             // check there is no orders to this brand,
             $brand_orders_count = HeavyVehicleRequest::where('brand_id', $model->id)->count();
             if ($brand_orders_count > 0) {
-                Session::flash('error', "Brand has orders before, shouldn't be deleted");
+                Session::flash('error', "EquipmentBrand has orders before, shouldn't be deleted");
                 return redirect()->back();
             }
 
@@ -104,8 +104,8 @@ class BrandController extends Controller
 
     public function deleteModel($id): \Illuminate\Http\RedirectResponse
     {
-        $model = BrandModel::find($id);
-        if ($model instanceof BrandModel) {
+        $model = EquipmentModel::find($id);
+        if ($model instanceof EquipmentModel) {
             if (count($model->heavyVehicles) > 0){
                 Session::flash('error', "Model has vehicles related to it, shouldn't be deleted");
                 return redirect()->back();

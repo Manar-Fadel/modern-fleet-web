@@ -6,19 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Brand extends Model
+class EquipmentBrand extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'brands';
     protected $fillable = ['name_en', 'name_ar', 'logo'];
 
     public function models(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BrandModel::class);
+        return $this->hasMany(EquipmentModel::class, 'brand_id');
     }
 
     public function heavyVehicles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(HeavyVehicle::class);
+    }
+    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(HeavyVehicleRequest::class, 'brand_id');
     }
 }

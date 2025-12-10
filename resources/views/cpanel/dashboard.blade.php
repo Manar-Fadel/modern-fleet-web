@@ -25,19 +25,19 @@
                 <div class="col-span-1 border-2 text-center p-2" style="border-radius: 5px;">
                     <div class="stat-title">
                         <i class="ki-filled ki-users"></i>
-                        Dealers Accounts Count
+                        Companies Accounts Count
                     </div>
                     <div class="stat-value" style="color: darkblue">
-                        {{ $dealers_count }}
+                        {{ $companies_users_count }}
                     </div>
                 </div>
                 <div class="col-span-1 border-2 text-center p-2" style="border-radius: 5px;">
                     <div class="stat-title">
                         <i class="ki-filled ki-user-square"></i>
-                        Bank Delegates Accounts Count
+                        Individuals Accounts Count
                     </div>
                     <div class="stat-value" style="color: darkblue">
-                        {{ $bank_delegates_count }}
+                        {{ $individual_users_count }}
                     </div>
                 </div>
 

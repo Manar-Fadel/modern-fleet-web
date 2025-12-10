@@ -10,7 +10,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name_en');
             $table->string('name_ar');
-            $table->string('logo')->nullable(); // ✅ Brand logo
+            $table->string('logo')->nullable(); // ✅ EquipmentBrand logo
             $table->softDeletes();
             $table->timestamps();
         });

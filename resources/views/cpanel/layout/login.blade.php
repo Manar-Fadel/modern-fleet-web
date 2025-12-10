@@ -2,7 +2,7 @@
 <html class="h-full" data-theme="true" data-theme-mode="light" lang="en">
 <head>
     <title>
-        Radar - Admin Cpanel
+        Modern Fleet - Admin Cpanel
     </title>
     <meta charset="utf-8"/>
     <meta content="website" property="og:type"/>

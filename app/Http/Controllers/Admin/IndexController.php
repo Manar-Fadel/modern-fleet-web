@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Managers\Constants;
-use App\Models\Brand;
-use App\Models\BrandModel;
+use App\Models\EquipmentBrand;
+use App\Models\EquipmentModel;
 use App\Models\HeavyVehicleRequest;
-use App\Models\Quotation;
+use App\Models\HeavyVehicleQuotation;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,17 +17,17 @@ class IndexController extends Controller
 {
     public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        $individual_users_count = User::where('user_type', Constants::CUSTOMER)->count();
-        $companies_users_count = User::where('user_type', Constants::COMPANY)->count();
+        $individual_users_count = User::where('type', Constants::CUSTOMER)->count();
+        $companies_users_count = User::where('type', Constants::COMPANY)->count();
 
         $pending_orders_count = HeavyVehicleRequest::where('status', Constants::PENDING)->count();
         $accepted_orders_count = HeavyVehicleRequest::where('status', Constants::ACCEPTED)->count();
 
-        $pending_offers_count = Quotation::where('status', Constants::PENDING)->count();
-        $accepted_offers_count = Quotation::where('status', Constants::ACCEPTED)->count();
+        $pending_offers_count = HeavyVehicleQuotation::where('status', Constants::PENDING)->count();
+        $accepted_offers_count = HeavyVehicleQuotation::where('status', Constants::ACCEPTED)->count();
 
-        $brands_count = Brand::count();
-        $models_count = BrandModel::count();
+        $brands_count = EquipmentBrand::count();
+        $models_count = EquipmentModel::count();
 
         return view('cpanel.dashboard', [
             'pending_orders_count' => $pending_orders_count,

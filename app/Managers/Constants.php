@@ -12,6 +12,7 @@ class Constants
     const REJECTED = 'REJECTED';
     const CANCELLED = 'CANCELLED';
     const PAID = 'PAID';
+    const IN_DELIVERY = 'IN_DELIVERY';
     const ACTIVE = 'ACTIVE';
     const INACTIVE = 'INACTIVE';
     const DONE = 'DONE';

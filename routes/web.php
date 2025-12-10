@@ -2,13 +2,18 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CompanyUsersController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\HeavyVehicleCategoryController;
+use App\Http\Controllers\Admin\HeavyVehicleImageController;
+use App\Http\Controllers\Admin\HeavyVehicleQuotationController;
 use App\Http\Controllers\Admin\IndexController;
-use App\Http\Controllers\Admin\JobsController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\OurHeavyVehiclesController;
+use App\Http\Controllers\Admin\OurCarsController;
+use App\Http\Controllers\Admin\HeavyVehicleController;
+use App\Http\Controllers\Admin\QueueMonitorController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Artisan;
@@ -35,25 +40,16 @@ Route::middleware('localization')->group(function () {
                 Route::get('/delete/{id}', [ContactController::class, 'delete'])->name('delete');
             });
 
-            Route::group(['prefix' => 'cars', 'as' => 'cars.'], function () {
-                Route::get('/', [OurHeavyVehiclesController::class, 'index'])->name('index');
-                Route::get('/slider', [OurHeavyVehiclesController::class, 'slider'])->name('slider');
-                Route::get('/news', [OurHeavyVehiclesController::class, 'news'])->name('news');
-                Route::post('/store', [OurHeavyVehiclesController::class, 'store'])->name('store');
-                Route::get('/edit/{id}', [OurHeavyVehiclesController::class, 'edit'])->name('edit');
-                Route::post('/update/{id}', [OurHeavyVehiclesController::class, 'update'])->name('update');
-                Route::get('/delete-slider/{id}', [OurHeavyVehiclesController::class, 'deleteSlider'])->name('delete-slider');
-                Route::get('/delete/{id}', [OurHeavyVehiclesController::class, 'delete'])->name('delete');
-            });
+            Route::resource('cars', CarController::class);
+            Route::post('car-images/{image}/set-main', [CarImageController::class, 'setMain'])->name('car-images.set-main');
+            Route::delete('car-images/{image}', [CarImageController::class, 'destroy'])->name('car-images.destroy');
 
-            Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
-                Route::get('/', [OrderController::class, 'index'])->name('index');
-                Route::get('/export', [OrderController::class, 'export'])->name('export');
-            });
+            Route::resource('heavy-vehicles', HeavyVehicleController::class);
+            Route::post('/heavy-vehicle-images/{image}/set-main', [HeavyVehicleImageController::class, 'setMain'])->name('heavy-vehicle-images.set-main');
+            Route::resource('heavy-vehicle-categories', HeavyVehicleCategoryController::class)->except(['show']);
+            Route::resource('heavy-vehicle-quotations', HeavyVehicleQuotationController::class)->except(['show']);
+            Route::resource('car-quotations', CarQuotationController::class)->except(['show']);
 
-            Route::group(['prefix' => 'offers', 'as' => 'offers.'], function () {
-                Route::get('/', [OfferController::class, 'index'])->name('index');
-            });
 
             Route::group(['prefix' => 'brands', 'as' => 'brands.'], function () {
                 Route::get('/', [BrandController::class, 'index'])->name('index');
@@ -65,13 +61,26 @@ Route::middleware('localization')->group(function () {
                 Route::post('/store-model', [BrandController::class, 'storeModel'])->name('store-model');
             });
 
-            Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+            Route::group(['prefix' => 'companies', 'as' => 'companies.'], function () {
+                Route::get('/', [CompanyUsersController::class, 'index'])->name('index');
+                Route::post('/store', [CompanyUsersController::class, 'store'])->name('store');
+                Route::post('/update/{id}', [CompanyUsersController::class, 'update'])->name('update');
+                Route::get('/view/{id}', [CompanyUsersController::class, 'view'])->name('view');
+                Route::get('/delete/{id}', [CompanyUsersController::class, 'delete'])->name('delete');
+            });
+            Route::group(['prefix' => 'individuals', 'as' => 'individuals.'], function () {
                 Route::get('/', [UserController::class, 'index'])->name('index');
-                Route::get('/enable-trusted/{id}', [UserController::class, 'enableTrusted'])->name('enable-trusted');
                 Route::post('/store', [UserController::class, 'store'])->name('store');
                 Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
                 Route::get('/view/{id}', [UserController::class, 'view'])->name('view');
                 Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
+            });
+
+            Route::group(['prefix' => 'heavy-vehicle-orders', 'as' => 'heavy-vehicle-orders.'], function () {
+                Route::get('/', [OrderController::class, 'index'])->name('index');
+            });
+            Route::group(['prefix' => 'car-orders', 'as' => 'car-orders.'], function () {
+                Route::get('/', [OrderController::class, 'index'])->name('index');
             });
 
             Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
@@ -82,11 +91,12 @@ Route::middleware('localization')->group(function () {
                 Route::get('/delete/{id}', [SettingsController::class, 'delete'])->name('delete');
             });
 
-            Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function () {
-                Route::get('/', [NotificationController::class, 'index'])->name('index');
-                Route::get('/delete/{id}', [NotificationController::class, 'delete'])->name('delete');
+            Route::group(['prefix' => 'queue-monitor', 'as' => 'queue-monitor.'], function () {
+                Route::get('/', [QueueMonitorController::class, 'index'])->name('index');
+                Route::get('/{monitor}', [QueueMonitorController::class, 'show'])->name('show');
+                Route::post('/{monitor}/retry', [QueueMonitorController::class, 'retry'])->name('retry');
+                Route::delete('/{monitor}', [QueueMonitorController::class, 'destroy'])->name('delete');
             });
-
         });
 
     });

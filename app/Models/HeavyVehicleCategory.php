@@ -10,7 +10,7 @@ class HeavyVehicleCategory extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name_en', 'name_ar'];
+    protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar'];
 
     public function heavyVehicles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

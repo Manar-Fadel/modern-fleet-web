@@ -12,27 +12,33 @@ class HeavyVehicle extends Model
 
     protected $fillable = [
         'brand_id', 'model_id', 'manufacturing_year_id', 'category_id', 'condition',
-        'location', 'fuel_type', 'engine_power', 'weight', 'capacity', 'transmission',
-        'mileage', 'origin', 'description'
+        'location', 'fuel_type', 'engine_power', 'operating_weight', 'bucket_capacity',
+        'lifting_capacity', 'payload_capacity',
+        'mileage', 'origin', 'description', 'transmission_type'
     ];
 
     public function brand(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(EquipmentBrand::class);
     }
-
     public function brandModel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(BrandModel::class, 'model_id');
+        return $this->belongsTo(EquipmentModel::class, 'model_id');
     }
-
     public function year(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(ManufacturingYear::class, 'manufacturing_year_id');
     }
-
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(HeavyVehicleCategory::class, 'category_id');
+    }
+    public function images(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(HeavyVehicleImage::class);
+    }
+    public function mainImage()
+    {
+        return $this->hasOne(HeavyVehicleImage::class)->main();
     }
 }

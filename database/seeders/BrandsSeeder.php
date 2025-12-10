@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Brand;
+use App\Models\EquipmentBrand;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -69,7 +69,7 @@ class BrandsSeeder extends Seeder
         ];
 
         foreach ($brands as $brand) {
-            Brand::updateOrCreate(
+            EquipmentBrand::updateOrCreate(
                 ['name_en' => $brand['name_en']],
                 [
                     'name_ar' => $brand['name_ar'],

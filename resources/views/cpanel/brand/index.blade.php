@@ -1,7 +1,5 @@
 @extends('cpanel.layout.default')
 @section('content')
-
-<!-- Content -->
 <main class="grow content pt-5" id="content" role="content">
     <!-- Container -->
     <div class="container-fixed">
@@ -81,13 +79,13 @@
                         <div class="card-body grid gap-7 py-7.5">
                             <div class="grid place-items-center gap-4">
                                 <img class="flex justify-center items-center size-20 rounded-full ring-1 ring-gray-300 bg-gray-100"
-                                     src="{{ $brand->logo_url }}" alt="{{ $brand->name }}">
+                                     src="{{ $brand->logo }}" alt="{{ $brand->name }}">
                                 <div class="grid place-items-center">
                                     <a class="text-base font-medium text-gray-900 hover:text-primary-active mb-px" href="#">
-                                        {{ $brand->brand_name_en }}
+                                        {{ $brand->name_en }}
                                     </a>
                                     <span class="text-2sm text-gray-700 text-center">
-                                      {{ $brand->brand_name_en }} /  {{ $brand->brand_name_ar }}
+                                      {{ $brand->name_en }} /  {{ $brand->name_ar }}
                                     </span>
                                 </div>
                             </div>
@@ -157,13 +155,13 @@
                     <div class="card p-7.5">
                         <div class="flex flex-wrap justify-between items-center gap-7">
                             <div class="flex items-center gap-4">
-                                <img src="{{ $brand->logo_url }}" alt="{{ $brand->name }}" class="flex justify-center items-center size-14 shrink-0 rounded-full ring-1 ring-gray-300 bg-gray-100">
+                                <img src="{{ $brand->logo }}" alt="{{ $brand->name }}" class="flex justify-center items-center size-14 shrink-0 rounded-full ring-1 ring-gray-300 bg-gray-100">
                                 <div class="grid grid-col gap-1">
                                     <a class="text-base font-medium text-gray-900 hover:text-primary-active mb-px" href="#">
-                                        {{ $brand->brand_name_en }}
+                                        {{ $brand->name_en }}
                                     </a>
                                     <span class="text-2sm text-gray-700">
-                                      {{ $brand->brand_name_en }} / {{ $brand->brand_name_ar }}
+                                      {{ $brand->name_en }} / {{ $brand->name_ar }}
                                     </span>
                                 </div>
                             </div>

@@ -2,7 +2,7 @@
 <html class="h-full" data-theme="true" data-theme-mode="light" lang="en">
 <head>
     <title>
-        Car Radar - Admin Cpanel
+        Modern Fleet - Admin Cpanel
     </title>
     <meta charset="utf-8"/>
     <meta content="follow, index" name="robots"/>
@@ -17,6 +17,7 @@
     <link href="{{ URL::asset("assets/vendors/apexcharts/apexcharts.css") }}" rel="stylesheet"/>
     <link href="{{ URL::asset("assets/vendors/keenicons/styles.bundle.css") }}" rel="stylesheet"/>
     <link href="{{ URL::asset("assets/css/styles.css") }}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ URL::asset("assets/css/metronic-fallback.css") }}">
 
     <script src="{{ URL::asset("assets/js/jquery/jquery.min.js")}}"></script>
 </head>

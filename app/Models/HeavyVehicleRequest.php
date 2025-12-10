@@ -12,7 +12,8 @@ class HeavyVehicleRequest extends Model
 
     protected $fillable = [
         'user_id', 'brand_id', 'model_id', 'quantity', 'description',
-        'fuel_type', 'condition', 'manufacturing_year_id'
+        'fuel_type', 'condition', 'manufacturing_year_id',
+        'order_number', 'status', 'accepted_quotations_id', 'accepted_user_id',
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -22,12 +23,12 @@ class HeavyVehicleRequest extends Model
 
     public function brand(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(EquipmentBrand::class);
     }
 
     public function brandModel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(BrandModel::class, 'model_id');
+        return $this->belongsTo(EquipmentModel::class, 'model_id');
     }
 
     public function year(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -37,7 +38,7 @@ class HeavyVehicleRequest extends Model
 
     public function quotations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Quotation::class, 'request_id');
+        return $this->hasMany(HeavyVehicleQuotation::class, 'request_id');
     }
     public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

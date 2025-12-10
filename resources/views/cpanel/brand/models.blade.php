@@ -69,10 +69,10 @@
                                                     {{ $model->id }}
                                                 </td>
                                                 <td class="text-gray-800 font-normal">
-                                                    {{ $model->model_name_en }}
+                                                    {{ $model->name_en }}
                                                 </td>
                                                 <td class="text-gray-800 font-normal">
-                                                    {{ $model->model_name_ar }}
+                                                    {{ $model->name_ar }}
                                                 </td>
                                                 <td class="text-gray-800 font-normal">
                                                     {{ $model->created_at }}
