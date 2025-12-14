@@ -119,27 +119,15 @@
                class="form-control">
     </div>
     <div class="col-4 col-md-4">
-        <label class="form-label">Bucket Capacity</label>
-        <input type="number" name="bucket_capacity"
-               value="{{ old('bucket_capacity', $heavyVehicle->bucket_capacity ?? '') }}"
-               class="form-control">
-    </div>
-    <div class="col-4 col-md-4">
-        <label class="form-label">Lifting Capacity</label>
-        <input type="number" name="lifting_capacity"
-               value="{{ old('lifting_capacity', $heavyVehicle->lifting_capacity ?? '') }}"
-               class="form-control">
-    </div>
-    <div class="col-4 col-md-4">
-        <label class="form-label">Payload Capacity</label>
-        <input type="number" name="payload_capacity"
-               value="{{ old('payload_capacity', $heavyVehicle->payload_capacity ?? '') }}"
+        <label class="form-label">Engine Capacity</label>
+        <input type="number" name="engine_capacity"
+               value="{{ old('engine_capacity', $heavyVehicle->bucket_capacityengine_capacity ?? '') }}"
                class="form-control">
     </div>
     <div class="col-4 col-md-4">
         <label class="form-label">Transmission</label>
-        <input type="text" name="transmission_type"
-               value="{{ old('transmission_type', $heavyVehicle->transmission_type ?? '') }}"
+        <input type="text" name="transmission"
+               value="{{ old('transmission', $heavyVehicle->transmission ?? '') }}"
                class="form-control">
     </div>
 </div>

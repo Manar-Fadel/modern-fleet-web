@@ -1,7 +1,7 @@
 @extends('cpanel.layout.default')
 
 @section('content')
-    <div class="card">
+    <div class="card  ml-5">
         <div class="card-header">
             <h3 class="card-title">Edit Heavy Vehicle #{{ $heavyVehicle->id }}</h3>
             <div class="flex items-center gap-2 text-sm font-normal text-gray-700">

@@ -13,6 +13,11 @@ class EquipmentModel extends Model
     protected $table = 'brand_models';
     protected $fillable = ['brand_id', 'name_en', 'name_ar'];
 
+    protected function getNameAttribute(): ?string
+    {
+        $locale = app()->getLocale();
+        return  ($locale == 'en') ? $this->name_en : $this->name_ar;
+    }
     public function brand(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(EquipmentBrand::class);

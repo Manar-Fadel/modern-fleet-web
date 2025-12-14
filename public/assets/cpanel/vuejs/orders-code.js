@@ -73,7 +73,7 @@ const app = Vue.createApp({
         async fetchOrders () {
             this.loading = true;
             const response = await fetch(
-                "/api/admin/orders?search_word="+this.search_word+"&brand_id="+this.brand_id+"&year="+this.year+"&month="+this.month+"&week="+this.week+"&stat_start_date="+this.stat_start_date+"&stat_to_date="+this.stat_to_date,
+                "/api/admin/car-requests?search_word="+this.search_word+"&brand_id="+this.brand_id+"&year="+this.year+"&month="+this.month+"&week="+this.week+"&stat_start_date="+this.stat_start_date+"&stat_to_date="+this.stat_to_date,
                 {
                     method: 'GET',
                     headers: this.headers,
@@ -96,7 +96,7 @@ const app = Vue.createApp({
                 headers: this.headers,
                 body: JSON.stringify(this.changeStatusModal)
             };
-            const response = await fetch("/api/admin/orders/change-status/"+row.id, requestOptions);
+            const response = await fetch("/api/admin/car-requests/change-status/"+row.id, requestOptions);
             this.response = await response.json();
             this.status = this.response.status;
             this.message = this.response.message;
@@ -108,7 +108,7 @@ const app = Vue.createApp({
         },
         async deleteOrder (row, key, index) {
             const response = await fetch(
-                "/api/admin/orders/delete/"+row.id,
+                "/api/admin/car-requests/delete/"+row.id,
                 {
                     method: 'GET',
                     headers: this.headers,
@@ -123,7 +123,7 @@ const app = Vue.createApp({
         },
         async deleteOrderImage (order, image) {
             const response = await fetch(
-                "/api/admin/orders/delete-image/"+image.id,
+                "/api/admin/car-requests/delete-image/"+image.id,
                 {
                     method: 'GET',
                     headers: this.headers,
@@ -160,7 +160,7 @@ const app = Vue.createApp({
         },
         async getOrderLogs(id) {
             const response = await fetch(
-                "/api/admin/orders/logs/"+id,
+                "/api/admin/car-requests/logs/"+id,
                 {
                     method: 'GET',
                     headers: this.headers,
@@ -172,7 +172,7 @@ const app = Vue.createApp({
         },
         async getOrderImages(id) {
             const response = await fetch(
-                "/api/admin/orders/images/"+id,
+                "/api/admin/car-requests/images/"+id,
                 {
                     method: 'GET',
                     headers: this.headers,
@@ -186,7 +186,7 @@ const app = Vue.createApp({
         },
         async getOrderOffers(id) {
             const response = await fetch(
-                "/api/admin/orders/offers/"+id,
+                "/api/admin/car-requests/offers/"+id,
                 {
                     method: 'GET',
                     headers: this.headers,

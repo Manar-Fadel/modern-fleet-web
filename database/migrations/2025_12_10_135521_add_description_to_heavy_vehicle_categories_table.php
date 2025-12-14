@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::table('heavy_vehicle_categories', function (Blueprint $table) {
             $table->text('description_en')->nullable();
             $table->text('description_ar')->nullable();
-
         });
     }
 

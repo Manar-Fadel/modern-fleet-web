@@ -216,7 +216,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body pt-0">
+                            <div class="card-body pt-5">
                                 <div class="flex justify-center transform -translate-y-1/2">
                                     <div
                                         class="flex items-center justify-center relative text-1.5xl text-primary size-20 ring-1 ring-primary-clarity bg-primary-light rounded-full">

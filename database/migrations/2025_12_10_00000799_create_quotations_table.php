@@ -21,6 +21,6 @@ return new class extends Migration {
         });
     }
     public function down(): void {
-        Schema::dropIfExists('quotations');
+        Schema::dropIfExists('heavy_vehicle_quotations');
     }
 };

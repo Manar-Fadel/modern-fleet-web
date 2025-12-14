@@ -1,7 +1,7 @@
 @extends('cpanel.layout.default')
 @section('content')
 
-    <div class="card">
+    <div class="card  ml-5">
         <div class="card-header">
             <h3 class="card-title">Job Details #{{ $monitor->id }}</h3>
         </div>

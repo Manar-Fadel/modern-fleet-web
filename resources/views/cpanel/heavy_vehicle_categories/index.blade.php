@@ -1,6 +1,6 @@
 @extends('cpanel.layout.default')
 @section('content')
-    <div class="card">
+    <div class="card  ml-5">
         <div class="card-header border-0 pt-6">
             <div class="card-title">
                 <h3 class="fw-bold">Heavy Vehicle Categories</h3>
@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="card-body pt-0">
+        <div class="card-body pt-5">
             <div class="table-responsive">
                 <table class="table table-row-bordered align-middle">
                     <thead>

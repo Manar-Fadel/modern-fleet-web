@@ -2,7 +2,7 @@
      :id="order.view_model_id" :data-id="order.view_model_id">
     <div class="modal-content pt-7.5 my-[3%] w-full container-fixed px-5 overflow-hidden">
         <div class="modal-header p-0 border-0">
-            Order Details ID: @{{ order.id }} /  @{{ order.order_number }}
+            Car Request Details ID: @{{ order.id }} /  @{{ order.order_number }}
 
             @include("cpanel.includes.vuejs-alerts")
 
@@ -51,7 +51,7 @@
                                                 <img alt="" class="rounded-full size-9 shrink-0" :src="order.brand_image"/>
                                                 <div class="flex flex-col">
                                                     <a class="text-sm font-medium text-gray-900 hover:text-primary-active mb-px" href="#">
-                                                        @{{ order.brand_name }}
+                                                        @{{ order.brand_name }}/ @{{ order.model_name }}/ @{{ order.year }}
                                                     </a>
                                                 </div>
                                             </div>
@@ -67,6 +67,9 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td class="text-gray-600 font-normal">
+                                            Quantity: @{{ order.quantity }}
+                                        </td>
                                         <td class="text-gray-600 font-normal">
                                             Description: @{{ order.description }}
                                         </td>

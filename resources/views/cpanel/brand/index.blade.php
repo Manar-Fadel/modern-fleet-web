@@ -36,7 +36,7 @@
             <div id="teams_cards">
                 <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-7.5">
                     @foreach($brands as $brand)
-                    <div class="card">
+                    <div class="card  ml-5">
                         <div class="menu mt-2.5 mr-2.5" data-menu="true" style="margin-left: auto;">
                             <div class="menu-item menu-item-dropdown" data-menu-item-offset="0, 10px" data-menu-item-placement="bottom-end" data-menu-item-toggle="dropdown" data-menu-item-trigger="click|lg:click">
                                 <button class="menu-toggle btn btn-sm btn-icon text-gray-600 menu-item-show:text-gray-800 hover:text-gray-800">

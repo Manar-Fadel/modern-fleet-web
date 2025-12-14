@@ -2,16 +2,18 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CarCategoryController;
+use App\Http\Controllers\Admin\CarController;
+use App\Http\Controllers\Admin\CarImageController;
+use App\Http\Controllers\Admin\CarQuotationController;
+use App\Http\Controllers\Admin\CarRequestController;
 use App\Http\Controllers\Admin\CompanyUsersController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\HeavyVehicleCategoryController;
 use App\Http\Controllers\Admin\HeavyVehicleImageController;
 use App\Http\Controllers\Admin\HeavyVehicleQuotationController;
 use App\Http\Controllers\Admin\IndexController;
-use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\OfferController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\OurCarsController;
+use App\Http\Controllers\Admin\HeavyVehicleRequestController;
 use App\Http\Controllers\Admin\HeavyVehicleController;
 use App\Http\Controllers\Admin\QueueMonitorController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -43,12 +45,13 @@ Route::middleware('localization')->group(function () {
             Route::resource('cars', CarController::class);
             Route::post('car-images/{image}/set-main', [CarImageController::class, 'setMain'])->name('car-images.set-main');
             Route::delete('car-images/{image}', [CarImageController::class, 'destroy'])->name('car-images.destroy');
+            Route::resource('car-categories', CarCategoryController::class)->except(['show']);
+            Route::resource('car-quotations', CarQuotationController::class)->except(['show']);
 
             Route::resource('heavy-vehicles', HeavyVehicleController::class);
             Route::post('/heavy-vehicle-images/{image}/set-main', [HeavyVehicleImageController::class, 'setMain'])->name('heavy-vehicle-images.set-main');
             Route::resource('heavy-vehicle-categories', HeavyVehicleCategoryController::class)->except(['show']);
             Route::resource('heavy-vehicle-quotations', HeavyVehicleQuotationController::class)->except(['show']);
-            Route::resource('car-quotations', CarQuotationController::class)->except(['show']);
 
 
             Route::group(['prefix' => 'brands', 'as' => 'brands.'], function () {
@@ -77,10 +80,10 @@ Route::middleware('localization')->group(function () {
             });
 
             Route::group(['prefix' => 'heavy-vehicle-orders', 'as' => 'heavy-vehicle-orders.'], function () {
-                Route::get('/', [OrderController::class, 'index'])->name('index');
+                Route::get('/', [HeavyVehicleRequestController::class, 'index'])->name('index');
             });
             Route::group(['prefix' => 'car-orders', 'as' => 'car-orders.'], function () {
-                Route::get('/', [OrderController::class, 'index'])->name('index');
+                Route::get('/', [CarRequestController::class, 'index'])->name('index');
             });
 
             Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
