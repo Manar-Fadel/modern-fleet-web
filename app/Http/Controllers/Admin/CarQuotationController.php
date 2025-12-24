@@ -37,7 +37,7 @@ class CarQuotationController extends Controller
             $query->whereDate('created_at', '<=', $request->to_date);
         }
 
-        $quotations = $query->paginate(20)->withQueryString();
+        $quotations = $query->has('request')->paginate(20)->withQueryString();
         $statuses = OfferStatus::cases();
         return view('cpanel.car_quotations.index',
             compact('quotations', 'statuses')

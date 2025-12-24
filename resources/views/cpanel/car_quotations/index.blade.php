@@ -81,7 +81,7 @@
                     @foreach($quotations as $q)
                         <tr>
                             <td>{{ $q->id }}</td>
-                            <td>#{{ $q->request_id }}</td>
+                            <td>{{ $q->request_id }} - #{{ $q->request->order_number }}</td>
                             <td>{{ $q->user->full_name ?? '-' }}</td>
                             <td>{{ number_format($q->unit_price, 2) }}</td>
                             <td>{{ number_format($q->total_price, 2) }}</td>

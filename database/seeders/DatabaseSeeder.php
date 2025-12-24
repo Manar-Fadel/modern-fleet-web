@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
             ManufacturingYearsSeeder::class,
             HeavyVehicleCategorySeeder::class,
             CarCategoriesSeeder::class,
-
         ]);
 
     }
