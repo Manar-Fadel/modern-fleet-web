@@ -1,0 +1,113 @@
+.file-uploaded-download{
+    color: #107EFF;
+}
+.custom-file-upload{
+    font-size: 14px;
+}
+.file-uploaded-icon{
+    display: none;
+    color: green;
+    margin: 0px 5px;
+}
+.contact-form{
+    background: white;
+}
+.border-blue{
+    border: 1px solid #FF3600 !important;
+}
+.counter-inner{
+    background-color: firebrick;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 7px;
+}
+.order-now-container .one-item{
+    cursor: pointer;
+    width:85%;
+    height: 80px;
+    padding: 10px;
+    font-size: 10px;
+    border-radius: 10px;
+    background: rgb(194 191 191 / 15%);
+    margin: auto;
+    overflow: hidden;
+}
+.order-now-container .one-item p{
+    font-size: 10px;
+}
+.logout-btn{
+    border: 1px solid #cccccc;
+    background: transparent;
+    transition: all 0.3s
+    ease-in-out;
+}
+.select-form {
+    display: inline !important;
+    background: var(--color-white);
+    padding: 12px 45px;
+    border-radius: 6px;
+    border: 1px solid rgba(85, 85, 85, 0.15);
+}
+.nice-select{
+    display: none !important;
+}
+.swiper-pagination-bullett {
+    width: 148px;
+    height: 138px;
+    border-radius: 6px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #f9f9f9;
+    /* opacity: 0.5; */
+    /* background-size: cover; */
+    /* background-position: center; */
+    margin-right: 0;
+    position: relative;
+    z-index: 1;
+}
+.swiper-paginationn {
+    display: flex;
+    flex-direction: column;
+    position: unset;
+    gap: 25px;
+    text-align: center;
+    -webkit-transition: .3s opacity;
+    -o-transition: .3s opacity;
+    transition: .3s opacity;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    z-index: 10;
+}
+.logo img {
+    width: 150px !important;
+}
+.btn-black{
+    text-align: center;
+    padding: 14px 10px;
+    color: var(--color-white);
+    background: var(--color-heading-1);
+    border-radius: 6px;
+}
+.one-offer{
+    border-top: 1px solid #ddd;
+    padding: 20px 0;
+}
+.one-offer h6{
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.one-offer p{
+    margin-bottom: 10px;
+}
+.active {
+    color: var(--color-primary) !important;
+}
+.hidden{
+    display: none !important;
+}
+.text-center{
+    text-align: center !important;
+}
+.displayactive{
+    display: block !important;
+}

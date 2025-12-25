@@ -23,6 +23,18 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('localization')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/search', [HomeController::class, 'index'])->name('search');
+
+    Route::get('/change-language', [HomeController::class, 'changeLanguage'])->name('change-language');
+    Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact-us');
+    Route::post('/save-contact-us', [HomeController::class, 'saveContactUs'])->name('save-contact-us');
+
+    Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
+
+
+
+
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/login', [AuthController::class, 'index'])->name('login');
         Route::post('/login', [AuthController::class, 'index'])->name('login');
