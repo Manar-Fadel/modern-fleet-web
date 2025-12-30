@@ -14,9 +14,17 @@ class HeavyVehicle extends Model
         'brand_id', 'model_id', 'manufacturing_year_id', 'category_id', 'condition',
         'location', 'fuel_type', 'engine_power', 'operating_weight', 'bucket_capacity',
         'lifting_capacity', 'payload_capacity',
-        'mileage', 'origin', 'description', 'transmission_type'
+        'mileage', 'origin', 'description', 'transmission_type',
+        'is_main'
     ];
 
+    protected $casts = [
+        'is_main' => 'boolean',
+    ];
+    public function scopeMain($query)
+    {
+        return $query->where('is_main', true);
+    }
     public function brand(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(EquipmentBrand::class);

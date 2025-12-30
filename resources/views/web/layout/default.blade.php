@@ -19,15 +19,14 @@
     <link rel="stylesheet" href="{{ URL::asset("assets/web/fonts/rt-icon.css") }}">
     <link rel="stylesheet" href="{{ URL::asset("assets/web/css/style.css") }}">
     <link rel="stylesheet" href="{{ URL::asset("assets/web/css/custom-style.css") }}">
-    <link rel="stylesheet" href="{{ URL::asset("assets/web/css/toaster.css") }}">
 </head>
 
-<body @if(request()->route()->getName() == "login" || request()->route()->getName() == "register"
-          || request()->route()->getName() == "profile"
+<body @if(request()->route()->getName() == "home" || request()->route()->getName() == "register"
+          || request()->route()->getName() == "login"
           || request()->route()->getName() == "password.request" || request()->route()->getName() == "password.reset")
-          class="account-page-body"
-      @elseif(request()->route()->getName() == "my-orders")
-          class="with-sidebar"
+          class="home-two "
+      @else
+          class=""
       @endif
       @if(app()->getLocale() == 'ar') style="direction: rtl;" @endif>
 

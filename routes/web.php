@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\HeavyVehicleController;
 use App\Http\Controllers\Admin\QueueMonitorController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\web\CarsController;
+use App\Http\Controllers\web\HeavyVehiclesController;
 use App\Http\Controllers\web\HomeController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -33,9 +35,42 @@ Route::middleware('localization')->group(function () {
 
     Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
 
+    Route::get('/login', [\App\Http\Controllers\web\AuthController::class, 'index'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\web\AuthController::class, 'index'])->name('login');
+    Route::get('/register', [\App\Http\Controllers\web\AuthController::class, 'register'])->name('register');
+    Route::post('/register', [\App\Http\Controllers\web\AuthController::class, 'postRegister'])->name('register');
 
+    Route::group(['prefix' => 'cars', 'as' => 'cars.'], function () {
+        Route::get('/', [CarsController::class, 'index'])->name('index');
+    });
+    Route::group(['prefix' => 'heavy-vehicles', 'as' => 'heavy-vehicles.'], function () {
+        Route::get('/', [HeavyVehiclesController::class, 'index'])->name('index');
+    });
 
+    Route::middleware(['auth:sanctum', 'verified', 'account-active'])->group(function () {
 
+        Route::get('/order-now', [\App\Http\Controllers\web\OrderController::class, 'orderNow'])->name('order-now');
+        Route::group(['prefix' => 'my-orders', 'as' => 'my-orders.'], function () {
+            Route::get('/', [\App\Http\Controllers\web\OrderController::class, 'index'])->name('index');
+            Route::get('/{id}', [\App\Http\Controllers\web\OrderController::class, 'view'])->name('view');
+            Route::get('/accept/{id}', [\App\Http\Controllers\web\OrderController::class, 'accept'])->name('accept');
+            Route::get('/decline/{id}', [\App\Http\Controllers\web\OrderController::class, 'decline'])->name('decline');
+            Route::get('/cancel-accepted-offer/{id}', [\App\Http\Controllers\web\OrderController::class, 'cancelAcceptedOffer'])->name('cancel-accepted-offer');
+        });
+
+        Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
+            Route::get('/', [\App\Http\Controllers\web\OfferController::class, 'index'])->name('others-index');
+        });
+    });
+
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::get('/profile', [\App\Http\Controllers\web\AuthController::class, 'profile'])->name('profile');
+        Route::post('/profile', [\App\Http\Controllers\web\AuthController::class, 'saveProfile'])->name('profile');
+
+        Route::get('/logout', [\App\Http\Controllers\web\AuthController::class, 'logout'])->name('logout');
+    });
+
+    /**********************     ADMIN ROUTES    ***************************/
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/login', [AuthController::class, 'index'])->name('login');
         Route::post('/login', [AuthController::class, 'index'])->name('login');

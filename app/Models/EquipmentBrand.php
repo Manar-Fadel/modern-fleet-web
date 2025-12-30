@@ -5,14 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\URL;
 
 class EquipmentBrand extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $table = 'brands';
-    protected $fillable = ['name_en', 'name_ar', 'logo'];
-
+    protected $fillable = ['name_en', 'name_ar', 'is_main', 'logo'];
+    protected $casts = [
+        'is_main' => 'boolean',
+    ];
+    public function scopeMain($query)
+    {
+        return $query->where('is_main', true);
+    }
     protected function getNameAttribute(): ?string
     {
         $locale = app()->getLocale();
@@ -23,6 +30,13 @@ class EquipmentBrand extends Model
         return $this->hasMany(EquipmentModel::class, 'brand_id');
     }
 
+    public function getLogoAttribute($value): string
+    {
+        if ($value) {
+            return URL::asset("storage/".$value);
+        }
+        return asset("storage/brand-vector.jpg");
+    }
     public function heavyVehicles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(HeavyVehicle::class);

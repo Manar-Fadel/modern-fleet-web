@@ -60,6 +60,7 @@ class BrandController extends Controller
         $model->brand_id = $request->get('brand_id');
         $model->name_ar = $request->get('name_ar');
         $model->name_en = $request->get('name_en');
+        $model->is_main = $request->boolean('is_main');
         if ($model->save()) {
             Session::flash('message', 'Data added successfully');
         } else {
@@ -68,10 +69,11 @@ class BrandController extends Controller
 
         return redirect()->back();
     }
-    public function update($id): \Illuminate\Http\RedirectResponse
+    public function update($id, Request $request): \Illuminate\Http\RedirectResponse
     {
         $model = EquipmentBrand::find($id);
         if ($model instanceof EquipmentBrand) {
+            $model->is_main = $request->boolean('is_main');
             $model->fill(request()->all());
             if ($model->save()) {
                 $model->touch();

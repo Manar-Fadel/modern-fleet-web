@@ -45,10 +45,6 @@
             @include("web.includes.cars-stock")
             <!-- Popular Car Area End -->
 
-            <!-- Testimonials Area Start -->
-            @include("web.includes.testimonials")
-            <!-- Testimonials Area End -->
-
             <!-- Newsletter Area Start -->
             @include("web.includes.newsletter")
             <!-- Newsletter Area End -->

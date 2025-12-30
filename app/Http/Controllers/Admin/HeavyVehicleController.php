@@ -52,6 +52,8 @@ class HeavyVehicleController extends Controller
     public function store(HeavyVehicleRequest $request): \Illuminate\Http\RedirectResponse
     {
         $vehicle = HeavyVehicle::create($request->validated());
+        $vehicle->is_main = $request->boolean('is_main');
+        $vehicle->save();
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $index => $file) {
@@ -86,6 +88,8 @@ class HeavyVehicleController extends Controller
     public function update(HeavyVehicleRequest $request, HeavyVehicle $heavyVehicle): \Illuminate\Http\RedirectResponse
     {
         $heavyVehicle->update($request->validated());
+        $heavyVehicle->is_main = $request->boolean('is_main');
+        $heavyVehicle->save();
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $index => $file) {

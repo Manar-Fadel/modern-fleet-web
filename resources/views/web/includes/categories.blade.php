@@ -1,8 +1,13 @@
 <section class="rts-category-area2">
-    <div class="container">
+    <div class="container" style="max-width: 90% !important;">
         <div class="section-title-area2">
-            <p class="sub-title wow fadeInUp" data-wow-delay=".1s" data-wow-duration=".8s">Car Category</p>
-            <h2 class="section-title wow move-right cw">Browse By <span>Car</span> Type</h2>
+            <p class="sub-title wow fadeInUp" data-wow-delay=".1s" data-wow-duration=".8s">
+                {{ __('web.Car Category') }}
+            </p>
+            <h2 class="section-title wow move-right cw">
+                {{ __('web.Browse By') }}
+                <span> {{ __('web.Car') }}</span> {{ __('web.Type') }}
+            </h2>
         </div>
         <div class="section-inner wow fadeInUp" data-wow-delay=".3s" data-wow-duration="1s">
             <div class="float-right">
@@ -11,7 +16,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="assets/images/category/07.svg" alt="">
+                                    <img src="{{ asset('assets/web/images/category/07.svg') }}" alt="">
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Hatchback</a></h6>
@@ -22,7 +27,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="assets/images/category/08.svg" alt="">
+                                    <img src="{{ asset('assets/web/images/category/08.svg') }}" alt="">
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Minivans</a></h6>
@@ -33,7 +38,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="assets/images/category/09.svg" alt="">
+                                    <img src="{{ asset('assets/web/images/category/09.svg') }}" alt="">
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Luxury Cars</a></h6>
@@ -44,7 +49,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="assets/images/category/10.svg" alt="">
+                                    <img src="{{ asset('assets/web/images/category/10.svg') }}" alt="">
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Sadans</a></h6>
@@ -55,7 +60,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="assets/images/category/11.svg" alt="">
+                                    <img src="{{ asset('assets/web/images/category/11.svg') }}" alt="">
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Convertible</a></h6>
@@ -66,7 +71,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="assets/images/category/12.svg" alt="">
+                                    <img src="{{ asset('assets/web/images/category/12.svg') }}" alt="">
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Sports Car</a></h6>

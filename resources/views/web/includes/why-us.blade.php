@@ -6,7 +6,10 @@
                     <div class="left-side-content">
                         <div class="section-title-area">
                             <p class="sub-title wow fadeInUp" data-wow-delay=".1s" data-wow-duration=".8s">Why Choose Us</p>
-                            <h2 class="section-title cw wow move-right">Why Choose <span>Us</span></h2>
+                            <h2 class="section-title cw wow move-right">
+                                Why Choose
+                                <span>Us</span>
+                            </h2>
                         </div>
                         <ul class="why-choose-feature-list wow fadeInUp" data-wow-delay=".4s" data-wow-duration=".8s">
                             <li><i class="rt-icon-check-circle"></i>Exceptional Selection</li>

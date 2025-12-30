@@ -77,6 +77,21 @@
         </select>
     </div>
 
+    <div class="col-4">
+        <label class="form-label d-flex align-items-center">
+            <input type="checkbox"
+                   name="is_main"
+                   value="1"
+                   class="form-check-input me-2"
+                @checked(old('is_main', $car->is_main ?? false))>
+
+            <span>Car is Main</span>
+        </label>
+
+        <div class="form-text text-primary">
+            When Is Main checked this mean car will be shown in landing page.
+        </div>
+    </div>
 </div>
 
 {{-- Specs --}}
@@ -246,29 +261,7 @@
                         <span class="badge bg-success position-absolute top-0 start-0 m-2">
                             Main
                         </span>
-                    @else
-                        <form method="POST"
-                              action="{{ route('admin.car-images.set-main', $img) }}"
-                              class="position-absolute bottom-0 start-0 m-2">
-                            @csrf
-                            <button class="btn btn-sm btn-light-primary">
-                                Set Main
-                            </button>
-                        </form>
                     @endif
-
-                    {{-- Delete --}}
-                    <form method="POST"
-                          action="{{ route('admin.car-images.destroy', $img) }}"
-                          class="position-absolute top-0 end-0 m-2"
-                          onsubmit="return confirm('Delete this image?')">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-sm btn-light-danger">
-                            X
-                        </button>
-                    </form>
-
                 </div>
             @endforeach
         </div>

@@ -16,6 +16,7 @@ class Car extends Model
         'model_id',
         'manufacturing_year_id',
         'category_id',
+        'is_main',
 
         'condition',
         'fuel_type',
@@ -40,11 +41,16 @@ class Car extends Model
 
     protected $casts = [
         'is_with_vat' => 'boolean',
+        'is_main' => 'boolean',
     ];
 
     /* ======================
         Relationships
     ====================== */
+    public function scopeMain($query)
+    {
+        return $query->where('is_main', true);
+    }
     public function brand(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(EquipmentBrand::class, 'brand_id');

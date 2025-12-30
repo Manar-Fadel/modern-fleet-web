@@ -132,11 +132,29 @@
     </div>
 </div>
 
-<div class="mb-5">
-    <label class="form-label">Origin</label>
-    <input type="text" name="origin"
-           value="{{ old('origin', $heavyVehicle->origin ?? '') }}"
-           class="form-control">
+<div class="row mb-5">
+    <div class="col-4 col-md-4">
+        <label class="form-label">Origin</label>
+        <input type="text" name="origin"
+               value="{{ old('origin', $heavyVehicle->origin ?? '') }}"
+               class="form-control">
+    </div>
+
+    <div class="col-4 col-md-4">
+        <label class="form-label d-flex align-items-center">
+            <input type="checkbox"
+                   name="is_main"
+                   value="1"
+                   class="form-check-input me-2"
+                @checked(old('is_main', $heavyVehicle->is_main ?? false))>
+
+            <span>Vehicle is Main</span>
+        </label>
+
+        <div class="form-text text-primary">
+            When Is Main checked this mean vehicle will be shown in landing page.
+        </div>
+    </div>
 </div>
 
 <div class="mb-5">
@@ -178,16 +196,6 @@
                         <span class="badge badge-success position-absolute top-0 start-0 m-2">
                             Main
                         </span>
-                    @else
-                        <form method="POST"
-                              action="{{ route('admin.heavy-vehicle-images.set-main', $img) }}"
-                              class="position-absolute bottom-0 start-50 translate-middle-x mb-2">
-                            @csrf
-                            <button type="submit"
-                                    class="btn btn-sm btn-light-primary">
-                                Set as Main
-                            </button>
-                        </form>
                     @endif
                 </div>
 

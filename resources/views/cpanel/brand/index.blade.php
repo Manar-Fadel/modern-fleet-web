@@ -254,6 +254,22 @@
                     </div>
 
                     <div class="flex flex-col gap-5">
+                        <label class="form-label d-flex align-items-center">
+                            <input type="checkbox"
+                                   name="is_main"
+                                   value="1"
+                                   class="form-check-input me-2"
+                                @checked(old('is_main', $brand->is_main ?? false))>
+
+                            <span>Brand is Main</span>
+                        </label>
+
+                        <div class="form-text">
+                            تحديد هذا الخيار يعني أن البراند سيظهر كبراند أساسي في الموقع.
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-5">
                         <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
                             <label class="form-label max-w-56">
                                 Brand Image

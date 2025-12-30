@@ -64,7 +64,7 @@
         height: 100%;
         z-index: -1;
         top: 0;
-        left: 0;  
+        left: 0;
     }
     &.two{
         height: 852px;
@@ -193,7 +193,7 @@
         }
         .swiper-button-prev{
             left: 50px;
-        } 
+        }
         .swiper-button-next{
             right: 50px;
         }
@@ -369,7 +369,7 @@
         }
         .swiper-button-prev{
             left: 90px;
-        } 
+        }
         .swiper-button-next{
             right: 90px;
         }
@@ -519,7 +519,6 @@
             color: var(--color-white);
             span{
                 color: var(--color-primary);
-                text-decoration: underline;
                 text-decoration-color: var(--color-white);
                 text-decoration-thickness: 3px;
                 text-underline-offset: 6px;
@@ -608,31 +607,31 @@
     }
 }
 .bg-one{
-    background: url(../images/banner/banner-slider-bg-01.webp);   
+    background: url(../images/banner/banner-slider-bg-01.webp);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .bg-two{
-    background: url(../images/banner/banner-slider-bg-02.webp);   
+    background: url(../images/banner/banner-slider-bg-02.webp);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .bg-three{
-    background: url(../images/banner/banner-slider-bg-04.webp);   
+    background: url(../images/banner/banner-slider-bg-04.webp);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .bg-four{
-    background: url(../images/banner/banner-slider-bg-05.webp);   
+    background: url(../images/banner/banner-slider-bg-05.webp);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .bg-five{
-    background: url(../images/banner/banner-slider-bg-07.webp);   
+    background: url(../images/banner/banner-slider-bg-07.webp);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

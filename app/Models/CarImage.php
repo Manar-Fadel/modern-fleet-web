@@ -19,7 +19,7 @@ class CarImage extends Model
     {
         return $this->belongsTo(Car::class);
     }
-    public function getUrlAttribute(): string
+    public function getPathAttribute(): string
     {
         return asset('storage/' . $this->path);
     }

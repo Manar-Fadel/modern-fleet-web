@@ -62,6 +62,8 @@ class CarController extends Controller
     public function store(CarRequest $request): \Illuminate\Http\RedirectResponse
     {
         $car = Car::create($request->validated());
+        $car->is_main = $request->boolean('is_main');
+        $car->save();
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $i => $file) {
@@ -93,6 +95,8 @@ class CarController extends Controller
     public function update(CarRequest $request, Car $car): \Illuminate\Http\RedirectResponse
     {
         $car->update($request->validated());
+        $car->is_main = $request->boolean('is_main');
+        $car->save();
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
