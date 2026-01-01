@@ -11,7 +11,14 @@ class HeavyVehicleCategory extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['name_en', 'name_ar', 'description_en', 'description_ar'];
-
+    protected $appends = [
+        'name',
+    ];
+    protected function getNameAttribute(): ?string
+    {
+        $locale = app()->getLocale();
+        return  ($locale == 'en') ? $this->name_en : $this->name_ar;
+    }
     public function heavyVehicles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(HeavyVehicle::class, 'category_id');

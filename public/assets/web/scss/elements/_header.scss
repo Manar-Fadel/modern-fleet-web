@@ -78,7 +78,7 @@
     }
 }
 .header-two{
-    background: #121212;
+    background: white;
     position: relative;
     width: 100%;
     z-index: 999;
@@ -122,7 +122,7 @@
     }
     .nav-area ul li a.main-menu{
         transition: var(--transition);
-        color: var(--color-white);
+        color: black;
         font-weight: 600;
         &::after{
             color: var(--color-white);

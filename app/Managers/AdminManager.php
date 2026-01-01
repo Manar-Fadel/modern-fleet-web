@@ -4,13 +4,26 @@ namespace App\Managers;
 
 use App\Models\EquipmentBrand;
 use App\Models\City;
+use App\Models\ManufacturingYear;
 use Illuminate\Support\Facades\Storage;
 
 class AdminManager
 {
-    public static function getBrandsAsArray(): \Illuminate\Database\Eloquent\Collection
+    public static function getBrandsAsArray($type): \Illuminate\Database\Eloquent\Collection
     {
-        return EquipmentBrand::query()->orderBy('id', 'ASC')->get();
+        if ($type === 'cars') {
+            return EquipmentBrand::cars()->orderBy('id', 'ASC')->get();
+
+        }elseif ($type === 'heavy_vehicles') {
+            return EquipmentBrand::heavyVehicle()->orderBy('id', 'ASC')->get();
+
+        }else{
+            return EquipmentBrand::query()->orderBy('id', 'ASC')->get();
+        }
+    }
+    public static function getYearsAsArray(): \Illuminate\Database\Eloquent\Collection
+    {
+        return ManufacturingYear::query()->orderBy('year', 'DESC')->get();
     }
     public static function getCitiesAsArray(): \Illuminate\Database\Eloquent\Collection
     {

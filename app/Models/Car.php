@@ -76,4 +76,24 @@ class Car extends Model
         return $this->hasOne(CarImage::class)
             ->where('is_main', true);
     }
+    /* ======================
+        Query Scopes
+    ====================== */
+
+    public function scopeFilter($query, array $filters)
+    {
+        return $query
+            ->when($filters['brand_id'] ?? null, fn ($q, $brand) =>
+            $q->where('brand_id', $brand)
+            )
+            ->when($filters['model_id'] ?? null, fn ($q, $model) =>
+            $q->where('model_id', $model)
+            )
+            ->when($filters['category_id'] ?? null, fn ($q, $category) =>
+            $q->where('category_id', $category)
+            )
+            ->when($filters['year_id'] ?? null, fn ($q, $year) =>
+            $q->where('manufacturing_year_id', $year)
+            );
+    }
 }

@@ -37,14 +37,20 @@
                             <div class="project-wrapper2">
                                 <div class="image-area">
                                     <a href="{{ route('cars.view', ['id' => $model->id]) }}">
-                                        <img src="{{ $model->mainImage->path }}" alt="">
+                                        @if(isset($model->mainImage))
+                                            <img src="{{ $model->mainImage->url }}" alt="">
+                                        @else
+                                            <img src="{{ URL::asset("assets/web/images/car-vector.png") }}" alt="">
+                                        @endif
                                     </a>
                                     <span class="tag">
                                         {{ __('web.New') }}
                                     </span>
-                                    <a href="wishlist.html" class="wishlist"><i class="fa-regular fa-heart"></i></a>
-                                    <a href="assets/images/portfolio/04.webp" class="gallery-image">
-                                        <img src="assets/images/icon/image.svg" alt="">
+                                    <a href="#" class="wishlist">
+                                        <i class="fa-regular fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="gallery-image">
+                                        <img src="{{ asset('assets/web/images/icon/image.svg') }}" alt="">
                                         5
                                     </a>
                                 </div>

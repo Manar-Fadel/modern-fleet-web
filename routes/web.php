@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\web\CarsController;
 use App\Http\Controllers\web\HeavyVehiclesController;
 use App\Http\Controllers\web\HomeController;
+use App\Http\Controllers\web\SearchController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -40,11 +41,14 @@ Route::middleware('localization')->group(function () {
     Route::get('/register', [\App\Http\Controllers\web\AuthController::class, 'register'])->name('register');
     Route::post('/register', [\App\Http\Controllers\web\AuthController::class, 'postRegister'])->name('register');
 
+
+    Route::get('/search/{type}', [SearchController::class, 'index'])->name('search');
+
     Route::group(['prefix' => 'cars', 'as' => 'cars.'], function () {
-        Route::get('/', [CarsController::class, 'index'])->name('index');
+        Route::get('/{id}', [CarsController::class, 'view'])->name('view');
     });
     Route::group(['prefix' => 'heavy-vehicles', 'as' => 'heavy-vehicles.'], function () {
-        Route::get('/', [HeavyVehiclesController::class, 'index'])->name('index');
+        Route::get('/{id}', [HeavyVehiclesController::class, 'view'])->name('view');
     });
 
     Route::middleware(['auth:sanctum', 'verified', 'account-active'])->group(function () {

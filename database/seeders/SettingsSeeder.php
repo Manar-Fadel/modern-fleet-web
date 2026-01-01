@@ -48,16 +48,16 @@ class SettingsSeeder extends Seeder
         Settings::updateOrCreate(
             ['code_key' => 'ABOUT_US_TITLE_AR'],
             [   'name_ar' => 'عنوان من نحن بالعربية',
-                'name_en' => 'مودرن فليت… تجربة ذكية لعالم المركبات',
-                'value' => 'رادارك الذكي للسيارات',
+                'name_en' => 'About Us Title in Arabic',
+                'value' => 'مودرن فليت… تجربة ذكية لعالم المركبات',
                 'created_at' => now(),
                 'updated_at' => now()
         ]);
         Settings::updateOrCreate(
             ['code_key' => 'ABOUT_US_TITLE_EN'],
             [   'name_ar' => 'عنوان من نحن بالانجليزية',
-                'name_en' => 'Modern Fleet… Where Your Journey Begins with Confidence',
-                'value' => 'Your Smart Modern Fleet',
+                'name_en' => 'About us title in English',
+                'value' => 'Modern Fleet… Where Your Journey Begins with Confidence',
                 'created_at' => now(),
                 'updated_at' => now()
         ]);

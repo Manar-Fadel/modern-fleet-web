@@ -13,12 +13,23 @@ class EquipmentBrand extends Model
 
     protected $table = 'brands';
     protected $fillable = ['name_en', 'name_ar', 'is_main', 'logo'];
+    protected $appends = [
+        'name',
+    ];
     protected $casts = [
         'is_main' => 'boolean',
     ];
     public function scopeMain($query)
     {
         return $query->where('is_main', true);
+    }
+    public function scopeCars($query)
+    {
+        return $query->where('is_car', true);
+    }
+    public function scopeHeavyVehicle($query)
+    {
+        return $query->where('is_heavy_vehicle', true);
     }
     protected function getNameAttribute(): ?string
     {

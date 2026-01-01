@@ -165,6 +165,31 @@ return [
     "Heavy Vehicles"  => "Heavy Vehicles",
     "Car Category" =>  "Car Category",
     "Our Cars" => "Our Cars",
+    "Popular Vehicles" => "Popular Vehicles",
+    "Popular" => "Popular",
+    "Our Heavy Vehicles" => "Our Heavy Vehicles",
+    "Heavy Vehicles stock" => "Heavy Vehicles",
+    "Join Our Newsletter" => "Join Our Newsletter",
+    "Subscribe" => "Subscribe",
+    "Enter your email" => "Enter your email",
+    "All" => "All",
+    "Brand" => "Brand",
+    "Why Choose Us" => "Why Choose Us",
+    "Us" => "Us",
+    "Why Choose" => "Why Choose",
+    "Exceptional Selection" => "Exceptional Selection",
+    "Unbeatable Prices"  => "Unbeatable Prices",
+    "Hassle-Free Financing" => "Hassle-Free Financing",
+    "Outstanding Car Service" => "Outstanding Car Service",
+    "Comprehensive Service" => "Comprehensive Service",
+    "Trade-In and Upgrade" => "Trade-In and Upgrade",
+    "Trusted by the Community" => "Trusted by the Community",
+    "Car Model" => "Car Model",
+    "Manufacturing Year" => "Manufacturing Year",
+    "Category" => "Category",
+
+
+
 
 
 

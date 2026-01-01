@@ -31,89 +31,87 @@
                     </ul>
                     <div class="tab-pane fade show active" id="new-car" role="tabpanel" aria-labelledby="new-car-tab">
                         <div class="select-area-down">
-                            <form action="{{ route('cars.index') }}" method="get" accept-charset="utf-8">
+                            <form action="{{ route('search', ['type' => 'cars']) }}" method="get" accept-charset="utf-8">
+                                @csrf
+                                <select name="category_id" class="mySelect  mb-5">
+                                    <option value="2" selected>{{ __('web.Category') }}</option>
+                                    @foreach($car_categories as $car_category)
+                                        <option value="{{ $car_category->id }}">
+                                            {{ $car_category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
                                 <select name="brand_id" class="mySelect  mb-5">
                                     <option value="2" selected>{{ __('web.Brand') }}</option>
-                                   @foreach($brands_list as $brand)
+                                   @foreach($cars_brands_list as $brand)
                                        <option value="{{ $brand->id }}">
                                            {{ $brand->name }}
                                        </option>
                                    @endforeach
                                 </select>
-                                <select name="my_select2" class="my_select2 mb-5">
-                                    <option value="2" selected>Car Model</option>
-                                    <option value="10">155</option>
-                                    <option value="1">151</option>
-                                    <option value="13">150</option>
-                                    <option value="14">152</option>
-                                    <option value="15">156</option>
+
+                                <select name="model_id" id="car_model_id" class="my_select2 mb-5">
+                                    <option value="" selected>{{ __('web.Car Model') }}</option>
                                 </select>
-                                <select name="my_select2" class="my_select2 mb-5">
-                                    <option value="2" selected>Price</option>
-                                    <option value="10">22,000$</option>
-                                    <option value="1">27,000$</option>
-                                    <option value="13">30,000$</option>
-                                    <option value="14">32,000$</option>
-                                    <option value="15">38,000$</option>
+
+                                <select name="year_id" class="my_select2 mb-5">
+                                    <option value="" selected>{{ __('web.Manufacturing Year') }}</option>
+                                    @foreach($years as $year)
+                                        <option value="{{ $year->id }}">{{ $year->year }}</option>
+                                    @endforeach
                                 </select>
-                                <select name="my_select2" class="my_select2 mb-5">
-                                    <option value="2" selected>Location</option>
-                                    <option value="10">USA</option>
-                                    <option value="1">UK</option>
-                                    <option value="13">Canada</option>
-                                    <option value="14">Australia</option>
-                                    <option value="15">China</option>
-                                </select>
+
                                 <button type="submit" class="rts-btn radius-small icon btn-primary">
                                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M10.69 10.69L13 13M12.3333 6.68575C12.3333 9.826 9.796 12.3715 6.667 12.3715C3.53725 12.3715 1 9.826 1 6.6865C1 3.54475 3.53725 1 6.66625 1C9.796 1 12.3333 3.5455 12.3333 6.68575Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                     {{ __('web.Search') }}
                                 </button>
+
                             </form>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="used-car" role="tabpanel" aria-labelledby="used-car-tab">
                         <div class="select-area-down">
-                            <form action="{{ route('heavy-vehicles.index') }}" method="get" accept-charset="utf-8">
-                                <select name="my_select" class="mySelect mb-5">
-                                    <option value="2" selected>Car Make</option>
-                                    <option value="10">Mazda</option>
-                                    <option value="1">Citroen</option>
-                                    <option value="13">Honda</option>
-                                    <option value="14">Mitsubishi</option>
-                                    <option value="15">Peugeot</option>
+                            <form action="{{ route('search.index', ['type' => 'heavy_vehicles']) }}" method="get" accept-charset="utf-8">
+                                @csrf
+                                <select name="category_id" class="mySelect  mb-5">
+                                    <option value="2" selected>{{ __('web.Category') }}</option>
+                                    @foreach($heavy_vehicles_categories as $car_category)
+                                        <option value="{{ $car_category->id }}">
+                                            {{ $car_category->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
+
+                                <select name="brand_id" class="mySelect  mb-5">
+                                    <option value="2" selected>{{ __('web.Brand') }}</option>
+                                    @foreach($heavy_vehicles_brands_list as $brand)
+                                        <option value="{{ $brand->id }}">
+                                            {{ $brand->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <select name="my_select2" class="my_select2 mb-5" id="brand_models_select">
+                                    <option value="" selected>{{ __('web.Car Model') }}</option>
+                                </select>
+
                                 <select name="my_select2" class="my_select2 mb-5">
-                                    <option value="2" selected>Car Model</option>
-                                    <option value="10">155</option>
-                                    <option value="1">151</option>
-                                    <option value="13">150</option>
-                                    <option value="14">152</option>
-                                    <option value="15">156</option>
+                                    <option value="" selected>{{ __('web.Manufacturing Year') }}</option>
+                                    @foreach($years as $year)
+                                        <option value="{{ $year->id }}">{{ $year->year }}</option>
+                                    @endforeach
                                 </select>
-                                <select name="my_select2" class="my_select2 mb-5">
-                                    <option value="2" selected>Price</option>
-                                    <option value="10">22,000$</option>
-                                    <option value="1">27,000$</option>
-                                    <option value="13">30,000$</option>
-                                    <option value="14">32,000$</option>
-                                    <option value="15">38,000$</option>
-                                </select>
-                                <select name="my_select2" class="my_select2 mb-5">
-                                    <option value="2" selected>Location</option>
-                                    <option value="10">USA</option>
-                                    <option value="1">UK</option>
-                                    <option value="13">Canada</option>
-                                    <option value="14">Australia</option>
-                                    <option value="15">China</option>
-                                </select>
+
                                 <button type="submit" class="rts-btn radius-small icon btn-primary">
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.69 10.69L13 13M12.3333 6.68575C12.3333 9.826 9.796 12.3715 6.667 12.3715C3.53725 12.3715 1 9.826 1 6.6865C1 3.54475 3.53725 1 6.66625 1C9.796 1 12.3333 3.5455 12.3333 6.68575Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                Search
-                            </button>
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.69 10.69L13 13M12.3333 6.68575C12.3333 9.826 9.796 12.3715 6.667 12.3715C3.53725 12.3715 1 9.826 1 6.6865C1 3.54475 3.53725 1 6.66625 1C9.796 1 12.3333 3.5455 12.3333 6.68575Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    {{ __('web.Search') }}
+                                </button>
+
                             </form>
                         </div>
                     </div>

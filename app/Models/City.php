@@ -15,7 +15,14 @@ class City extends Model
         'name_en',
         'name_ar',
     ];
-
+    protected $appends = [
+        'name',
+    ];
+    protected function getNameAttribute(): ?string
+    {
+        $locale = app()->getLocale();
+        return  ($locale == 'en') ? $this->name_en : $this->name_ar;
+    }
     /**
      * City belongs to a country
      */

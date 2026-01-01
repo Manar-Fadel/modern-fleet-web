@@ -12,7 +12,9 @@ class EquipmentModel extends Model
 
     protected $table = 'brand_models';
     protected $fillable = ['brand_id', 'name_en', 'name_ar'];
-
+    protected $appends = [
+        'name',
+    ];
     protected function getNameAttribute(): ?string
     {
         $locale = app()->getLocale();

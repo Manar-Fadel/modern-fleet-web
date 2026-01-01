@@ -149,6 +149,30 @@ return [
     "Heavy Vehicles"  => "مركبات ثقيلة",
     "Car Category" => "فئات السيارات",
     "Our Cars" => "سياراتنا",
+    "Popular Vehicles" => "المركبات الأكثر مبيعا",
+    "Popular" => "معداتنا الثقيلة",
+    "Our Heavy Vehicles" => "معداتنا الثقيلة",
+    "Heavy Vehicles stock" => "",
+    "Join Our Newsletter" => "إنضم للنشرة البريدية",
+    "Subscribe" => "إشتراك",
+    "All" => "الكل",
+    "Enter your email" => "أدخل بريدك الإلكتروني",
+    "Brand" => "الماركة",
+    "Why Choose Us" => "خيارك الأفضل",
+    "Us" => "نحن",
+    "Why Choose" => "لماذا",
+    "Exceptional Selection"      => "تشكيلة مميزة من المركبات",
+    "Unbeatable Prices"          => "أسعار تنافسية لا تُضاهى",
+    "Hassle-Free Financing"      => "تمويل سهل وبدون تعقيدات",
+    "Outstanding Car Service"    => "خدمة مركبات استثنائية",
+    "Comprehensive Service"      => "خدمات متكاملة وشاملة",
+    "Trade-In and Upgrade"       => "استبدال وترقية المركبات",
+    "Trusted by the Community"  => "موثوق لدى عملائنا",
+    "Car Model"                 => "موديل السيارة",
+    "Manufacturing Year" => "سنة الصنع",
+    "Category" => "التصنيف",
+
+
 
 
 ];

@@ -39,7 +39,20 @@
         <div class="loader-section section-right"></div>
     </div>
 
+    @include("web.includes.search")
+
+    <div id="anywhere-home">
+    </div>
+    @include("web.includes.progress")
+
     @yield("content")
+
+    <!-- rts footer area start -->
+    @include("web.includes.footer")
+    <!-- rts footer area end -->
+
+    <!-- header style two -->
+    @include("web.includes.mobile-header")
 </div>
 
 <script src="{{ URL::asset("assets/web/js/plugins/jquery.js") }}"></script>

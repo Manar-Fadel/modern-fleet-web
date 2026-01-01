@@ -26,8 +26,12 @@ class DatabaseSeeder extends Seeder
             BrandsSeeder::class,
             BrandsModelsSeeder::class,
             ManufacturingYearsSeeder::class,
+
             HeavyVehicleCategorySeeder::class,
+            HeavyVehiclesSeeder::class,
+
             CarCategoriesSeeder::class,
+            CarsSeeder::class,
         ]);
 
     }

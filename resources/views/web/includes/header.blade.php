@@ -36,6 +36,17 @@
                                             </a>
                                         </li>
 
+                                        <li class="main-nav">
+                                            <a class="main-menu"
+                                               @if(request()->route()->getName() == "home")
+                                                   href="#ourHeavyVehiclesSection"
+                                               @else
+                                                   href="{{ route('home', ['#ourHeavyVehiclesSection']) }}"
+                                                @endif>
+                                                {{ __('web.Our Heavy Vehicles') }}
+                                            </a>
+                                        </li>
+
                                         @if(auth()->check())
                                             <li class="main-nav">
                                                 <a href="{{ route('my-orders.index') }}"

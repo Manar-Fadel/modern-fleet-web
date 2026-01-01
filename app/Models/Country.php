@@ -17,7 +17,14 @@ class Country extends Model
         'phone_code',
         'flag',
     ];
-
+    protected $appends = [
+        'name',
+    ];
+    protected function getNameAttribute(): ?string
+    {
+        $locale = app()->getLocale();
+        return  ($locale == 'en') ? $this->name_en : $this->name_ar;
+    }
     /**
      * Country has many cities
      */
