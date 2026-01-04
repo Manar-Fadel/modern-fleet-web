@@ -1,10 +1,27 @@
 <?php
 
-use App\Http\Controllers\Api\Admin\BrandController;
 use App\Http\Controllers\Api\Admin\CarRequestsController;
 use App\Http\Controllers\Api\Admin\HeavyVehicleRequestsController;
+use App\Http\Controllers\Api\web\BrandController;
+use App\Http\Controllers\Api\web\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/brands/{brand}/models', function ($brandId) {
+    return \App\Models\EquipmentModel::where('brand_id', $brandId)
+        ->select('id', 'name_en')
+        ->orderBy('name_en')
+        ->get();
+});
+
+Route::prefix('web')->group(function () {
+    Route::get('/brands', [BrandController::class, 'index']);
+    Route::get('/years', [BrandController::class, 'years']);
+    Route::get('/models/{id}', [BrandController::class, 'getBrandModels']);
+
+    Route::post('/save-order', [OrderController::class, 'saveOrder']);
+    Route::post('/send-offer', [OfferController::class, 'store']);
+});
 
 /***********************     ADMIN          ***************************/
 Route::prefix('admin')->group(function () {

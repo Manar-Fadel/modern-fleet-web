@@ -8,21 +8,10 @@ use App\Models\HeavyVehicle;
 class HeavyVehiclesController extends Controller
 {
 
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function view($id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $models = HeavyVehicle::query()
-            ->with(['brand', 'model', 'category', 'year'])
-            ->filter(request()->only([
-                'brand_id',
-                'model_id',
-                'category_id',
-                'manufacturing_year_id',
-            ]))
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('heavy-vehicles.index', compact('models'));
+        $model = HeavyVehicle::with('images')->findOrFail($id);
+        return view('web.heavy-vehicles.view', compact('model'));
     }
 
 }

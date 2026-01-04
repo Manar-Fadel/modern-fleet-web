@@ -16,6 +16,10 @@ class HeavyVehicleManager
             ->take(3)
             ->get();
     }
+    public static function getCategoriesList(): \Illuminate\Database\Eloquent\Collection
+    {
+        return HeavyVehicleCategory::query()->orderBy('id', 'ASC')->get();
+    }
     public static function getCategoriesWithMainVehicles(): \Illuminate\Database\Eloquent\Collection
     {
         return HeavyVehicleCategory::query()

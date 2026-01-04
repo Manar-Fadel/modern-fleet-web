@@ -12,7 +12,7 @@ class EquipmentBrand extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'brands';
-    protected $fillable = ['name_en', 'name_ar', 'is_main', 'logo'];
+    protected $fillable = ['name_en', 'name_ar', 'is_heavy_vehicle', 'is_car', 'is_main', 'logo'];
     protected $appends = [
         'name',
     ];

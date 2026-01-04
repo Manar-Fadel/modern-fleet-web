@@ -9,7 +9,11 @@ const app = Vue.createApp({
             search_word: '',
 
             addModal: {
+                type: 'cars',
                 brand_id: '',
+                model_id: '',
+                manufacturing_year_id: '',
+                quantity: 1,
                 description: '',
                 user_id: '',
             },
@@ -28,23 +32,49 @@ const app = Vue.createApp({
                 'accept': 'application/json'
             };
 
-            this.fetchBrands();
+            this.fetchBrands(this.addModal.type);
+            this.fetchYears();
         },
         emptyFilters () {
             this.addModal = {};
             this.order_images = [];
-            this.fetchBrands();
+            this.fetchBrands(this.addModal.type);
         },
-        onBrandChange(event){
-            this.fetchBrands()
+        async fetchYears () {
+            this.yearsLoading = true;
+            const response = await fetch(
+                "/api/web/years",
+                {
+                    method: 'GET',
+                    headers: this.headers,
+                }
+            );
+            this.response = await response.json();
+            this.years = this.response.data.years;
+            this.yearsLoading = false;
+        },
+        onBrandChange:function(event){
+            this.model_id = '';
+            this.getModels(event.target.value);
+        },
+        async getModels (brand_id) {
+            const response = await fetch(
+                "/api/brands/models/"+brand_id,
+                {
+                    method: 'GET',
+                    headers: this.headers,
+                }
+            );
+            this.response = await response.json();
+            this.models = this.response.data.models;
         },
         changeBrand(id){
             this.addModal.brand_id = id;
         },
-        async fetchBrands () {
+        async fetchBrands (type) {
             this.brandLoading = true;
             const response = await fetch(
-                "/api/web/brands?search_word="+this.search_word,
+                "/api/web/brands/"+type+"?search_word="+this.search_word,
                 {
                     method: 'GET',
                     headers: this.headers,

@@ -7,6 +7,25 @@
 .header-two .logo-area-start {
     flex-basis: 20%;
 }
+.rts-banner-area-three .select-area-down form{
+    width: 100%;
+    display: contents;
+}
+.footer-bg-2 {
+    background: #848181;
+}
+.header-two.header--sticky.sticky{
+    background: white;
+}
+.one-search-input{
+    border-radius: 6px;
+    background: var(--color-gray);
+    width: 20.25%;
+    height: 45px;
+}
+.rts-banner-area-three {
+    padding: 60px 0 60px;
+}
 .swiper-pagination-bullett {
     width: 148px;
     height: 138px;

@@ -41,8 +41,8 @@ Route::middleware('localization')->group(function () {
     Route::get('/register', [\App\Http\Controllers\web\AuthController::class, 'register'])->name('register');
     Route::post('/register', [\App\Http\Controllers\web\AuthController::class, 'postRegister'])->name('register');
 
+    Route::get('{type}/results', [SearchController::class, 'index'])->name('results');
 
-    Route::get('/search/{type}', [SearchController::class, 'index'])->name('search');
 
     Route::group(['prefix' => 'cars', 'as' => 'cars.'], function () {
         Route::get('/{id}', [CarsController::class, 'view'])->name('view');

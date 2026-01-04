@@ -6,7 +6,7 @@
             </p>
             <h2 class="section-title wow move-right cw">
                 {{ __('web.Browse By') }}
-                <span> {{ __('web.Car') }}</span> {{ __('web.Type') }}
+                <span>{{ __('web.Type') }}</span>  {{ __('web.Al Car') }}
             </h2>
         </div>
         <div class="section-inner wow fadeInUp" data-wow-delay=".3s" data-wow-duration="1s">

@@ -73,6 +73,8 @@ class BrandsSeeder extends Seeder
                 ['name_en' => $brand['name_en']],
                 [
                     'name_ar' => $brand['name_ar'],
+                    'is_heavy_vehicle' => true,
+                    'is_car' => false,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]

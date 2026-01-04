@@ -14,7 +14,7 @@ class ViewServiceProvider extends ServiceProvider
     {
         // Header + Footer data
         View::composer(
-            ['web.includes.header', 'web.includes.mobile-header'], // 'web.includes.about',  'web.includes.contact'
+            ['web.includes.header', 'web.includes.mobile-header', 'web.includes.footer'], // 'web.includes.about',  'web.includes.contact'
             function ($view) {
                 $view->with([
                     'local' => app()->getLocale(),

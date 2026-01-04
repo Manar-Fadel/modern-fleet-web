@@ -23,21 +23,22 @@ class HomeController extends Controller
         // pass 123456, manar@admin.com
         $local = app()->getLocale();
         $car_categories = CarManager::getCategoriesList();
+        $heavy_vehicle_categories = HeavyVehicleManager::getCategoriesList();
+        $heavy_vehicles_brands_list = AdminManager::getBrandsAsArray('heavy_vehicles');
+        $cars_brands_list = AdminManager::getBrandsAsArray('cars');
         $years = AdminManager::getYearsAsArray();
 
         $heavy_vehicles_categories_with_vehicles = HeavyVehicleManager::getCategoriesWithMainVehicles();
         $brands = EquipmentBrand::main()->take(7)->get();
-
         $stock_cars = CarManager::getMain();
-        $cars_brands_list = AdminManager::getBrandsAsArray('cars');
-        $heavy_vehicles_brands_list = AdminManager::getBrandsAsArray('heavy_vehicles');
 
         $about_us_title = $local == 'ar' ? SettingsManager::getSettingsValueByKey('ABOUT_US_TITLE_AR') : SettingsManager::getSettingsValueByKey('ABOUT_US_TITLE_EN');
         $about_us_text = $local == 'ar' ? SettingsManager::getSettingsValueByKey('ABOUT_US_TEXT_AR') : SettingsManager::getSettingsValueByKey('ABOUT_US_TEXT_EN');
 
         return view('web.index', compact('heavy_vehicles_categories_with_vehicles',
             'brands', 'stock_cars', 'about_us_title', 'about_us_text', 'cars_brands_list',
-            'heavy_vehicles_brands_list', 'car_categories', 'years', 'local'
+            'heavy_vehicles_brands_list', 'car_categories', 'heavy_vehicle_categories',
+            'years', 'local'
         ));
     }
     public function changeLanguage(): \Illuminate\Http\RedirectResponse
