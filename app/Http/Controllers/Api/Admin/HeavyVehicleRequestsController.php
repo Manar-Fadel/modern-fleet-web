@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeOrderStatusRequest;
 use App\Http\Resources\OfferResource;
-use App\Http\Resources\OrderResource;
+use App\Http\Resources\CarRequestResource;
 use App\Managers\Constants;
-use App\Models\HeavyVehicleQuotation;
-use App\Models\HeavyVehicleRequest;
+use App\Models\CarQuotation;
+use App\Models\CarRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,20 +56,29 @@ class HeavyVehicleRequestsController extends Controller
         if (!is_null($stat_start_date) && !is_null($stat_to_date)) {
             $stat_start_date = Carbon::parse($stat_start_date)->startOfDay();
             $stat_to_date = Carbon::parse($stat_to_date)->startOfDay();
-            $orders = HeavyVehicleRequest::whereDate('created_at', '>=', $stat_start_date)
+            $orders = CarRequest::whereDate('created_at', '>=', $stat_start_date)
                 ->whereDate('created_at', '<=', $stat_to_date);
         }else{
-            $orders = HeavyVehicleRequest::whereDate('created_at', '>=', $from_date)
+            $orders = CarRequest::whereDate('created_at', '>=', $from_date)
                 ->whereDate('created_at', '<=', $to_date);
         }
 
-        $orders = $orders->when(! empty($search_word), function ($query) use ($search_word) {
-            return $query->where('order_number', 'like', '%'.$search_word.'%')
-                ->orWhere('description', 'like', '%'.$search_word.'%');
-        })->when(! empty($brand_id), function ($query) use ($brand_id) {
-            return $query->where('brand_id', $brand_id);
-        })
+        $orders = $orders->where('type', 'heavy-vehicle')
+            ->when(! empty($search_word), function ($query) use ($search_word) {
+                return $query->where('order_number', 'like', '%'.$search_word.'%')
+                    ->orWhere('description', 'like', '%'.$search_word.'%');
+            })->when(! empty($brand_id), function ($query) use ($brand_id) {
+                return $query->whereHas('items', function ($q) use ($brand_id){
+                    $q->where('brand_id', $brand_id);
+                });
+            })
             ->withTrashed()
+            ->with([
+                'items.brand',
+                'items.model',
+                'items.year',
+                'items.images',
+            ])
             ->orderBy('id', 'DESC')
             ->get()
             ->groupBy(function ($item) {
@@ -78,7 +87,7 @@ class HeavyVehicleRequestsController extends Controller
 
         $data = [];
         $orders->collect()->each(function ($item, $key) use (&$data) {
-            $data[$key] = OrderResource::collection($item);
+            $data[$key] = CarRequestResource::collection($item);
         });
 
         return Response::json([
@@ -94,7 +103,7 @@ class HeavyVehicleRequestsController extends Controller
         $search_word = $request->get('search_word');
         $brand_id = $request->get('brand_id');
 
-        $models = HeavyVehicleRequest::where('user_id', $id)
+        $models = CarRequest::where('user_id', $id)
             ->when(! empty($search_word), function ($query) use ($search_word) {
                 return $query->where('order_number', 'like', '%'.$search_word.'%')
                     ->orWhere('description', 'like', '%'.$search_word.'%');
@@ -112,13 +121,13 @@ class HeavyVehicleRequestsController extends Controller
                 "per_page" => $models->perPage(),
                 "next_page_url" => $models->nextPageUrl(),
                 "prev_page_url" => $models->previousPageUrl(),
-                'orders' => OrderResource::collection($models)
+                'orders' => CarRequestResource::collection($models)
             ],
         ]);
     }
     public function offers($id): \Illuminate\Http\JsonResponse
     {
-        $offers = HeavyVehicleQuotation::where('request_id', $id)->orderBy('id', 'DESC')->get();
+        $offers = CarQuotation::where('request_id', $id)->orderBy('id', 'DESC')->get();
 
         return Response::json([
             'status' => true,
@@ -130,8 +139,8 @@ class HeavyVehicleRequestsController extends Controller
         try {
             DB::beginTransaction();
 
-            $model = HeavyVehicleRequest::find($id);
-            if (!$model instanceof HeavyVehicleRequest) {
+            $model = CarRequest::find($id);
+            if (!$model instanceof CarRequest) {
                 return Response::json([
                     'status' => false,
                     'message' => 'Order not found',
@@ -139,8 +148,8 @@ class HeavyVehicleRequestsController extends Controller
             }
 
             if (in_array($request->get('status'), [Constants::ACCEPTED])) {
-                $offer = HeavyVehicleQuotation::find($request->get('offer_id'));
-                if (!$offer instanceof HeavyVehicleQuotation) {
+                $offer = CarQuotation::find($request->get('offer_id'));
+                if (!$offer instanceof CarQuotation) {
                     return Response::json([
                         'status' => false,
                         'message' => 'Offer not found',
@@ -160,7 +169,7 @@ class HeavyVehicleRequestsController extends Controller
                 return Response::json([
                     'status' => true,
                     'message' => 'Order updated successfully',
-                    'order' => new OrderResource($model),
+                    'order' => new CarRequestResource($model),
                 ]);
             }
 
@@ -177,8 +186,8 @@ class HeavyVehicleRequestsController extends Controller
         try {
             DB::beginTransaction();
 
-            $model = HeavyVehicleRequest::find($id);
-            if (!$model instanceof HeavyVehicleRequest) {
+            $model = CarRequest::find($id);
+            if (!$model instanceof CarRequest) {
                 throw new \Exception('Car request not found');
             }
 

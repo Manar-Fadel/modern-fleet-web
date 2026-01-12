@@ -32,7 +32,7 @@
                     <div class="tab-pane fade show active" id="new-car" role="tabpanel" aria-labelledby="new-car-tab">
                         <div class="select-area-down">
                             <form action="{{ route('results', ['type' => 'cars']) }}" method="get" accept-charset="utf-8">
-                                <select name="category_id" class="mySelect  mb-5">
+                                <select name="category_id" class="select-input mb-5">
                                     <option value="" selected>{{ __('web.Category') }}</option>
                                     @foreach($car_categories as $car_category)
                                         <option value="{{ $car_category->id }}">
@@ -41,7 +41,7 @@
                                     @endforeach
                                 </select>
 
-                                <select name="brand_id" id="car_brand_id" class="mySelect  mb-5">
+                                <select name="brand_id" id="car_brand_id" class="select-input  mb-5">
                                     <option value="" selected>{{ __('web.Brand') }}</option>
                                    @foreach($cars_brands_list as $brand)
                                        <option value="{{ $brand->id }}">
@@ -50,11 +50,11 @@
                                    @endforeach
                                 </select>
 
-                                <select name="model_id" id="car_model_id" class="my_select2 mb-5">
+                                <select name="model_id" id="car_model_id" class="select-input mb-5">
                                     <option value="" selected>{{ __('web.Car Model') }}</option>
                                 </select>
 
-                                <select name="year_id" class="my_select2 mb-5">
+                                <select name="manufacturing_year_id" class="select-input mb-5">
                                     <option value="" selected>{{ __('web.Manufacturing Year') }}</option>
                                     @foreach($years as $year)
                                         <option value="{{ $year->id }}">{{ $year->year }}</option>
@@ -74,8 +74,8 @@
                     <div class="tab-pane fade" id="used-car" role="tabpanel" aria-labelledby="used-car-tab">
                         <div class="select-area-down">
                             <form action="{{ route('results', ['type' => 'heavy_vehicles']) }}" method="get" accept-charset="utf-8">
-                                <select name="category_id" class="mySelect  mb-5">
-                                    <option value="2" selected>{{ __('web.Category') }}</option>
+                                <select name="category_id" class="select-input mb-5">
+                                    <option value="" selected>{{ __('web.Category') }}</option>
                                     @foreach($heavy_vehicle_categories as $heavy_vehicle_category)
                                         <option value="{{ $heavy_vehicle_category->id }}">
                                             {{ $heavy_vehicle_category->name }}
@@ -83,8 +83,8 @@
                                     @endforeach
                                 </select>
 
-                                <select name="brand_id" id="heavy_vehicle_brand_id" class="mySelect  mb-5">
-                                    <option value="2" selected>{{ __('web.Brand') }}</option>
+                                <select name="brand_id" id="heavy_vehicle_brand_id" class="select-input mb-5">
+                                    <option value="" selected>{{ __('web.Brand') }}</option>
                                     @foreach($heavy_vehicles_brands_list as $brand)
                                         <option value="{{ $brand->id }}">
                                             {{ $brand->name }}
@@ -92,11 +92,11 @@
                                     @endforeach
                                 </select>
 
-                                <select name="my_select2" class="my_select2 mb-5" id="heavy_vehicle_model_id">
+                                <select name="model_id" class="select-input mb-5" id="heavy_vehicle_model_id">
                                     <option value="" selected>{{ __('web.Car Model') }}</option>
                                 </select>
 
-                                <select name="my_select2" class="my_select2 mb-5">
+                                <select name="manufacturing_year_id" class="select-input mb-5">
                                     <option value="" selected>{{ __('web.Manufacturing Year') }}</option>
                                     @foreach($years as $year)
                                         <option value="{{ $year->id }}">{{ $year->year }}</option>
@@ -151,7 +151,7 @@
             const brandId = this.value;
             modelSelect.innerHTML = `<option value="">{{ __('web.Car Model') }}</option>`;
             if (!brandId) return;
-            fetch(`/brands/${brandId}/models`)
+            fetch(`/api/brands/${brandId}/models`)
                 .then(response => response.json())
                 .then(models => {
                     models.forEach(model => {

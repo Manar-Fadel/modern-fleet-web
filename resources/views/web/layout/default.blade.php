@@ -21,17 +21,19 @@
     <link rel="stylesheet" href="{{ URL::asset("assets/web/css/custom-style.css") }}">
 </head>
 
-<body @if(request()->route()->getName() == "home" || request()->route()->getName() == "register"
-          || request()->route()->getName() == "login"
-          || request()->route()->getName() == "password.request" || request()->route()->getName() == "password.reset")
+<body @if(request()->route()->getName() == "home")
           class="home-two "
-      @else
-          class=""
+
+      @elseif(request()->route()->getName() == "login" || request()->route()->getName() == "password.request" ||
+      request()->route()->getName() == "password.reset" || request()->route()->getName() == "register")
+          class="account-page-body"
+      @elseif(request()->route()->getName() == "order-now")
+          class="home-six account-page-body"
       @endif
       @if(app()->getLocale() == 'ar') style="direction: rtl;" @endif>
 
 <div id="toast-container"></div>
-<div id="app">
+<div id="app" @if(app()->getLocale() == 'ar') class="rtl-style" @endif>
     <div class="loader-wrapper">
         <div class="loader">
         </div>

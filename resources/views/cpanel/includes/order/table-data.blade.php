@@ -12,18 +12,10 @@
            </span>
         </th>
 
-        <th class="min-w-[180px]">
+        <th class="min-w-[250px]">
            <span class="sort asc">
                 <span class="sort-label font-normal text-gray-700">
-                 Brand/ Model/ Year
-                </span>
-           </span>
-        </th>
-
-        <th class="min-w-[300px]">
-           <span class="sort asc">
-                <span class="sort-label font-normal text-gray-700">
-                 Description
+                 Items: Brand/ Model/ Year
                 </span>
            </span>
         </th>
@@ -47,15 +39,7 @@
         <th class="min-w-[180px]">
            <span class="sort">
             <span class="sort-label font-normal text-gray-700">
-             Date
-            </span>
-           </span>
-        </th>
-
-        <th class="min-w-[180px]">
-           <span class="sort">
-            <span class="sort-label font-normal text-gray-700">
-             Time
+             DateTime
             </span>
            </span>
         </th>
@@ -136,18 +120,15 @@
             </button>
         </td>
         <td class="text-gray-800 font-normal">
-            <div class="flex items-center gap-2.5">
-                <img v-if="order.brand_image" alt="" class="rounded-full size-9 shrink-0" :src="order.brand_image"/>
+            <div v-for="item in order.items" class="flex items-center gap-2.5">
                 <div class="flex flex-col">
                     <a class="text-sm font-medium text-gray-900 hover:text-primary-active mb-px" href="">
-                        @{{ order.brand_name }} / @{{ order.model_name }} / @{{ order.year }}
+                        @{{ item.brand_name }} / @{{ item.model_name }} / @{{ item.manufacturing_year_value }}
                     </a>
                 </div>
             </div>
         </td>
-        <td class="text-gray-800 font-normal">
-            @{{ order.description }}
-        </td>
+
         <td  class="text-gray-800 font-normal">
             <span v-if="order.status == 'PENDING' || order.status == 'CANCELLED'"
                   class="badge badge-danger badge-outline rounded-[30px]">
@@ -171,10 +152,7 @@
         </td>
 
         <td class="text-gray-800 font-normal">
-            @{{ order.created_at_date }}
-        </td>
-        <td class="text-gray-800 font-normal">
-            @{{ order.created_at_time }}
+            @{{ order.created_at }}
         </td>
 
         <td class="text-gray-800 font-normal">

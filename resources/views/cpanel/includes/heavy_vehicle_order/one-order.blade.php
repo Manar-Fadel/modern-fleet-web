@@ -2,7 +2,7 @@
      :id="order.view_model_id" :data-id="order.view_model_id">
     <div class="modal-content pt-7.5 my-[3%] w-full container-fixed px-5 overflow-hidden">
         <div class="modal-header p-0 border-0">
-            Heavy Vehicle Request Details ID: @{{ order.id }} /  @{{ order.order_number }}
+            Car Request Details ID: @{{ order.id }} /  @{{ order.order_number }}
 
             @include("cpanel.includes.vuejs-alerts")
 
@@ -24,59 +24,60 @@
                         <div class="card-table pb-3">
                             <table class="table align-middle text-sm text-gray-500">
                                 <tbody>
-                                    <tr>
-                                        <td class="text-gray-700 text-2sm font-normal">
-                                            Status:
-                                            <span v-if="order.status == 'PENDING' || order.status == 'DECLINED'"
-                                                  class="badge badge-danger badge-outline rounded-[30px]">
+                                <tr>
+                                    <td class="text-gray-700 text-2sm font-normal">
+                                        Status:
+                                        <span v-if="order.status == 'PENDING' || order.status == 'DECLINED'"
+                                              class="badge badge-danger badge-outline rounded-[30px]">
                                                     <span class="size-1.5 rounded-full bg-danger me-1.5">
                                                     </span>
                                                       @{{ order.status }}
                                                </span>
-                                            <span v-else-if="order.status == 'ACCEPTED' || order.status == 'CONFIRMED'" class="badge badge-primary badge-outline rounded-[30px]">
+                                        <span v-else-if="order.status == 'ACCEPTED' || order.status == 'CONFIRMED'" class="badge badge-primary badge-outline rounded-[30px]">
                                                     <span class="size-1.5 rounded-full bg-danger me-1.5">
                                                     </span>
                                                      @{{ order.status }}
                                                </span>
-                                            <span v-else class="badge badge-success badge-outline rounded-[30px]">
+                                        <span v-else class="badge badge-success badge-outline rounded-[30px]">
                                                     <span class="size-1.5 rounded-full bg-danger me-1.5">
                                                     </span>
                                                       @{{ order.status }}
                                                </span>
-                                        </td>
-
-                                        <td class="text-gray-600 font-normal">
-                                            Vehicle:
-                                            <div class="flex items-center gap-2.5">
-                                                <img alt="" class="rounded-full size-9 shrink-0" :src="order.brand_image"/>
-                                                <div class="flex flex-col">
-                                                    <a class="text-sm font-medium text-gray-900 hover:text-primary-active mb-px" href="#">
-                                                        @{{ order.brand_name }}/ @{{ order.model_name }}/ @{{ order.year }}
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-gray-600 font-normal">
-                                            Customer:
-                                            @{{ order.user_name }}
-                                        </td>
-                                        <td class="text-gray-800 font-normal">
-                                            Mob. @{{ order.user_mobile }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-gray-600 font-normal">
-                                            Quantity: @{{ order.quantity }}
-                                        </td>
-                                        <td class="text-gray-600 font-normal">
-                                            Description: @{{ order.description }}
-                                        </td>
-                                    </tr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-gray-600 font-normal">
+                                        Customer:
+                                        @{{ order.user_name }}
+                                    </td>
+                                    <td class="text-gray-800 font-normal">
+                                        Mob. @{{ order.user_mobile }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-gray-600 font-normal">
+                                        Note: @{{ order.notes }}
+                                    </td>
+                                </tr>
 
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    <div class="card pb-2.5">
+                        <div class="card-header" id="offers_data">
+                            <h3 class="card-title">
+                                Order Items Data
+                            </h3>
+                        </div>
+
+                        <div class="card-body grid gap-5">
+                            <div data-datatable="true" data-datatable-page-size="20">
+                                <div class="scrollable-x-auto">
+                                    @include("cpanel.includes.order.items-table")
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -90,7 +91,7 @@
                         <div class="card-body grid gap-5">
                             <div data-datatable="true" data-datatable-page-size="20">
                                 <div class="scrollable-x-auto">
-                                    @include("cpanel.includes.heavy_vehicle_order.offer.table")
+                                    @include("cpanel.includes.order.offer.table")
                                     <div v-if="offersLoading" class="flex flex-col gap-2.5">
                                         <img src="{{ asset("assets/media/images/3-dots-bounce.svg") }}" width="30px" height="30px" style="margin: 20px auto;">
                                     </div>

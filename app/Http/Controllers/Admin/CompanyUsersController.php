@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\OfferStatus;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CreateDealerRequest;
+use App\Http\Requests\web\CreateUserRequest;
 use App\Managers\AdminManager;
 use App\Managers\Constants;
 use App\Managers\ExcelManager;
@@ -49,44 +49,27 @@ class CompanyUsersController extends Controller
             }
         }
 
-        $models = User::when(!is_null($from_date) && !is_null($to_date), function ($query) use ($from_date, $to_date) {
-                        $query->where('created_at', '>=', $from_date)
-                                ->whereDate('created_at', '<=', $to_date);
-                        })->where('user', Constants::COMPANY);
+        $models = User::where('user', Constants::COMPANY)
+                        ->when(!is_null($from_date) && !is_null($to_date), function ($query) use ($from_date, $to_date) {
+                            $query->where('created_at', '>=', $from_date)
+                                    ->whereDate('created_at', '<=', $to_date);
+                        })
+                        ->when(! empty($search_word), function ($query) use ($search_word) {
+                            $query->where(function ($query) use ($search_word) {
+                                $query->where('full_name', 'like', '%'.$search_word.'%')
+                                    ->orWhere('email', 'like', '%'.$search_word.'%')
+                                    ->orWhere('phone_number', 'like', '%'.$search_word.'%');
+                            });
+                        })->orderBy('id', 'DESC')
+                        ->paginate(9);
 
-        $models = $models->when(! empty($trusted_status), function ($query) use ($trusted_status) {
-                    if ($trusted_status == 'TRUSTED') {
-                        $query->where('is_trusted', 1);
-                    }elseif ($trusted_status == 'NOT_TRUSTED') {
-                        $query->where('is_trusted', 0);
-                    }
-            })->when(! empty($search_word), function ($query) use ($search_word) {
-                $query->where(function ($query) use ($search_word) {
-                    $query->where('full_name', 'like', '%'.$search_word.'%')
-                        ->orWhere('shop_name', 'like', '%'.$search_word.'%')
-                        ->orWhere('email', 'like', '%'.$search_word.'%')
-                        ->orWhere('phone_number', 'like', '%'.$search_word.'%');
-                });
-            })->orderBy('id', 'DESC');
-
-        if ($request->get("action") !== null && $request->get("action") == "export") {
-            $models = $models->get();
-            if (count($models) <= 0){
-                return redirect()->back();
-            }
-
-            ExcelManager::exportDealers($models);
-            return redirect()->back();
-        }else{
-            $models = $models->paginate(9);
-            return view('cpanel.dealers.index', [
-                'models' => $models,
-                'trusted_statuses' => ['TRUSTED' => 'Trusted', 'NOT_TRUSTED' => 'Not Trusted'],
-                'years' => Constants::YEARS_LIST,
-                'months' => Constants::MONTHS_LIST,
-                'weeks' => Constants::WEEKS_LIST
-            ]);
-        }
+        return view('cpanel.companies.index', [
+            'models' => $models,
+            'trusted_statuses' => ['TRUSTED' => 'Trusted', 'NOT_TRUSTED' => 'Not Trusted'],
+            'years' => Constants::YEARS_LIST,
+            'months' => Constants::MONTHS_LIST,
+            'weeks' => Constants::WEEKS_LIST
+        ]);
     }
     public function activateEmail($id): \Illuminate\Http\RedirectResponse
     {
@@ -144,17 +127,14 @@ class CompanyUsersController extends Controller
 
         return redirect()->back();
     }
-    public function store(CreateDealerRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(CreateUserRequest $request): \Illuminate\Http\RedirectResponse
     {
         $model = new User();
-        $model->type = Constants::DEALER;
+        $model->type = Constants::COMPANY;
         $model->full_name = $request->get('full_name');
         $model->email = $request->get('email');
         $model->password = Hash::make($request->get('password'));
         $model->phone_number = $request->get('phone_number');
-        $model->id_number = $request->get('id_number');
-        $model->is_trusted =  $request->get('is_trusted') == 1 ? 1 : 0;
-        $model->is_verified_email = 1;
         $model->email_verified_at = Carbon::now();
         $model->is_verified_admin = 1;
 

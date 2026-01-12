@@ -56,7 +56,7 @@ class BrandController extends Controller
     }
     public function years(Request $request): JsonResponse
     {
-        $models = ManufacturingYear::query()->orderBy('value', 'DESC')->get();
+        $models = ManufacturingYear::query()->orderBy('year', 'DESC')->get();
         return response()->json([
             'status' => 'true',
             'data' => [

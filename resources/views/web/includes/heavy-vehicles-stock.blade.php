@@ -3,11 +3,10 @@
         <div class="section-top d-flex justify-content-between align-items-end">
             <div class="section-title-area">
                 <p class="sub-title wow fadeInUp" data-wow-delay=".1s" data-wow-duration=".8s">
-                    {{ __('web.Popular Vehicles') }}
+                    {{ __('web.Order on demand') }}
                 </p>
                 <h2 class="section-title cw wow move-right">
-                    {{ __('web.Popular') }}
-                    <span>{{ __('web.Heavy Vehicles stock') }}</span>
+                    {{ __('web.header Heavy Vehicles') }}
                 </h2>
             </div>
             <div class="tab-area">
@@ -69,15 +68,15 @@
                                         </h6>
                                         <ul class="feature-area">
                                             <li>
-                                                <img src="{{ asset('assets/web/images/portfolio/feature-icon/01.svg') }}" alt="">
+                                                <i class="fa fa-car active-icon" style="font-size: 15px;"></i>
                                                 100 Miles
                                             </li>
                                             <li>
-                                                <img src="{{ asset('assets/web/images/portfolio/feature-icon/02.svg') }}" alt="">
+                                                <i class="fa fa-car-mechanic active-icon" style="font-size: 15px;"></i>
                                                 Petrol
                                             </li>
                                             <li>
-                                                <img src="{{ asset('assets/web/images/portfolio/feature-icon/03.svg') }}" alt="">
+                                                <i class="fa fa-info-circle active-icon" style="font-size: 15px;"></i>
                                                 Autometic
                                             </li>
                                         </ul>

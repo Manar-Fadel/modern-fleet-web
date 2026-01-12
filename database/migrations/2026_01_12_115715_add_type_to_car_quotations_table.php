@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('car_requests_images', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('car_request_id')->constrained('car_requests')->cascadeOnDelete();
-            $table->string('path');
-
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('car_quotations', function (Blueprint $table) {
+            $table->string('type')->default('cars')->after('status')->nullable();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('car_requests_images');
+        Schema::table('car_quotations', function (Blueprint $table) {
+            //
+        });
     }
 };

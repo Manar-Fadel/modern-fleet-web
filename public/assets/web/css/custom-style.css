@@ -1,3 +1,6 @@
+:root {
+    --color-primary: #25285f;
+}
 .header-two{
     background: white;
 }
@@ -6,6 +9,71 @@
 }
 .header-two .logo-area-start {
     flex-basis: 20%;
+}
+.calculator-form-inner .nice-select{
+    width: 45%;
+    margin-right: 2%;
+}
+.calculator-form-inner .textarea-input{
+    background-color: #fff;
+    border-radius: 5px;
+    border: none;
+}
+.calculator-form-inner .text-input{
+    height: 42px;
+    width: 45%;
+    margin-right: 2%;
+    background-color: #fff;
+    border-radius: 5px;
+    border: none;
+    box-sizing: border-box;
+    clear: both;
+    display: block;
+    float: left;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 40px;
+    outline: none;
+    padding-left: 18px;
+    padding-right: 30px;
+}
+.rtl .nice-select, .rtl .text-input{
+    text-align: right !important;
+}
+.header-two .nav-area ul li a.main-menu::after{
+    color: black;
+}
+.font-size-12{
+    font-size: 12px;
+}
+.rtl-style .has-dropdown .main-menu::after {
+    right: auto !important;
+    left: 0 !important;
+}
+.rtl-style li.has-dropdown .submenu li a{
+    text-align: right;
+}
+.rtl-style li.has-dropdown .submenu li:hover a {
+    transform: translateX(-15px);
+}
+.order-now-area .btn-primary{
+    font-size: 12px;
+}
+.active-icon{
+    color: #157f4e;
+}
+.banner-area-two .banner-content-area .title span, .section-title-area2 p.sub-title,
+.section-title-area2 .section-title span, .section-title-area p.sub-title,
+.project-wrapper2 .button-area p, .section-title-area .section-title span {
+    color: #157f4e !important;
+}
+.active-icon-basic{
+    color: #25285f !important;
+}
+.btn-black{
+    background: #25285f;
+    color: white;
 }
 .rts-banner-area-three .select-area-down form{
     width: 100%;
@@ -84,4 +152,52 @@
 }
 #brandsSection .section-inner .wow img{
     width: 80%;
+}
+
+
+/********** order now style ****************/
+ .preview{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 150px;
+     width: 90%;
+     margin: auto;
+ }
+.rts-calculator-area .calculator-form-inner .single-wrapper span textarea,
+.rts-calculator-area .calculator-form-inner .single-wrapper span input,
+.rts-calculator-area .calculator-form-inner .single-wrapper span select,
+.rts-calculator-area .calculator-form-inner .single-wrapper .select-input{
+    background: var(--color-white);
+    padding: 10px 55px;
+    border-radius: 4px;
+    border: 1px solid rgba(85, 85, 85, 0.15);
+}
+.nice-select{
+    display: none !important;
+}
+.tab-pane .select-input{
+    width: 100% !important;
+    height: 48px !important;
+}
+.calculator-form-inner .select-input, .calculator-form-inner .text-input{
+    width: 46% !important;
+    height: 48px !important;
+}
+.select-input, .text-input{
+    display: inline !important;
+    margin-right: 2%;
+    margin-bottom: 10px;
+    line-height: 48px !important;
+    padding: 0 15px !important;
+    border: 1px solid rgba(85, 85, 85, 0.15) !important;
+    border-radius: 5px !important;
+    background: var(--color-white);
+}
+.textarea-input{
+    display: inline !important;
+    margin-bottom: 10px;
+    padding: 0 15px !important;
+    border: 1px solid rgba(85, 85, 85, 0.15) !important;
+    border-radius: 0 !important;
 }

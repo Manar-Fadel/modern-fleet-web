@@ -18,6 +18,11 @@ class CarQuotationController extends Controller
             ->with(['user', 'request'])
             ->latest();
 
+        // type cars or heavy-vehicles,
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
         // ✅ Status filter
         if ($request->filled('status')) {
             $query->where('status', $request->status);

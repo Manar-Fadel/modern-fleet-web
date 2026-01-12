@@ -127,15 +127,15 @@
                                             </h6>
                                             <ul class="feature-area">
                                                 <li>
-                                                    <img src="{{ asset('assets/web/images/portfolio/feature-icon/01.svg') }}" alt="">
+                                                    <i class="fa fa-car active-icon" style="font-size: 15px;"></i>
                                                     100 Miles
                                                 </li>
                                                 <li>
-                                                    <img src="{{ asset('assets/web/images/portfolio/feature-icon/02.svg') }}" alt="">
+                                                    <i class="fa fa-car-mechanic active-icon" style="font-size: 15px;"></i>
                                                     Petrol
                                                 </li>
                                                 <li>
-                                                    <img src="{{ asset('assets/web/images/portfolio/feature-icon/03.svg') }}" alt="">
+                                                    <i class="fa fa-info-circle active-icon" style="font-size: 15px;"></i>
                                                     Automatic
                                                 </li>
                                             </ul>

@@ -8,19 +8,18 @@ const app = Vue.createApp({
             brandLoading: false,
             search_word: '',
 
-            addModal: {
-                type: 'cars',
-                brand_id: '',
-                model_id: '',
-                manufacturing_year_id: '',
-                quantity: 1,
-                description: '',
-                user_id: '',
-            },
+            type: 'cars',
+            user_id: '',
             brands: [],
+            years: [],
+            requests: [
+                this.newRequestRow()
+            ],
             orderImagesLoading: true,
             order_images: [],
-            headers: null
+            headers: null,
+            images: [],
+            selectedFiles: [],
         }
     },
     methods: {
@@ -32,44 +31,40 @@ const app = Vue.createApp({
                 'accept': 'application/json'
             };
 
-            this.fetchBrands(this.addModal.type);
+            this.fetchBrands('cars');
             this.fetchYears();
         },
-        emptyFilters () {
-            this.addModal = {};
-            this.order_images = [];
-            this.fetchBrands(this.addModal.type);
+        newRequestRow() {
+            return {
+                brand_id: '',
+                model_id: '',
+                manufacturing_year_id: '',
+                quantity: '',
+                description: '',
+                images: [],
+                models: []
+            };
         },
-        async fetchYears () {
-            this.yearsLoading = true;
+        addNewRequest() {
+            this.requests.push(this.newRequestRow());
+        },
+        removeRequest(index) {
+            this.requests.splice(index, 1);
+        },
+        async onBrandChange(index) {
+            const brandId = this.requests[index].brand_id;
+
+            if (!brandId) return;
+
             const response = await fetch(
-                "/api/web/years",
+                "/api/web/models/" + brandId,
                 {
                     method: 'GET',
                     headers: this.headers,
                 }
             );
             this.response = await response.json();
-            this.years = this.response.data.years;
-            this.yearsLoading = false;
-        },
-        onBrandChange:function(event){
-            this.model_id = '';
-            this.getModels(event.target.value);
-        },
-        async getModels (brand_id) {
-            const response = await fetch(
-                "/api/brands/models/"+brand_id,
-                {
-                    method: 'GET',
-                    headers: this.headers,
-                }
-            );
-            this.response = await response.json();
-            this.models = this.response.data.models;
-        },
-        changeBrand(id){
-            this.addModal.brand_id = id;
+            this.requests[index].models = this.response.data.models;
         },
         async fetchBrands (type) {
             this.brandLoading = true;
@@ -84,13 +79,43 @@ const app = Vue.createApp({
             this.brands = this.response.data.brands;
             this.brandLoading = false;
         },
+        async fetchYears () {
+            this.yearsLoading = true;
+            const response = await fetch(
+                "/api/web/years",
+                {
+                    method: 'GET',
+                    headers: this.headers,
+                }
+            );
+            this.response = await response.json();
+            this.years = this.response.data.years;
+            this.yearsLoading = false;
+        },
         async saveOrder () {
             this.loading = true;
-            this.addModal.user_id = $("#authed_user_id").val();
+            const formData = new FormData();
+            this.requests.forEach((req, i) => {
+                formData.append(`requests[${i}][brand_id]`, req.brand_id);
+                formData.append(`requests[${i}][model_id]`, req.model_id);
+                formData.append(`requests[${i}][manufacturing_year_id]`, req.manufacturing_year_id);
+                formData.append(`requests[${i}][quantity]`, req.quantity);
+                formData.append(`requests[${i}][description]`, req.description);
+
+                if (req.images.length > 0) {
+                    req.images.forEach((file, f) => {
+                        formData.append(`requests[${i}][images][${f}]`, file);
+                    });
+                }
+            });
+
+
+            formData.append('user_id', $("#authed_user_id").val());
+            formData.append('_method', 'POST');
+
             const requestOptions = {
                 method: "POST",
-                headers: this.headers,
-                body: JSON.stringify(this.addModal)
+                body: formData
             };
             const response = await fetch("/api/web/save-order", requestOptions);
             this.response = await response.json();
@@ -101,6 +126,29 @@ const app = Vue.createApp({
                 window.location.href = '/my-orders';
             }
         },
+        onFileChange(event, index) {
+            var selectedFiles = event.target.files;
+            this.selectedFiles = Array.from(event.target.files);
+            for (let i=0; i < selectedFiles.length; i++) {
+                this.requests[index].images.push(selectedFiles[i]);
+            }
+            for (let i=0; i< this.requests[index].images.length; i++) {
+                let reader = new FileReader();
+                reader.addEventListener('load', function(){
+                    this.$refs['image' + parseInt( i )][0].src = reader.result;
+                }.bind(this), false);
+
+                reader.readAsDataURL(this.requests[index].images[i]);
+            }
+        },
+        removeImage (i) {
+            if (i === 0){
+                this.images.splice(0, 1);
+            }else {
+                this.images.splice(i, 1);
+            }
+
+        }
     }
 });
 

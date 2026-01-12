@@ -14,10 +14,10 @@
 
             <div :class="{displayactive:!loading}" id="dates-div" class="flex flex-col gap-2.5 hidden" style="min-width: 120px;" data-tabs="true">
                 <button v-for="(orders_list, key, index) in lists"
-                   class="activity-link btn btn-sm text-gray-600 hover:text-primary tab-active:bg-primary-light tab-active:text-primary"
-                   :class="{active:index==0}"
-                   :data-tab-toggle="key" type="button"
-                   @click="showOrders(key);">
+                        class="activity-link btn btn-sm text-gray-600 hover:text-primary tab-active:bg-primary-light tab-active:text-primary"
+                        :class="{active:index==0}"
+                        :data-tab-toggle="key" type="button"
+                        @click="showOrders(key);">
                     @{{ key }} (@{{ orders_list.length }})
                 </button>
             </div>
@@ -44,5 +44,6 @@
     </div>
 </div>
 
-@include("cpanel.includes.heavy_vehicle_order.change-status-modal")
+@include("cpanel.includes.order.edit-modal")
+@include("cpanel.includes.order.change-status-modal")
 

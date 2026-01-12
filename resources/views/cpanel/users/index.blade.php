@@ -10,12 +10,12 @@
                 <!-- begin: toolbar -->
                 <div class="flex flex-wrap items-center gap-5 justify-between">
                     <h3 class="text-lg text-gray-800 font-semibold">
-                        Dealers Accounts ({{ count($models) }})
+                        Individuals Accounts ({{ count($models) }})
                     </h3>
                     <button class="btn btn-sm btn-primary" data-modal-toggle="#add_new_dealer">
                         <i class="ki-filled ki-plus">
                         </i>
-                        Add Dealer
+                        Add Individual
                     </button>
                 </div>
                 @include("cpanel.includes.alerts")

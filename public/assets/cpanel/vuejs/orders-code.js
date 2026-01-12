@@ -29,13 +29,10 @@ const app = Vue.createApp({
             models: null,
             order_logs: [],
             offers: [],
+            items: [],
             lists_count: 0,
             changeStatusModal: null,
             editModal: null,
-
-            addCustomerCareNoteModal: null,
-            customerCareNotesLoading: true,
-            customer_care_notes: [],
 
             isFromListingNotes: false,
             key: null,
@@ -170,20 +167,6 @@ const app = Vue.createApp({
             this.order_logs = this.response.logs;
             this.logsLoading = false;
         },
-        async getOrderImages(id) {
-            const response = await fetch(
-                "/api/admin/car-requests/images/"+id,
-                {
-                    method: 'GET',
-                    headers: this.headers,
-                }
-            );
-            this.response =await response.json();
-            this.order_images = this.response.data.images;
-            this.voice_note = this.response.data.voice_note;
-            this.video_note = this.response.data.video_note;
-            this.orderImagesLoading = false;
-        },
         async getOrderOffers(id) {
             const response = await fetch(
                 "/api/admin/car-requests/offers/"+id,
@@ -198,10 +181,10 @@ const app = Vue.createApp({
         },
         viewModal (order) {
             this.offersLoading = true;
+            this.items = order.items;
             this.offers = [];
             this.order_images = [];
 
-            this.getOrderImages(order.id);
             this.getOrderOffers(order.id);
         }
     }

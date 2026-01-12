@@ -18,27 +18,27 @@ class OrderController
     }
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $car_orders = CarRequest::where('user_id', auth()->id())->orderBy('id', 'desc')->paginate(10);
-        $heavy_vehicle_orders = HeavyVehicleRequest::where('user_id', auth()->id())->orderBy('id', 'desc')->paginate(10);
+        $car_orders = CarRequest::where('user_id', auth()->id())
+            ->with([
+                'items.brand',
+                'items.model',
+                'items.year',
+                'items.images',
+            ])
+            ->latest()
+            ->paginate(10);
         return view('web.my-orders', compact(
-            'car_orders', 'heavy_vehicle_orders'
+            'car_orders'
         ));
     }
     public function view($type, $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
     {
-        $model = [];
-        if ($type == 'car-request') {
-            $model = CarRequest::find($id);
-            if (!$model instanceof CarRequest) {
-                return redirect()->back();
-            }
-
-        }elseif ($type == 'heavy-vehicle-request') {
-            $model = HeavyVehicleRequest::find($id);
-            if (!$model instanceof HeavyVehicleRequest) {
-                return redirect()->back();
-            }
+        $model = CarRequest::find($id);
+        if (!$model instanceof CarRequest) {
+            return redirect()->back();
         }
+
+        $model->load(['items.brand', 'items.model', 'items.year', 'items.images']);
 
         return view('web.view-order', compact('id', 'model', 'type'));
     }

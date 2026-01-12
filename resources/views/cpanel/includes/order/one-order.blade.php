@@ -44,18 +44,6 @@
                                                       @{{ order.status }}
                                                </span>
                                         </td>
-
-                                        <td class="text-gray-600 font-normal">
-                                            Vehicle:
-                                            <div class="flex items-center gap-2.5">
-                                                <img alt="" class="rounded-full size-9 shrink-0" :src="order.brand_image"/>
-                                                <div class="flex flex-col">
-                                                    <a class="text-sm font-medium text-gray-900 hover:text-primary-active mb-px" href="#">
-                                                        @{{ order.brand_name }}/ @{{ order.model_name }}/ @{{ order.year }}
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-gray-600 font-normal">
@@ -68,15 +56,28 @@
                                     </tr>
                                     <tr>
                                         <td class="text-gray-600 font-normal">
-                                            Quantity: @{{ order.quantity }}
-                                        </td>
-                                        <td class="text-gray-600 font-normal">
-                                            Description: @{{ order.description }}
+                                            Note: @{{ order.notes }}
                                         </td>
                                     </tr>
 
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    <div class="card pb-2.5">
+                        <div class="card-header" id="offers_data">
+                            <h3 class="card-title">
+                                Order Items Data
+                            </h3>
+                        </div>
+
+                        <div class="card-body grid gap-5">
+                            <div data-datatable="true" data-datatable-page-size="20">
+                                <div class="scrollable-x-auto">
+                                    @include("cpanel.includes.order.items-table")
+                                </div>
+                            </div>
                         </div>
                     </div>
 

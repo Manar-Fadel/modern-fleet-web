@@ -19,34 +19,27 @@ class CreateUserRequest extends FormRequest
 
     public function rules(Request $request): array
     {
-        $user_type = $request->get("user_type");
-        if ($user_type == Constants::DEALER){
+        $user_type = $request->get("type");
+        if ($user_type == Constants::COMPANY){
             return [
                 'full_name' => 'required|string|max:255',
-                'id_number' => 'required|string|max:20|unique:users,id_number',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|min:4',
                 'password_confirmation' => 'required|string|min:4|same:password',
                 'phone_number' => 'required|unique:users|string|max:20',
-                'user_type' => 'required|in:' . Constants::BANK_DELEGATE . ',' . Constants::DEALER,
-                'document_url' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,JPG|max:9048',
-                'showroom_doc' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,JPG|max:9048',
-                'commercial_registry_doc' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,JPG|max:9048',
-                'tax_certificate_doc' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,JPG|max:9048',
-                'national_address_certificate_doc' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,JPG|max:9048',
-                'representative_authorization_doc' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,JPG|max:9048',
+                'type' => 'required|in:' . Constants::CUSTOMER . ',' . Constants::COMPANY,
+                'tax_number' => 'nullable|string|max:20',
+                'trade_license_file' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,JPG|max:9048',
+                'vat_certificate_file' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,JPG|max:9048',
                 ];
         }else{
             return [
                 'full_name' => 'required|string|max:255',
-                'id_number' => 'required|string|max:20|unique:users,id_number',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|min:4',
                 'password_confirmation' => 'required|string|min:4|same:password',
                 'phone_number' => 'required|unique:users|string|max:20',
-                'user_type' => 'required|in:' . Constants::BANK_DELEGATE . ',' . Constants::DEALER,
-                'document_url' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,JPG,|max:9048',
-                'business_card_image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,JPG|max:9048',
+                'type' => 'required|in:' . Constants::CUSTOMER . ',' . Constants::COMPANY,
             ];
         }
 

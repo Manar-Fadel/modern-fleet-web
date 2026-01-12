@@ -11,34 +11,26 @@ class CarRequest extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'user_id', 'brand_id', 'model_id', 'quantity', 'description',
-        'fuel_type', 'condition', 'manufacturing_year_id',
-        'order_number', 'status', 'accepted_quotations_id', 'accepted_user_id',
+        'type',
+        'status',
+        'notes',
+        'user_id',
+        'order_number',
+        'accepted_quotations_id',
+        'accepted_user_id',
     ];
 
+    public function items()
+    {
+        return $this->hasMany(CarRequestItem::class);
+    }
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-
-    public function brand(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(EquipmentBrand::class, 'brand_id');
-    }
-
-    public function brandModel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(EquipmentModel::class, 'model_id');
-    }
-
-    public function year(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(ManufacturingYear::class, 'manufacturing_year_id');
-    }
-
     public function quotations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(CarQuotation::class, 'request_id');
+        return $this->hasMany(CarQuotation::class, 'car_request_id');
     }
     public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

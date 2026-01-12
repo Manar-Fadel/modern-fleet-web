@@ -15,7 +15,7 @@ Route::get('/brands/{brand}/models', function ($brandId) {
 });
 
 Route::prefix('web')->group(function () {
-    Route::get('/brands', [BrandController::class, 'index']);
+    Route::get('/brands/{type}', [BrandController::class, 'index']);
     Route::get('/years', [BrandController::class, 'years']);
     Route::get('/models/{id}', [BrandController::class, 'getBrandModels']);
 
@@ -39,7 +39,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/offers/{id}', [CarRequestsController::class, 'offers'])->name('offers');
     });
 
-    Route::group(['prefix' => 'heavy-vehicle-requests', 'as' => 'car-requests.'], function () {
+    Route::group(['prefix' => 'heavy-vehicle-requests', 'as' => 'heavy-vehicle-requests.'], function () {
         Route::get('/', [HeavyVehicleRequestsController::class, 'index'])->name('index');
         Route::post('/update/{id}', [HeavyVehicleRequestsController::class, 'update'])->name('update');
         Route::post('/change-status/{id}', [HeavyVehicleRequestsController::class, 'changeStatus'])->name('changeStatus');

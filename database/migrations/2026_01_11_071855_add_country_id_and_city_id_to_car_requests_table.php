@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('heavy_vehicle_requests', function (Blueprint $table) {
+        Schema::table('car_requests', function (Blueprint $table) {
             $table->foreignId('country_id')
                 ->nullable()
                 ->after('user_id')
@@ -31,7 +31,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('heavy_vehicle_requests', function (Blueprint $table) {
+        Schema::table('car_requests', function (Blueprint $table) {
             $table->dropForeign(['country_id']);
             $table->dropForeign(['city_id']);
             $table->dropColumn(['country_id', 'city_id']);

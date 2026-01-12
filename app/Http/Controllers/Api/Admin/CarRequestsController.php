@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeOrderStatusRequest;
 use App\Http\Resources\OfferResource;
-use App\Http\Resources\OrderResource;
+use App\Http\Resources\CarRequestResource;
 use App\Managers\Constants;
 use App\Models\CarQuotation;
 use App\Models\CarRequest;
@@ -63,12 +63,21 @@ class CarRequestsController extends Controller
                 ->whereDate('created_at', '<=', $to_date);
         }
 
-        $orders = $orders->when(! empty($search_word), function ($query) use ($search_word) {
+        $orders = $orders->where('type', 'car')
+                    ->when(! empty($search_word), function ($query) use ($search_word) {
                         return $query->where('order_number', 'like', '%'.$search_word.'%')
                                 ->orWhere('description', 'like', '%'.$search_word.'%');
-                    })->when(! empty($brand_id), function ($query) use ($brand_id) {
-                        return $query->where('brand_id', $brand_id);
                     })
+                    ->when(! empty($brand_id), function ($query) use ($brand_id) {
+                        return $query->whereHas('items', function ($q) use ($brand_id){
+                                    $q->where('brand_id', $brand_id);
+                                });
+                    })->with([
+                        'items.brand',
+                        'items.model',
+                        'items.year',
+                        'items.images',
+                    ])
                     ->withTrashed()
                     ->orderBy('id', 'DESC')
                     ->get()
@@ -78,7 +87,7 @@ class CarRequestsController extends Controller
 
         $data = [];
         $orders->collect()->each(function ($item, $key) use (&$data) {
-            $data[$key] = OrderResource::collection($item);
+            $data[$key] = CarRequestResource::collection($item);
         });
 
         return Response::json([
@@ -101,6 +110,12 @@ class CarRequestsController extends Controller
                         })->when(! empty($brand_id), function ($query) use ($brand_id) {
                             return $query->where('brand_id', $brand_id);
                         })
+                    ->with([
+                        'items.brand',
+                        'items.model',
+                        'items.year',
+                        'items.images',
+                    ])
                     ->withTrashed()
                     ->orderBy('id', 'DESC')
                     ->paginate(10);
@@ -112,13 +127,13 @@ class CarRequestsController extends Controller
                 "per_page" => $models->perPage(),
                 "next_page_url" => $models->nextPageUrl(),
                 "prev_page_url" => $models->previousPageUrl(),
-                'orders' => OrderResource::collection($models)
+                'orders' => CarRequestResource::collection($models)
             ],
         ]);
     }
     public function offers($id): \Illuminate\Http\JsonResponse
     {
-        $offers = CarQuotation::where('request_id', $id)->orderBy('id', 'DESC')->get();
+        $offers = CarQuotation::where('car_request_id', $id)->orderBy('id', 'DESC')->get();
 
         return Response::json([
             'status' => true,
@@ -160,7 +175,7 @@ class CarRequestsController extends Controller
                 return Response::json([
                     'status' => true,
                     'message' => 'Order updated successfully',
-                    'order' => new OrderResource($model),
+                    'order' => new CarRequestResource($model),
                 ]);
             }
 

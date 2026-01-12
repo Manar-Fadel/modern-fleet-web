@@ -21,17 +21,18 @@ class CreateOrderRequest extends FormRequest
      */
     public function rules(): array
     {
-        //$data = $this->request->all(); // $data['vin_number']
-            return [
-                'brand_id' => 'required|exists:brands,id',
-                'model_id' => 'required|exists:brand_models,id',
-                'manufacturing_year_id' => 'required|exists:manufacturing_years,id',
-                'quantity' => 'required|integer',
-                'description' => 'required|string|max:500',
+        return [
+            'requests' => ['required','array','min:1'],
 
-                'images' => 'nullable|array',
-                'images.*' => 'file|mimes:jpg,jpeg,png|max:5048',
-            ];
+            'requests.*.brand_id' => ['required','exists:brands,id'],
+            'requests.*.model_id' => ['required','exists:brand_models,id'],
+            'requests.*.manufacturing_year_id' => ['nullable','exists:manufacturing_years,id'],
+            'requests.*.quantity' => ['required','integer','min:1'],
+            'requests.*.description' => ['nullable','string','max:2000'],
+
+            'requests.*.images' => ['nullable','array'],
+            'requests.*.images.*' => ['image','max:5048'],
+        ];
     }
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator){
 

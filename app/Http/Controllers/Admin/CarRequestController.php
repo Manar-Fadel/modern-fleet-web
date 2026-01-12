@@ -11,17 +11,29 @@ use Illuminate\Http\Request;
 
 class CarRequestController extends Controller
 {
-    public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
+    public function index($type, Request $request): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         $currentMonthText = Carbon::now()->format('M');
-        return view('cpanel.car-requests.index', [
-            'brands' => EquipmentBrand::pluck('name_en', 'id')->toArray(),
-            'order_statuses' => OrderStatus::cases(),
-            'currentMonth' => $currentMonthText,
-            'years' => Constants::YEARS_LIST,
-            'months' => Constants::MONTHS_LIST,
-            'weeks' => Constants::WEEKS_LIST,
-        ]);
+        if ($type == 'cars') {
+            return view('cpanel.car-requests.index', [
+                'brands' => EquipmentBrand::pluck('name_en', 'id')->toArray(),
+                'order_statuses' => OrderStatus::cases(),
+                'currentMonth' => $currentMonthText,
+                'years' => Constants::YEARS_LIST,
+                'months' => Constants::MONTHS_LIST,
+                'weeks' => Constants::WEEKS_LIST,
+            ]);
+
+        }elseif ($type == 'heavy-vehicles') {
+            return view('cpanel.heavy_vehicle_requests.index', [
+                'brands' => EquipmentBrand::pluck('name_en', 'id')->toArray(),
+                'order_statuses' => OrderStatus::cases(),
+                'currentMonth' => $currentMonthText,
+                'years' => Constants::YEARS_LIST,
+                'months' => Constants::MONTHS_LIST,
+                'weeks' => Constants::WEEKS_LIST,
+            ]);
+        }
     }
 
 }

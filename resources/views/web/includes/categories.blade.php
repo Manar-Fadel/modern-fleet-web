@@ -16,7 +16,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="{{ asset('assets/web/images/category/07.svg') }}" alt="">
+                                    <i class="fa fa-car active-icon" style="font-size: 25px;"></i>
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Hatchback</a></h6>
@@ -27,7 +27,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="{{ asset('assets/web/images/category/08.svg') }}" alt="">
+                                    <i class="fa fa-van-shuttle active-icon" style="font-size: 25px;"></i>
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Minivans</a></h6>
@@ -38,7 +38,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="{{ asset('assets/web/images/category/09.svg') }}" alt="">
+                                    <i class="fa fa-car active-icon" style="font-size: 25px;"></i>
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Luxury Cars</a></h6>
@@ -49,7 +49,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="{{ asset('assets/web/images/category/10.svg') }}" alt="">
+                                    <i class="fa fa-car active-icon" style="font-size: 25px;"></i>
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Sadans</a></h6>
@@ -60,7 +60,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="{{ asset('assets/web/images/category/11.svg') }}" alt="">
+                                    <i class="fa fa-caravan active-icon" style="font-size: 25px;"></i>
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Convertible</a></h6>
@@ -71,7 +71,7 @@
                         <div class="swiper-slide">
                             <div class="category-wrapper2">
                                 <div class="icon">
-                                    <img src="{{ asset('assets/web/images/category/12.svg') }}" alt="">
+                                    <i class="fa fa-car-mechanic active-icon" style="font-size: 25px;"></i>
                                 </div>
                                 <div class="text">
                                     <h6 class="title cw"><a href="#">Sports Car</a></h6>

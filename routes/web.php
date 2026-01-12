@@ -11,20 +11,31 @@ use App\Http\Controllers\Admin\CompanyUsersController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\HeavyVehicleCategoryController;
 use App\Http\Controllers\Admin\HeavyVehicleImageController;
-use App\Http\Controllers\Admin\HeavyVehicleQuotationController;
 use App\Http\Controllers\Admin\IndexController;
-use App\Http\Controllers\Admin\HeavyVehicleRequestController;
 use App\Http\Controllers\Admin\HeavyVehicleController;
 use App\Http\Controllers\Admin\QueueMonitorController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\web\CarsController;
+use App\Http\Controllers\web\EmailVerificationController;
+use App\Http\Controllers\web\ForgetPasswordController;
 use App\Http\Controllers\web\HeavyVehiclesController;
 use App\Http\Controllers\web\HomeController;
 use App\Http\Controllers\web\SearchController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+Route::group(['as' => 'password.', 'middleware' => 'guest'], function () {
+    Route::get('/forgot-password', [ForgetPasswordController::class, 'forgotPassword'])->name('request');
+    Route::post('/forgot-password', [ForgetPasswordController::class, 'postForgotPassword'])->name('email');
+    Route::get('/reset-password/{token}', [ForgetPasswordController::class, 'reset'])->name('reset');
+    Route::post('/reset-password', [ForgetPasswordController::class, 'update'])->name('update');
+});
+Route::group(['prefix' => 'email', 'as' => 'verification.', 'middleware' => 'localization'], function () {
+    Route::get('/verify', [EmailVerificationController::class, 'notice'])->middleware('auth')->name('notice');
+    Route::get('/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verify');
+    Route::get('/verification-notification', [EmailVerificationController::class, 'send'])->middleware(['auth', 'throttle:6,1'])->name('send');
+});
 
 Route::middleware('localization')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -51,7 +62,7 @@ Route::middleware('localization')->group(function () {
         Route::get('/{id}', [HeavyVehiclesController::class, 'view'])->name('view');
     });
 
-    Route::middleware(['auth:sanctum', 'verified', 'account-active'])->group(function () {
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
         Route::get('/order-now', [\App\Http\Controllers\web\OrderController::class, 'orderNow'])->name('order-now');
         Route::group(['prefix' => 'my-orders', 'as' => 'my-orders.'], function () {
@@ -60,10 +71,6 @@ Route::middleware('localization')->group(function () {
             Route::get('/accept/{id}', [\App\Http\Controllers\web\OrderController::class, 'accept'])->name('accept');
             Route::get('/decline/{id}', [\App\Http\Controllers\web\OrderController::class, 'decline'])->name('decline');
             Route::get('/cancel-accepted-offer/{id}', [\App\Http\Controllers\web\OrderController::class, 'cancelAcceptedOffer'])->name('cancel-accepted-offer');
-        });
-
-        Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
-            Route::get('/', [\App\Http\Controllers\web\OfferController::class, 'index'])->name('others-index');
         });
     });
 
@@ -98,13 +105,12 @@ Route::middleware('localization')->group(function () {
             Route::post('car-images/{image}/set-main', [CarImageController::class, 'setMain'])->name('car-images.set-main');
             Route::delete('car-images/{image}', [CarImageController::class, 'destroy'])->name('car-images.destroy');
             Route::resource('car-categories', CarCategoryController::class)->except(['show']);
-            Route::resource('car-quotations', CarQuotationController::class)->except(['show']);
+
+            Route::resource('quotations', CarQuotationController::class)->except(['show']);
 
             Route::resource('heavy-vehicles', HeavyVehicleController::class);
             Route::post('/heavy-vehicle-images/{image}/set-main', [HeavyVehicleImageController::class, 'setMain'])->name('heavy-vehicle-images.set-main');
             Route::resource('heavy-vehicle-categories', HeavyVehicleCategoryController::class)->except(['show']);
-            Route::resource('heavy-vehicle-quotations', HeavyVehicleQuotationController::class)->except(['show']);
-
 
             Route::group(['prefix' => 'brands', 'as' => 'brands.'], function () {
                 Route::get('/', [BrandController::class, 'index'])->name('index');
@@ -131,11 +137,8 @@ Route::middleware('localization')->group(function () {
                 Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
             });
 
-            Route::group(['prefix' => 'heavy-vehicle-orders', 'as' => 'heavy-vehicle-orders.'], function () {
-                Route::get('/', [HeavyVehicleRequestController::class, 'index'])->name('index');
-            });
-            Route::group(['prefix' => 'car-orders', 'as' => 'car-orders.'], function () {
-                Route::get('/', [CarRequestController::class, 'index'])->name('index');
+            Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
+                Route::get('/{type}', [CarRequestController::class, 'index'])->name('index');
             });
 
             Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {

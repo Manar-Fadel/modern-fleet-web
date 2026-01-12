@@ -5,47 +5,55 @@ namespace App\Http\Controllers\Api\web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\web\AcceptOfferRequest;
 use App\Http\Requests\web\CreateOrderRequest;
-use App\Http\Resources\OrderResource;
+use App\Http\Resources\CarRequestResource;
 use App\Managers\AdminManager;
 use App\Managers\Constants;
 use App\Models\CarQuotation;
 use App\Models\CarRequest;
-use App\Models\CarRequestImage;
+use App\Models\CarRequestItem;
+use App\Models\CarRequestItemImage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
 
 class OrderController extends Controller
 {
     public function saveOrder(CreateOrderRequest $request): JsonResponse
     {
         try {
-            $order = CarRequest::create([
-                'user_id' => $request->get('user_id'),
-                'vin_number' => $request->input('vin_number'),
-                'brand_id' => $request->input('brand_id'),
-                'model_id' => $request->input('model_id'),
-                'year_id' => $request->input('year_id'),
-                'description' => $request->input('description'),
-                'status' => Constants::PENDING,
-            ]);
+            DB::transaction(function () use ($request) {
 
-            if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $image) {
-                    $path = AdminManager::uploadImageFile($image, 'uploads/orders/'. date('Y-m'));
-                    $order_img = new CarRequestImage();
-                    $order_img->car_request_id = $order->id;
-                    $order_img->path = $path;
-                    $order_img->save();
+                $order = CarRequest::create([
+                    'user_id' => $request->get('user_id'),
+                    'type' => 'car',
+                    'status' => Constants::PENDING,
+                ]);
+                foreach ($request->requests as $item) {
+                    $orderItem = CarRequestItem::create([
+                        'car_request_id' => $order->id,
+                        'brand_id' => $item['brand_id'],
+                        'model_id' => $item['model_id'],
+                        'manufacturing_year_id' => $item['manufacturing_year_id'],
+                        'quantity' => $item['quantity'],
+                        'description' => $item['description'] ?? null,
+                    ]);
+
+                    if (!empty($item['images'])) {
+                        foreach ($item['images'] as $image) {
+                            $path = AdminManager::uploadImageFile($image, 'uploads/orders/' . date('Y-m'));
+                            CarRequestItemImage::create([
+                                'car_request_item_id' => $orderItem->id,
+                                'path' => $path,
+                            ]);
+                        }
+                    }
                 }
-            }
+            });
 
             return response()->json([
                 'status' => true,
-                'message' => 'تم إنشاء الطلب بنجاح',
-                'data' => [
-                    'order' => new OrderResource($order),
-                ]
+                'message' => Lang::get('web.order created successfully', [], app()->getLocale()),
             ]);
 
         } catch (\Exception $exception) {
@@ -83,7 +91,7 @@ class OrderController extends Controller
                 'status' => true,
                 'message' => 'تم قبول العرض بنجاح',
                 'data' => [
-                    'order' => new OrderResource($order),
+                    'order' => new CarRequestResource($order),
                 ]
             ]);
 
