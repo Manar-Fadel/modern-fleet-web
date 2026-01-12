@@ -14,7 +14,7 @@ class CarRequestController extends Controller
     public function index($type, Request $request): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         $currentMonthText = Carbon::now()->format('M');
-        if ($type == 'cars') {
+        if ($type == 'car') {
             return view('cpanel.car-requests.index', [
                 'brands' => EquipmentBrand::pluck('name_en', 'id')->toArray(),
                 'order_statuses' => OrderStatus::cases(),
@@ -24,7 +24,7 @@ class CarRequestController extends Controller
                 'weeks' => Constants::WEEKS_LIST,
             ]);
 
-        }elseif ($type == 'heavy-vehicles') {
+        }elseif ($type == 'heavy_vehicle') {
             return view('cpanel.heavy_vehicle_requests.index', [
                 'brands' => EquipmentBrand::pluck('name_en', 'id')->toArray(),
                 'order_statuses' => OrderStatus::cases(),

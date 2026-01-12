@@ -63,7 +63,7 @@ class HeavyVehicleRequestsController extends Controller
                 ->whereDate('created_at', '<=', $to_date);
         }
 
-        $orders = $orders->where('type', 'heavy-vehicle')
+        $orders = $orders->where('type', 'heavy_vehicle')
             ->when(! empty($search_word), function ($query) use ($search_word) {
                 return $query->where('order_number', 'like', '%'.$search_word.'%')
                     ->orWhere('description', 'like', '%'.$search_word.'%');

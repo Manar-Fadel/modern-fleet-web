@@ -7,7 +7,7 @@ use App\Http\Requests\ChangeOrderStatusRequest;
 use App\Http\Resources\OfferResource;
 use App\Http\Resources\CarRequestResource;
 use App\Managers\Constants;
-use App\Models\CarQuotation;
+use App\Models\CarRequestQuotation;
 use App\Models\CarRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -133,7 +133,7 @@ class CarRequestsController extends Controller
     }
     public function offers($id): \Illuminate\Http\JsonResponse
     {
-        $offers = CarQuotation::where('car_request_id', $id)->orderBy('id', 'DESC')->get();
+        $offers = CarRequestQuotation::where('car_request_id', $id)->orderBy('id', 'DESC')->get();
 
         return Response::json([
             'status' => true,
@@ -154,8 +154,8 @@ class CarRequestsController extends Controller
             }
 
             if (in_array($request->get('status'), [Constants::ACCEPTED])) {
-                $offer = CarQuotation::find($request->get('offer_id'));
-                if (!$offer instanceof CarQuotation) {
+                $offer = CarRequestQuotation::find($request->get('offer_id'));
+                if (!$offer instanceof CarRequestQuotation) {
                     return Response::json([
                         'status' => false,
                         'message' => 'Offer not found',

@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('car_quotation_images', function (Blueprint $table) {
+        Schema::create('car_request_quotation_images', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('quotation_id')
-                ->constrained('car_quotations')
+            $table->foreignId('car_request_quotation_id')
+                ->constrained('car_request_quotations')
                 ->cascadeOnDelete();
 
             $table->string('path');

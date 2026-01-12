@@ -106,7 +106,14 @@ Route::middleware('localization')->group(function () {
             Route::delete('car-images/{image}', [CarImageController::class, 'destroy'])->name('car-images.destroy');
             Route::resource('car-categories', CarCategoryController::class)->except(['show']);
 
-            Route::resource('quotations', CarQuotationController::class)->except(['show']);
+            Route::group(['prefix' => 'car-quotations', 'as' => 'car-quotations.'], function () {
+                Route::get('/', [CarQuotationController::class, 'index'])->name('index');
+                Route::get('/create/{id}', [CarQuotationController::class, 'create'])->name('create');
+                Route::post('/store/{id}', [CarQuotationController::class, 'store'])->name('store');
+                Route::get('/edit/{id}', [CarQuotationController::class, 'edit'])->name('edit');
+                Route::put('/update/{id}', [CarQuotationController::class, 'update'])->name('update');
+                Route::delete('/destroy/{id}', [CarQuotationController::class, 'destroy'])->name('destroy');
+            });
 
             Route::resource('heavy-vehicles', HeavyVehicleController::class);
             Route::post('/heavy-vehicle-images/{image}/set-main', [HeavyVehicleImageController::class, 'setMain'])->name('heavy-vehicle-images.set-main');

@@ -17,8 +17,12 @@ class ManufacturingYear extends Model
         return $this->hasMany(HeavyVehicle::class, 'manufacturing_year_id');
     }
 
-    public function heavyVehicleRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function cars(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(HeavyVehicleRequest::class, 'manufacturing_year_id');
+        return $this->hasMany(Car::class, 'manufacturing_year_id');
+    }
+    public function carRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(CarRequestItem::class, 'manufacturing_year_id');
     }
 }

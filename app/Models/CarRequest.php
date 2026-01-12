@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CarRequest extends Model
@@ -20,7 +21,7 @@ class CarRequest extends Model
         'accepted_user_id',
     ];
 
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(CarRequestItem::class);
     }
@@ -30,7 +31,7 @@ class CarRequest extends Model
     }
     public function quotations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(CarQuotation::class, 'car_request_id');
+        return $this->hasMany(CarRequestQuotation::class, 'car_request_id');
     }
     public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

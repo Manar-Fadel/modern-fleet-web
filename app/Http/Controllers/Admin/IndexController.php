@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Managers\Constants;
-use App\Models\CarQuotation;
+use App\Models\CarRequestQuotation;
 use App\Models\CarRequest;
 use App\Models\EquipmentBrand;
 use App\Models\EquipmentModel;
@@ -22,8 +22,8 @@ class IndexController extends Controller
         $pending_orders_count = CarRequest::where('status', Constants::PENDING)->count();
         $accepted_orders_count = CarRequest::where('status', Constants::ACCEPTED)->count();
 
-        $pending_offers_count = CarQuotation::where('status', Constants::PENDING)->count();
-        $accepted_offers_count = CarQuotation::where('status', Constants::ACCEPTED)->count();
+        $pending_offers_count = CarRequestQuotation::where('status', Constants::PENDING)->count();
+        $accepted_offers_count = CarRequestQuotation::where('status', Constants::ACCEPTED)->count();
 
         $brands_count = EquipmentBrand::count();
         $models_count = EquipmentModel::count();

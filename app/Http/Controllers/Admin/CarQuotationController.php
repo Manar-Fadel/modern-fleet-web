@@ -4,18 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\OfferStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\StoreCarRequestQuotationRequest;
 use App\Http\Requests\CarQuotationRequest;
-use App\Models\CarQuotation;
+use App\Managers\Constants;
+use App\Models\CarRequestQuotation;
 use App\Models\CarRequest;
+use App\Models\CarRequestQuotationItem;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class CarQuotationController extends Controller
 {
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $query = CarQuotation::query()
-            ->with(['user', 'request'])
+        $query = CarRequestQuotation::query()
+            ->with(['request', 'items', 'images'])
             ->latest();
 
         // type cars or heavy-vehicles,
@@ -49,48 +54,104 @@ class CarQuotationController extends Controller
         );
     }
 
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function create($id, Request $request): \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $users    = User::orderBy('full_name')->get();
-        $requests = CarRequest::query()->latest()->get();
-        $statuses = OfferStatus::cases();
+        $model = CarRequest::with('items.brand','items.model','items.year', 'user')
+            ->has('items')
+            ->has('user')
+            ->findOrFail($id);
 
+        if (!$model instanceof \App\Models\CarRequest) {
+            return Redirect::back();
+        }
         return view('cpanel.car_quotations.create',
-            compact('users', 'requests', 'statuses')
+            compact('id', 'model')
         );
     }
 
-    public function store(CarQuotationRequest $request): \Illuminate\Http\RedirectResponse
+    public function store($id, StoreCarRequestQuotationRequest $request): \Illuminate\Http\RedirectResponse
     {
-        CarQuotation::create($request->validated());
+        $carRequest = CarRequest::findOrFail($id);
+        DB::transaction(function () use ($request, $carRequest) {
+
+            $quotation = CarRequestQuotation::create([
+                'type' => $carRequest->type,
+                'car_request_id' => $carRequest->id,
+                'total_amount' => $request->total_amount,
+                'vat_amount' => $request->vat_amount ?? 0,
+                'total_with_vat' => $request->total_with_vat,
+                'status' => Constants::PENDING,
+            ]);
+
+            foreach ($request->items as $item) {
+                CarRequestQuotationItem::create([
+                    'car_request_quotation_id' => $quotation->id,
+                    'car_request_item_id' => $item['item_id'],
+                    'unit_price' => $item['unit_price'],
+                    'attachment_price' => 0, // للتوسعة لاحقًا
+                    'total_price' => $item['total_price'],
+                    'vat_amount' => $item['vat_amount'] ?? 0,
+                    'total_with_vat' => $item['total_with_vat'],
+                    'is_with_vat' => isset($item['is_with_vat']),
+                    'description' => $item['description'] ?? null,
+                ]);
+            }
+        });
 
         return redirect()
-            ->route('admin.car-quotations.index')
+            ->route('admin.car-quotations.index', ['type' => 'car'])
             ->with('success', 'Quotation created successfully.');
     }
-
-    public function edit(CarQuotation $carQuotation): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $users    = User::orderBy('full_name')->get();
-        $requests = CarRequest::query()->latest()->get();
-        $statuses = OfferStatus::cases();
+        $quotation = CarRequestQuotation::findOrFail($id);
+        $quotation->load([
+            'request.items.brand',
+            'request.items.model',
+            'request.items.year',
+            'items'
+        ]);
 
-        return view('cpanel.car_quotations.edit',
-            compact('carQuotation', 'users', 'requests', 'statuses')
-        );
+        return view('cpanel.car_quotations.edit', compact('quotation'));
     }
 
-    public function update(CarQuotationRequest $request, CarQuotation $carQuotation): \Illuminate\Http\RedirectResponse
+    public function update($id, StoreCarRequestQuotationRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $carQuotation->update($request->validated());
+        $quotation = CarRequestQuotation::findOrFail($id);
+        DB::transaction(function () use ($request, $quotation) {
+            $quotation->update([
+                'total_amount' => $request->total_amount,
+                'vat_amount' => $request->vat_amount ?? 0,
+                'total_with_vat' => $request->total_with_vat,
+            ]);
+
+            foreach ($request->items as $item) {
+
+                $quotationItem = CarRequestQuotationItem::where('id', $item['quotation_item_id'])
+                    ->where('car_request_quotation_id', $quotation->id)
+                    ->firstOrFail();
+
+                $quotationItem->update([
+                    'unit_price' => $item['unit_price'],
+                    'attachment_price' => 0,
+                    'total_price' => $item['total_price'],
+                    'vat_amount' => $item['vat_amount'] ?? 0,
+                    'total_with_vat' => $item['total_with_vat'],
+                    'is_with_vat' => isset($item['is_with_vat']),
+                    'description' => $item['description'] ?? null,
+                ]);
+            }
+        });
 
         return redirect()
-            ->route('admin.car-quotations.index')
-            ->with('success', 'Quotation updated successfully.');
+            ->route('admin.car-quotations.index', ['type' => 'car'])
+            ->with('success', 'Quotation has been updated successfully.');
     }
 
-    public function destroy(CarQuotation $carQuotation): \Illuminate\Http\RedirectResponse
+
+    public function destroy(CarRequestQuotation $carQuotation): \Illuminate\Http\RedirectResponse
     {
+        $carQuotation->items->delete();
         $carQuotation->delete();
 
         return redirect()
