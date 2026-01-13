@@ -1,3 +1,9 @@
+.active{
+    color: #157f4e !important;
+}
+.float-end {
+    float: left !important;
+}
 :root {
     --color-primary: #25285f;
 }

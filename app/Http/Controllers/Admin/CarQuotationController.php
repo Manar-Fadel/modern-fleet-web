@@ -11,6 +11,7 @@ use App\Models\CarRequestQuotation;
 use App\Models\CarRequest;
 use App\Models\CarRequestQuotationItem;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -158,4 +159,20 @@ class CarQuotationController extends Controller
             ->route('admin.car-quotations.index')
             ->with('success', 'Quotation deleted successfully.');
     }
+    public function generatePdf(CarRequestQuotation $quotation): \Illuminate\Http\Response
+    {
+        $quotation->load([
+            'request.user',
+            'request.items.brand',
+            'request.items.model',
+            'request.items.year',
+            'items.requestItem'
+        ]);
+
+        $pdf = Pdf::loadView('cpanel.pdf.quotation', compact('quotation'))
+            ->setPaper('A4', 'portrait');
+
+        return $pdf->download("Quotation_{$quotation->id}.pdf");
+    }
+
 }

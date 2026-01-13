@@ -113,6 +113,8 @@ Route::middleware('localization')->group(function () {
                 Route::get('/edit/{id}', [CarQuotationController::class, 'edit'])->name('edit');
                 Route::put('/update/{id}', [CarQuotationController::class, 'update'])->name('update');
                 Route::delete('/destroy/{id}', [CarQuotationController::class, 'destroy'])->name('destroy');
+
+                Route::get('/pdf/{quotation}', [CarQuotationController::class, 'generatePdf'])->name('pdf');
             });
 
             Route::resource('heavy-vehicles', HeavyVehicleController::class);

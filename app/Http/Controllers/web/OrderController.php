@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\web;
 
 use App\Managers\Constants;
-use App\Models\CarQuotation;
+use App\Models\CarRequestQuotation;
 use App\Models\CarRequest;
-use App\Models\HeavyVehicleQuotation;
-use App\Models\HeavyVehicleRequest;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Session;
 
@@ -18,7 +16,7 @@ class OrderController
     }
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $car_orders = CarRequest::where('user_id', auth()->id())
+        $orders = CarRequest::where('user_id', auth()->id())
             ->with([
                 'items.brand',
                 'items.model',
@@ -28,25 +26,27 @@ class OrderController
             ->latest()
             ->paginate(10);
         return view('web.my-orders', compact(
-            'car_orders'
+            'orders'
         ));
     }
-    public function view($type, $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+    public function view($id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
     {
-        $model = CarRequest::find($id);
-        if (!$model instanceof CarRequest) {
-            return redirect()->back();
-        }
-
-        $model->load(['items.brand', 'items.model', 'items.year', 'items.images']);
-
-        return view('web.view-order', compact('id', 'model', 'type'));
+        $order = CarRequest::with([
+            'items.brand',
+            'items.model',
+            'items.year',
+            'items.images',
+            'quotations.items.requestItem.brand',
+            'quotations.items.requestItem.model',
+            'quotations.items.requestItem.year',
+        ])->findOrFail($id);
+        return view('web.view-order', compact('id', 'order'));
     }
     public function accept($type, $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
     {
         if ($type == 'car-request') {
-            $offer = CarQuotation::find($id);
-            if (!$offer instanceof CarQuotation) {
+            $offer = CarRequestQuotation::find($id);
+            if (!$offer instanceof CarRequestQuotation) {
                 return redirect()->back();
             }
             $order = CarRequest::find($offer->request_id);
@@ -104,8 +104,8 @@ class OrderController
     public function  decline($type, $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
     {
         if ($type == 'car-request') {
-            $offer = CarQuotation::find($id);
-            if (!$offer instanceof CarQuotation) {
+            $offer = CarRequestQuotation::find($id);
+            if (!$offer instanceof CarRequestQuotation) {
                 return redirect()->back();
             }
             $order = CarRequest::find($offer->request_id);

@@ -87,6 +87,11 @@
                             </td>
                             <td>{{ $q->created_at->format('Y-m-d') }}</td>
                             <td class="text-end">
+                                <a href="{{ route('admin.car-quotations.pdf', $q) }}"
+                                   class="btn btn-sm btn-light-primary">
+                                    <i class="ki ki-filled ki-cloud-download"></i>
+                                    Pdf
+                                </a>
                                 @if($q->status == 'PENDING')
                                 <a href="{{ route('admin.car-quotations.edit', $q) }}"
                                    class="btn btn-sm btn-light-primary">
