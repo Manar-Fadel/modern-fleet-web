@@ -17,7 +17,7 @@ class CarRequest extends Model
         'notes',
         'user_id',
         'order_number',
-        'accepted_quotations_id',
+        'accepted_quotation_id',
         'accepted_user_id',
     ];
 

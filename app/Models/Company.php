@@ -11,19 +11,16 @@ class Company extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'user_id',
         'company_name',
         'tax_number',
         'trade_license_file',
         'vat_certificate_file',
         'status'
     ];
-    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class,  'user_id', 'id');
     }
 
-    public function heavyVehicleRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(HeavyVehicleRequest::class);
-    }
 }

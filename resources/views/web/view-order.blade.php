@@ -298,7 +298,7 @@
 <script src="{{ asset('assets/web/js/sweetalert2@11.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('body').on('click', '.accept-offer', function() {
+        $('body').on('click', '.accept-quotation', function() {
             var accept_link = $(this).attr("data-link");
             Swal.fire({
                 title: "{{ __('web.Confirmation') }}",
@@ -316,7 +316,7 @@
             });
         });
 
-        $('body').on('click', '.decline-offer', function() {
+        $('body').on('click', '.decline-quotation', function() {
             var decline_link = $(this).attr("data-link");
             Swal.fire({
                 title: "{{ __('web.Confirmation') }}",
@@ -334,6 +334,5 @@
             });
         });
     });
-
 </script>
 @endpush

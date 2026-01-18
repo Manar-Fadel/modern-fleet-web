@@ -8,20 +8,6 @@
         @include("web.includes.header")
         <!-- header area end -->
 
-        <!-- rts breadcrumb area start -->
-        <div class="rts-breadcrumb-area portfolio-3 jarallax" style="height: 300px; padding: 3% 0;">
-            <div class="container">
-                <div class="breadcrumb-area-wrapper">
-                    <h1 class="title">{{ __('web.Account') }}</h1>
-                    <div class="nav-bread-crumb">
-                        <a href="{{ route('home') }}">{{ __('web.Home') }}</a>
-                        <a href="#" class="current">{{ __('web.Account') }}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- rts breadcrumb area end -->
-        <!-- Breadcrumb area end -->
         <!-- Contact Start -->
         <div class="rts-category-area rts-contact-page-form-area rts-section-gapNew rts-section-gap account" style="padding-top: 30px; margin-top: 0;">
             <div class="container">

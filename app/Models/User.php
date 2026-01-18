@@ -25,13 +25,13 @@ class User extends Authenticatable
 
     protected $hidden = ['password'];
 
-    public function company(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function company(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->belongsTo(Company::class);
+        return $this->hasOne(Company::class, );
     }
-    public function heavyVehicleRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function carRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(HeavyVehicleRequest::class);
+        return $this->hasMany(CarRequest::class);
     }
     public function logs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

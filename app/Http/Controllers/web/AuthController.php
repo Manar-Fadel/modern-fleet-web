@@ -115,60 +115,39 @@ class AuthController extends Controller
 
     public function profile(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $local = app()->getLocale();
-        $customer_care_mobile = SettingsManager::getSettingsValueByKey('CUSTOMER_CARE_MOBILE');
-        $customer_care_email = SettingsManager::getSettingsValueByKey('CUSTOMER_CARE_EMAIL');
-        $location = $local == 'ar' ? SettingsManager::getSettingsValueByKey('LOCATION_AR') : SettingsManager::getSettingsValueByKey('LOCATION_EN');
-
-        return view('web.profile.index', compact( 'local',
-            'customer_care_mobile',  'customer_care_email', 'location'
-        ));
+        $company = Company::where('user_id', \auth()->id())->first();
+        return view('web.profile.index',  compact('company'));
     }
     public function saveProfile(UpdateProfileRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $user = \auth()->user();
-        $user->update([
+        \auth()->user()->update([
             'full_name' => $request->input('full_name'),
-            'shop_name' => $request->input('shop_name'),
-            //'id_number' => $request->input('id_number'),
-            //'email' => $request->input('email'),
-            //'phone_number' => $request->input('phone_number'),
+            'tax_number' => $request->input('tax_number')
         ]);
 
-        if ($request->has('showroom_doc')) {
-            $doc_path = AdminManager::uploadImageFile($request->file('showroom_doc'), 'uploads/dealers/showroom_docs/');
-            $user->showroom_doc = $doc_path;
-            $user->save();
-        }
-        if ($request->has('document_url')) {
-            $doc_path = AdminManager::uploadImageFile($request->file('document_url'), 'uploads/users/document_urls/');
-            $user->document_url = $doc_path;
-            $user->save();
-        }
-        if ($request->has('business_card_image')) {
-            $doc_path = AdminManager::uploadImageFile($request->file('business_card_image'), 'uploads/bank-delegates/business_cards/');
-            $user->business_card_image = $doc_path;
-            $user->save();
-        }
-        if ($request->has('tax_certificate_doc')) {
-            $doc_path = AdminManager::uploadImageFile($request->file('tax_certificate_doc'), 'uploads/users/tax_certificate/');
-            $user->tax_certificate_doc = $doc_path;
-            $user->save();
-        }
-        if ($request->has('national_address_certificate_doc')) {
-            $doc_path = AdminManager::uploadImageFile($request->file('national_address_certificate_doc'), 'uploads/users/national_address_certificate/');
-            $user->national_address_certificate_doc = $doc_path;
-            $user->save();
-        }
-        if ($request->has('commercial_registry_doc')) {
-            $doc_path = AdminManager::uploadImageFile($request->file('commercial_registry_doc'), 'uploads/users/commercial_registry/');
-            $user->commercial_registry_doc = $doc_path;
-            $user->save();
-        }
-        if ($request->has('representative_authorization_doc')) {
-            $doc_path = AdminManager::uploadImageFile($request->file('representative_authorization_doc'), 'uploads/users/representative_authorization/');
-            $user->representative_authorization_doc = $doc_path;
-            $user->save();
+        if (\auth()->user()->type == Constants::COMPANY) {
+            $company = Company::where('user_id', \auth()->id())->first();
+            if (!$company instanceof Company) {
+                $company = new Company();
+                $company->user_id = \auth()->id();
+            }
+            $company->company_name = $request->input('full_name');
+            $company->tax_number = $request->input('tax_number');
+
+            if ($request->has('trade_license_file')) {
+                $doc_path = AdminManager::uploadImageFile($request->file('trade_license_file'), 'uploads/companies/');
+                $company->trade_license_file = $doc_path;
+            }
+            if ($request->has('vat_certificate_file')) {
+                $doc_path = AdminManager::uploadImageFile($request->file('vat_certificate_file'), 'uploads/companies/');
+                $company->vat_certificate_file = $doc_path;
+            }
+
+            if (!$company->save()) {
+                return Redirect::back()->with([
+                    'error' => Lang::get('web.Error in saving data', [], app()->getLocale())
+                ]);
+            }
         }
 
         Session::flash(

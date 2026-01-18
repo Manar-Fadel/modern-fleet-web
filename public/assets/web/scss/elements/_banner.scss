@@ -594,7 +594,7 @@
             &.active{
                 border: none;
                 background: var(--color-primary);
-                color: var(--color-white);
+                color: var(--color-white) !important;
             }
         }
 

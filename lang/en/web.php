@@ -137,7 +137,7 @@ return [
     'forgot password link sent by email successfully.' => 'forgot password link sent by email successfully.',
     'other offer already accepted' => 'other offer already accepted',
 
-    'Complete Profile' => 'Profile Data',
+    'Profile Data' => 'Profile Data',
     'Profile uncompleted! Complete your profile info, especially attachment as images of required document to get your account active' => 'Profile uncompleted! Complete your profile info, especially attachment as images of required document to get your account active',
     'Save' => 'Save',
     'Download Doc. Image' => 'Download Doc. Image',

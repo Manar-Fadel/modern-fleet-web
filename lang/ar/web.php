@@ -232,6 +232,8 @@ return [
     "Total With VAT" => "الاجمالي مع الضريبة",
     "Subtotal" => "الاجمالي",
     "Quotation #" => "عرض السعر #",
+    "Profile Data" => "بيانات الحساب",
+    "Profile data updated, admin will review them soon." => "تم تعديل بيانات الحساب بنجاح, سيقوم الأدمن بمراجعتها قريبا.",
 
 
 

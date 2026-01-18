@@ -10,6 +10,7 @@ class CarRequestQuotation extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'user_id',
         'car_request_id',
         'total_amount',
         'vat_amount',

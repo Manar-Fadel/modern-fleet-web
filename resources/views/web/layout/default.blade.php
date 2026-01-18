@@ -25,7 +25,8 @@
           class="home-two "
 
       @elseif(request()->route()->getName() == "login" || request()->route()->getName() == "password.request" ||
-      request()->route()->getName() == "password.reset" || request()->route()->getName() == "register")
+                request()->route()->getName() == "profile" || request()->route()->getName() == "password.reset" ||
+                request()->route()->getName() == "register")
           class="account-page-body"
       @elseif(request()->route()->getName() == "order-now")
           class="home-six account-page-body"

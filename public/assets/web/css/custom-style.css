@@ -1,11 +1,19 @@
+:root {
+    --color-primary: #25285f;
+}
 .active{
     color: #157f4e !important;
 }
 .float-end {
     float: left !important;
 }
-:root {
-    --color-primary: #25285f;
+.banner-right-side-two .nav button.active{
+    color: white !important;
+}
+.file-uploaded-icon{
+    display: none;
+    color: green;
+    margin: 0px 5px;
 }
 .header-two{
     background: white;
