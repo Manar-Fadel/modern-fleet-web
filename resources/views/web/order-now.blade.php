@@ -87,6 +87,32 @@
                             </div>
                         </div>
 
+                        <div class="row col-12 single-wrapper-r">
+                            <div class="col-6 col-lg-6">
+                                <input type="checkbox" v-model="request.is_attachments_enabled">
+                                {{ __('web.Do you need Attachments?') }}
+                            </div>
+
+                            <div class="col-6 col-lg-6">
+                                <select v-if="request.is_attachments_enabled" v-model="request.attachment_type_id">
+                                    <option value="">
+                                        {{ __('web.Choose attachments type') }}
+                                    </option>
+                                    <option v-for="type in attachmentTypes" :value="type.id">
+                                        @{{ type.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div v-if="request.is_attachments_enabled" class="row col-12 single-wrapper-r">
+                            <div class="col-6 col-lg-6">
+                                <textarea v-model="request.attachment_description"
+                                          placeholder="{{ __('web.Enter attachments specifications & conditions') }}"></textarea>
+
+                            </div>
+                        </div>
+
                         <div class="single-wrapper-r mt-3">
                             <div class="one-item"
                                  @if(app()->getLocale() == 'ar')

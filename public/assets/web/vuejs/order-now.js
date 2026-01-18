@@ -41,6 +41,11 @@ const app = Vue.createApp({
                 manufacturing_year_id: '',
                 quantity: '',
                 description: '',
+
+                is_attachments_enabled: false,
+                attachment_type_id: '',
+                attachment_description: '',
+
                 images: [],
                 models: []
             };

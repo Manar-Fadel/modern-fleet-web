@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
 
             CarCategoriesSeeder::class,
             CarsSeeder::class,
+
+            AttachmentTypesSeeder::class,
         ]);
 
     }

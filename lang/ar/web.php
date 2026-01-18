@@ -234,7 +234,9 @@ return [
     "Quotation #" => "عرض السعر #",
     "Profile Data" => "بيانات الحساب",
     "Profile data updated, admin will review them soon." => "تم تعديل بيانات الحساب بنجاح, سيقوم الأدمن بمراجعتها قريبا.",
-
+    "Do you need Attachments?" => "هل تحتاج إضافة تركيبات؟",
+    "Enter attachments specifications & conditions" => "أدخل مواصفات التركيب المطلوبة",
+    "Choose attachments type" => "اختر نوع التركيب",
 
 
 

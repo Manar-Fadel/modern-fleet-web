@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AttachmentTypeController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CarCategoryController;
@@ -120,6 +121,8 @@ Route::middleware('localization')->group(function () {
             Route::resource('heavy-vehicles', HeavyVehicleController::class);
             Route::post('/heavy-vehicle-images/{image}/set-main', [HeavyVehicleImageController::class, 'setMain'])->name('heavy-vehicle-images.set-main');
             Route::resource('heavy-vehicle-categories', HeavyVehicleCategoryController::class)->except(['show']);
+
+            Route::resource('attachment-types', AttachmentTypeController::class);
 
             Route::group(['prefix' => 'brands', 'as' => 'brands.'], function () {
                 Route::get('/', [BrandController::class, 'index'])->name('index');

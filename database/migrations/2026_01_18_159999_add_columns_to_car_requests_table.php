@@ -15,15 +15,6 @@ return new class extends Migration
             $table->unsignedBigInteger('accepted_quotation_id')->nullable()->after('notes');
             $table->unsignedBigInteger('accepted_user_id')->nullable()->after('accepted_quotation_id');
 
-            $table->foreign('accepted_quotation_id')
-                ->references('id')
-                ->on('car_quotations')
-                ->nullOnDelete();
-
-            $table->foreign('accepted_user_id')
-                ->references('id')
-                ->on('users')
-                ->nullOnDelete();
         });
     }
 

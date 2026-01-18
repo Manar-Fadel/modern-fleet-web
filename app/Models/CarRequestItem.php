@@ -17,6 +17,11 @@ class CarRequestItem extends Model
         'manufacturing_year_id',
         'quantity',
         'description',
+
+        // attachments
+        'is_attachments_enabled',
+        'attachment_type_id',
+        'attachment_description',
     ];
     public function request(): BelongsTo
     {
@@ -33,6 +38,10 @@ class CarRequestItem extends Model
     public function year(): BelongsTo
     {
         return $this->belongsTo(ManufacturingYear::class, 'manufacturing_year_id');
+    }
+    public function attachmentType(): BelongsTo
+    {
+        return $this->belongsTo(AttachmentType::class, 'attachment_type_id');
     }
     public function images(): HasMany
     {

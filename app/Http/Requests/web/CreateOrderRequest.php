@@ -30,6 +30,10 @@ class CreateOrderRequest extends FormRequest
             'requests.*.quantity' => ['required','integer','min:1'],
             'requests.*.description' => ['nullable','string','max:2000'],
 
+            'requests.*.is_attachments_enabled' => 'boolean',
+            'requests.*.attachment_type_id' => 'nullable|required_if:requests.*.is_attachments_enabled,1|exists:attachments_types,id',
+            'requests.*.attachment_description' => 'nullable|required_if:requests.*.is_attachments_enabled,1|string|max:2000',
+
             'requests.*.images' => ['nullable','array'],
             'requests.*.images.*' => ['image','max:5048'],
         ];

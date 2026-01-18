@@ -37,6 +37,10 @@ class OrderController extends Controller
                         'manufacturing_year_id' => $item['manufacturing_year_id'],
                         'quantity' => $item['quantity'],
                         'description' => $item['description'] ?? null,
+
+                        'is_attachments_enabled' => $item['is_attachments_enabled'] ?? false,
+                        'attachment_type_id' => $item['attachment_type_id'] ?? null,
+                        'attachment_description' => $item['attachment_description'] ?? null,
                     ]);
 
                     if (!empty($item['images'])) {
