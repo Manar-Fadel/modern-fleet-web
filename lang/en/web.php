@@ -251,6 +251,8 @@ return [
     "Do you need Attachments?" => "Do you need Attachments?",
     "Enter attachments specifications & conditions" => "Enter attachments specifications & conditions",
     "Choose attachments type" => "Choose attachments type",
+    "Attachment Type" => "Attachment Type",
+    "Attachment Description" => "Attachment Description",
 
 
 

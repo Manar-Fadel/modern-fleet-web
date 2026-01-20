@@ -237,6 +237,8 @@ return [
     "Do you need Attachments?" => "هل تحتاج إضافة تركيبات؟",
     "Enter attachments specifications & conditions" => "أدخل مواصفات التركيب المطلوبة",
     "Choose attachments type" => "اختر نوع التركيب",
+    "Attachment Type" => "نوع التركيبات",
+    "Attachment Description" => "وصف التركيبات المطلوبة",
 
 
 

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api\web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AttachmentTypeResource;
 use App\Http\Resources\BrandResource;
 use App\Http\Resources\EquipmentModelResource;
 use App\Http\Resources\YearResource;
+use App\Models\AttachmentType;
 use App\Models\EquipmentBrand;
 use App\Models\EquipmentModel;
 use App\Models\ManufacturingYear;
@@ -64,4 +66,15 @@ class BrandController extends Controller
             ]
         ]);
     }
+    public function attachmentTypes(Request $request): JsonResponse
+    {
+        $models = AttachmentType::query()->orderBy('name_ar', 'ASC')->get();
+        return response()->json([
+            'status' => 'true',
+            'data' => [
+                'attachmentTypes' => AttachmentTypeResource::collection($models)
+            ]
+        ]);
+    }
+
 }

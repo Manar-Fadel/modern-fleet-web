@@ -17,11 +17,9 @@ return new class extends Migration
                 ->default(false)
                 ->after('quantity');
 
-            $table->foreignId('attachment_type_id')
+            $table->integer('attachment_type_id')
                 ->nullable()
-                ->after('is_attachments_enabled')
-                ->constrained('attachments_types')
-                ->nullOnDelete();
+                ->after('is_attachments_enabled');
 
             $table->text('attachment_description')
                 ->nullable()

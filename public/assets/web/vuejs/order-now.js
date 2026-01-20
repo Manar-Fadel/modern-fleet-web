@@ -12,6 +12,7 @@ const app = Vue.createApp({
             user_id: '',
             brands: [],
             years: [],
+            attachmentTypes: [],
             requests: [
                 this.newRequestRow()
             ],
@@ -33,6 +34,7 @@ const app = Vue.createApp({
 
             this.fetchBrands('cars');
             this.fetchYears();
+            this.fetchAttachmentTypes();
         },
         newRequestRow() {
             return {
@@ -96,6 +98,17 @@ const app = Vue.createApp({
             this.response = await response.json();
             this.years = this.response.data.years;
             this.yearsLoading = false;
+        },
+        async fetchAttachmentTypes () {
+            const response = await fetch(
+                "/api/web/attachment-types",
+                {
+                    method: 'GET',
+                    headers: this.headers,
+                }
+            );
+            this.response = await response.json();
+            this.attachmentTypes = this.response.data.attachmentTypes;
         },
         async saveOrder () {
             this.loading = true;

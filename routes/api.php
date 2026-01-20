@@ -17,10 +17,10 @@ Route::get('/brands/{brand}/models', function ($brandId) {
 Route::prefix('web')->group(function () {
     Route::get('/brands/{type}', [BrandController::class, 'index']);
     Route::get('/years', [BrandController::class, 'years']);
+    Route::get('/attachment-types', [BrandController::class, 'attachmentTypes']);
     Route::get('/models/{id}', [BrandController::class, 'getBrandModels']);
 
     Route::post('/save-order', [OrderController::class, 'saveOrder']);
-    Route::post('/send-offer', [OfferController::class, 'store']);
 });
 
 /***********************     ADMIN          ***************************/

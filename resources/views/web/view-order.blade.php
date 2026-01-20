@@ -60,11 +60,20 @@
                                         </li>
 
                                         <li>
-                                            <i class="fa fa-sort-numeric-up active"></i>
+                                            <i class="fa fa-list-numeric active"></i>
                                             <div class="text">
                                                 <p>{{ __('web.Quantity') }}/ {{ $item->quantity }}</p>
                                             </div>
                                         </li>
+
+                                        @if($item->is_attachments_enabled && isset($item->attachmentType))
+                                            <li>
+                                                <i class="fa fa-sort-numeric-up active"></i>
+                                                <div class="text">
+                                                    <p>{{ __('web.Attachment Type') }}/ {{ $item->attachmentType->name }}</p>
+                                                </div>
+                                            </li>
+                                        @endif
                                     </ul>
 
                                     @if(!empty($item->description))
@@ -72,6 +81,13 @@
                                             <strong>{{ __('web.Description') }}:</strong>
                                             {{ $item->description }}
                                         </p>
+                                    @endif
+
+                                    @if(!empty($item->attachment_description) && isset($item->attachmentType))
+                                    <p class="mb--20">
+                                        <strong>{{ __('web.Attachment Description') }}:</strong>
+                                        {{ $item->attachment_description }}
+                                    </p>
                                     @endif
 
                                     {{-- Images Slider (if exists) --}}
