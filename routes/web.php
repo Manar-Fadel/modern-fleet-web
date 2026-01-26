@@ -65,7 +65,7 @@ Route::middleware('localization')->group(function () {
 
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-        Route::get('/order-now', [\App\Http\Controllers\web\OrderController::class, 'orderNow'])->name('order-now');
+        Route::get('/order-now/{type}', [\App\Http\Controllers\web\OrderController::class, 'orderNow'])->name('order-now');
         Route::group(['prefix' => 'my-orders', 'as' => 'my-orders.'], function () {
             Route::get('/', [\App\Http\Controllers\web\OrderController::class, 'index'])->name('index');
             Route::get('/{id}', [\App\Http\Controllers\web\OrderController::class, 'view'])->name('view');

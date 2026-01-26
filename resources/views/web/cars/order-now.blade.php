@@ -11,7 +11,7 @@
             <div class="container">
                 <div class="calculator-form-inner">
                     <h4 class="text-center mb--30">
-                        {{ __('web.Request the Vehicles You Need') }}
+                        {{ __('web.Order Cars You Need') }}
                     </h4>
                     <p class="text-center mb-3" style="color: #b36761">
                         <i class="far fa-info-circle"></i>
@@ -30,6 +30,8 @@
                     </div>
 
                     <input type="hidden" name="authed_user_id" id="authed_user_id" value="{{ auth()->id() }}">
+                    <input type="hidden" name="type" id="type" :value="'car'">
+
                     <div v-for="(request, index) in requests" :key="index" class="calculator-form-inner mb-10 border p-5">
 
                         <h6 class="text-center mb-3">
@@ -84,40 +86,6 @@
                                 <textarea rows="3" v-model="request.description"
                                           class="textarea-input"
                                           placeholder="{{ __('web.Description') }}"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="row col-12 single-wrapper-r" style="width: 96% !important; margin-right: 1%;">
-                            <div class="col-6 col-lg-6">
-                                <label :for="request.is_attachments_enabled" style="line-height: 3;">
-                                    <input type="checkbox" style="margin-left: 15px;"
-                                           :id="request.is_attachments_enabled"
-                                           v-model="request.is_attachments_enabled">
-                                    {{ __('web.Do you need Attachments?') }}
-                                </label>
-                            </div>
-
-                            <select v-if="request.is_attachments_enabled" class="select-input col-6 col-lg-6"
-                                    v-model="request.attachment_type_id">
-                                <option value="">
-                                    {{ __('web.Choose attachments type') }}
-                                </option>
-                                <option v-for="type in attachmentTypes" :value="type.id">
-                                    @{{ type.name }}
-                                </option>
-                            </select>
-                        </div>
-
-                        <div v-if="request.is_attachments_enabled" class="row col-12 single-wrapper-r">
-                            <div class="one-item"
-                                 @if(app()->getLocale() == 'ar')
-                                     style="width: 96% !important;margin-right: 1%;"
-                                 @else
-                                     style="width: 96% !important;"
-                                @endif>
-                                <textarea rows="3" v-model="request.attachment_description"
-                                          class="textarea-input"
-                                          placeholder="{{ __('web.Enter attachments specifications & conditions') }}"></textarea>
                             </div>
                         </div>
 

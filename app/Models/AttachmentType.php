@@ -10,6 +10,7 @@ class AttachmentType extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'attachment_types';
     protected $fillable = [
         'name_en',
         'name_ar',

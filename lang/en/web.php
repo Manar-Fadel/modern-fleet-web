@@ -253,7 +253,11 @@ return [
     "Choose attachments type" => "Choose attachments type",
     "Attachment Type" => "Attachment Type",
     "Attachment Description" => "Attachment Description",
-
+    "Car Order" => "Car Order",
+    "Heavy Vehicle Order" => "Heavy Vehicle Order",
+    "Attachments Order" => "Attachments Order",
+    "Order Cars You Need" => "Order Cars You Need",
+    "You can order multiple attachments for muti vehicles in same order by clicking on Add another brand" => "You can order multiple attachments for muti vehicles in same order by clicking on Add another brand",
 
 
 

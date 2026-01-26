@@ -3,13 +3,7 @@
     <div class="card  ml-5">
         <div class="card-header pt-6">
             <div class="card-title">
-                <h3 class="fw-bold">Heavy Vehicle Quotations</h3>
-            </div>
-            <div class="card-toolbar">
-                <a href="{{ route('admin.heavy-vehicle-quotations.create') }}"
-                   class="btn btn-primary">
-                    + Add Quotation
-                </a>
+                <h3 class="fw-bold">Car Quotations</h3>
             </div>
         </div>
 
@@ -69,9 +63,9 @@
                         <th>#</th>
                         <th>Request</th>
                         <th>User</th>
-                        <th>Unit Price</th>
                         <th>Total Price</th>
                         <th>VAT</th>
+                        <th>Total With VAT</th>
                         <th>Status</th>
                         <th>Created At</th>
                         <th class="text-end">Actions</th>
@@ -81,15 +75,11 @@
                     @foreach($quotations as $q)
                         <tr>
                             <td>{{ $q->id }}</td>
-                            <td>#{{ $q->request_id }}</td>
-                            <td>{{ $q->user->name ?? '-' }}</td>
-                            <td>{{ number_format($q->unit_price, 2) }}</td>
-                            <td>{{ number_format($q->total_price, 2) }}</td>
-                            <td>
-                            <span class="badge {{ $q->is_with_vat ? 'badge-success' : 'badge-warning' }}">
-                                {{ $q->is_with_vat ? 'With VAT' : 'No VAT' }}
-                            </span>
-                            </td>
+                            <td>ID: {{ $q->car_request_id }} - No. {{ $q->request->order_number }}</td>
+                            <td>{{ $q->request->user->full_name ?? '-' }}</td>
+                            <td>{{ number_format($q->total_amount, 2) }}</td>
+                            <td>{{ number_format($q->vat_amount, 2) }}</td>
+                            <td>{{ number_format($q->total_with_vat, 2) }}</td>
                             <td>
                             <span class="badge badge-light-primary">
                                 {{ ucfirst($q->status) }}
@@ -97,13 +87,20 @@
                             </td>
                             <td>{{ $q->created_at->format('Y-m-d') }}</td>
                             <td class="text-end">
-                                <a href="{{ route('admin.heavy-vehicle-quotations.edit', $q) }}"
+                                <a href="{{ route('admin.car-quotations.pdf', $q) }}"
+                                   class="btn btn-sm btn-light-primary">
+                                    <i class="ki ki-filled ki-cloud-download"></i>
+                                    Pdf
+                                </a>
+                                @if($q->status == 'PENDING')
+                                <a href="{{ route('admin.car-quotations.edit', $q) }}"
                                    class="btn btn-sm btn-light-primary">
                                     Edit
                                 </a>
+                                @endif
 
                                 <form method="POST"
-                                      action="{{ route('admin.heavy-vehicle-quotations.destroy', $q) }}"
+                                      action="{{ route('admin.car-quotations.destroy', $q) }}"
                                       class="d-inline"
                                       onsubmit="return confirm('Delete this quotation?')">
                                     @csrf

@@ -82,6 +82,19 @@
                         <div class="menu-separator">
                         </div>
                         <div class="menu-item">
+                            <a :href="'/admin/car-quotations/create/' + order.id + '?type=heavy_vehicle' " class="menu-link">
+                                <span class="menu-icon">
+                                     <i class="ki-filled ki-plus-squared">
+                                     </i>
+                                </span>
+                                <span class="menu-title">
+                                 ADD Quotation
+                                </span>
+                            </a>
+                        </div>
+                        <div class="menu-separator">
+                        </div>
+                        <div class="menu-item">
                             <button class="menu-link" :data-modal-toggle="order.change_status_model_id_toggle"
                                     @click="changeStatus(order, key, index)">
                                 <span class="menu-icon">

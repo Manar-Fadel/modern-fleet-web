@@ -65,9 +65,16 @@ class CarQuotationController extends Controller
         if (!$model instanceof \App\Models\CarRequest) {
             return Redirect::back();
         }
-        return view('cpanel.car_quotations.create',
-            compact('id', 'model')
-        );
+        if ($request->filled('type') && $request->input('type') == 'heavy_vehicle') {
+            return view('cpanel.heavy_vehicle_quotations.create',
+                compact('id', 'model')
+            );
+
+        }else {
+            return view('cpanel.car_quotations.create',
+                compact('id', 'model')
+            );
+        }
     }
 
     public function store($id, StoreCarRequestQuotationRequest $request): \Illuminate\Http\RedirectResponse
@@ -89,7 +96,7 @@ class CarQuotationController extends Controller
                     'car_request_quotation_id' => $quotation->id,
                     'car_request_item_id' => $item['item_id'],
                     'unit_price' => $item['unit_price'],
-                    'attachment_price' => 0, // للتوسعة لاحقًا
+                    'attachment_price' => $item['attachment_price'] ?? 0,
                     'total_price' => $item['total_price'],
                     'vat_amount' => $item['vat_amount'] ?? 0,
                     'total_with_vat' => $item['total_with_vat'],

@@ -20,6 +20,7 @@ class StoreCarRequestQuotationRequest extends FormRequest
             'items.*.total_price' => ['required','numeric','min:0'],
             'items.*.vat_amount' => ['nullable','numeric','min:0'],
             'items.*.total_with_vat' => ['required','numeric','min:0'],
+            'items.*.attachment_price' => ['nullable', 'numeric', 'min:0'],
             'items.*.is_with_vat' => ['nullable','boolean'],
             'items.*.description' => ['nullable','string','max:2000'],
 

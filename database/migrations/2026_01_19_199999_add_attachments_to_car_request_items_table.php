@@ -17,7 +17,7 @@ return new class extends Migration
                 ->default(false)
                 ->after('quantity');
 
-            $table->integer('attachment_type_id')
+            $table->unsignedBigInteger('attachment_type_id')
                 ->nullable()
                 ->after('is_attachments_enabled');
 

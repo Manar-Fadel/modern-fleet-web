@@ -8,8 +8,6 @@ const app = Vue.createApp({
             brandLoading: false,
             search_word: '',
 
-            type: 'cars',
-            user_id: '',
             brands: [],
             years: [],
             attachmentTypes: [],
@@ -119,6 +117,9 @@ const app = Vue.createApp({
                 formData.append(`requests[${i}][manufacturing_year_id]`, req.manufacturing_year_id);
                 formData.append(`requests[${i}][quantity]`, req.quantity);
                 formData.append(`requests[${i}][description]`, req.description);
+                formData.append(`requests[${i}][is_attachments_enabled]`, req.is_attachments_enabled);
+                formData.append(`requests[${i}][attachment_type_id]`, req.attachment_type_id);
+                formData.append(`requests[${i}][attachment_description]`, req.attachment_description);
 
                 if (req.images.length > 0) {
                     req.images.forEach((file, f) => {
@@ -129,6 +130,7 @@ const app = Vue.createApp({
 
 
             formData.append('user_id', $("#authed_user_id").val());
+            formData.append('type', $("#type").val());
             formData.append('_method', 'POST');
 
             const requestOptions = {

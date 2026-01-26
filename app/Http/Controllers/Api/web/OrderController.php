@@ -26,7 +26,7 @@ class OrderController extends Controller
 
                 $order = CarRequest::create([
                     'user_id' => $request->get('user_id'),
-                    'type' => 'car',
+                    'type' => !empty($request->get('type')) ? $request->get('type') : 'car',
                     'status' => Constants::PENDING,
                 ]);
                 foreach ($request->requests as $item) {
@@ -35,10 +35,10 @@ class OrderController extends Controller
                         'brand_id' => $item['brand_id'],
                         'model_id' => $item['model_id'],
                         'manufacturing_year_id' => $item['manufacturing_year_id'],
-                        'quantity' => $item['quantity'],
+                        'quantity' => $item['quantity'] ?? 1,
                         'description' => $item['description'] ?? null,
 
-                        'is_attachments_enabled' => $item['is_attachments_enabled'] ?? false,
+                        'is_attachments_enabled' => $item['is_attachments_enabled'] ? 1 : 0,
                         'attachment_type_id' => $item['attachment_type_id'] ?? null,
                         'attachment_description' => $item['attachment_description'] ?? null,
                     ]);

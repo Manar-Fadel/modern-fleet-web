@@ -9,9 +9,6 @@
                             <span>{{ __('web.cars') }}</span>
                             {{ __('web.Ride Today') }}
                         </h1>
-                        <a href="{{ route('order-now') }}" class="rts-btn radius-small btn-primary wow fadeInUp" data-wow-delay=".6s" data-wow-duration="1s">
-                            {{ __('web.Order Now') }}
-                        </a>
                     </div>
                 </div>
             </div>

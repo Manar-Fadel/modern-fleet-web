@@ -8,70 +8,19 @@
                  #
             </th>
             <th class="min-w-[150px]">
-                 Offer Number
+                Total
             </th>
             <th class="min-w-[150px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                 Order Number
-                </span>
-               </span>
+               Vat
             </th>
             <th class="min-w-[300px]">
-               <span class="sort asc">
-                    <span class="sort-label font-normal text-gray-700">
-                     Dealer
-                    </span>
-               </span>
-            </th>
-            <th class="min-w-[200px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                 Price
-                </span>
-               </span>
-            </th>
-            <th class="min-w-[200px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                 Is With Vat?
-                </span>
-               </span>
+               Total with Vat
             </th>
             <th class="min-w-[100px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                 Status
-                </span>
-               </span>
+                Status
             </th>
             <th class="min-w-[180px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                 Delivery Location
-                </span>
-               </span>
-            </th>
-            <th class="min-w-[180px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                 Images
-                </span>
-               </span>
-            </th>
-            <th class="min-w-[180px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                     Date
-                </span>
-               </span>
-            </th>
-            <th class="min-w-[180px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                     Time
-                </span>
-               </span>
+                 Date/Time
             </th>
         </tr>
     </thead>
@@ -86,9 +35,8 @@
                         </button>
                         <div class="menu-dropdown menu-default w-full max-w-[175px]" data-menu-dismiss="true">
                             <div class="menu-item">
-                                <button class="menu-link"
-                                        :data-modal-toggle="offer.edit_model_id_toggle"
-                                        @click="editOffer(offer, key, offerIndex)">
+                                <a class="menu-link"
+                                   :href="'/admin/car-quotations/edit/' + offer.id + '?type=car' ">
                                     <span class="menu-icon">
                                      <i class="ki-filled ki-pencil">
                                      </i>
@@ -96,14 +44,14 @@
                                     <span class="menu-title">
                                      Edit
                                     </span>
-                                </button>
+                                </a>
                             </div>
 
                             <div class="menu-separator">
                             </div>
                             <div class="menu-item">
-                                <button v-if="offer.offers_table_from == 'FROM_LISTING_OFFERS'" class="menu-link"
-                                        @click="deleteOffer(offer, key, offerIndex)">
+                                <a class="menu-link"
+                                        :href="'/admin/car-quotations/delete/' + offer.id ">
                                     <span class="menu-icon">
                                      <i class="ki-filled ki-trash">
                                      </i>
@@ -111,49 +59,23 @@
                                     <span class="menu-title">
                                      Delete
                                     </span>
-                                </button>
-
-                                <button v-if="offer.offers_table_from == 'FROM_VIEW_PART_OFFERS'" class="menu-link"
-                                        @click="deleteOffer(offer, offerIndex)">
-                                    <span class="menu-icon">
-                                     <i class="ki-filled ki-trash">
-                                     </i>
-                                    </span>
-                                    <span class="menu-title">
-                                     Delete
-                                    </span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </td>
-            <!--td class="text-gray-800 font-normal">
-                @{{ (offerIndex + 1) + (offers_per_page * (offers_current_page - 1)) }}
-            </td-->
             <td class="text-gray-800 font-normal">
                 @{{ offer.id }}
             </td>
             <td class="text-gray-800 font-normal">
-                <button class="text-sm font-medium text-gray-900 hover:text-primary-active mb-px">
-                    @{{ offer.offer_number }}
-                </button>
+                @{{ offer.total_amount }} SAR
             </td>
             <td class="text-gray-800 font-normal">
-                <button class="text-sm font-medium text-gray-900 hover:text-primary-active mb-px" style="color: blue"
-                        :data-modal-toggle="offer.view_model_id_toggle" @click="viewModal(offer.order)">
-                    @{{ offer.order_number }}
-                </button>
+                @{{ offer.vat_amount }} SAR
             </td>
             <td class="text-gray-800 font-normal">
-                @{{ offer.dealer_name  }} /
-                @{{ offer.dealer_mobile }}
-            </td>
-            <td class="text-gray-800 font-normal">
-                @{{ offer.price }} SAR
-            </td>
-            <td class="text-gray-800 font-normal">
-                @{{ offer.is_with_vat_text }}
+                @{{ offer.total_with_vat }} SAR
             </td>
             <td>
                 <span v-if="offer.status == 'PENDING' || offer.status == 'DECLINED'" class="badge badge-danger badge-outline rounded-[30px]">
@@ -173,24 +95,7 @@
                </span>
             </td>
             <td class="text-gray-800 font-normal">
-                @{{ offer.description }}
-            </td>
-            <td class="flex text-gray-800 font-normal" style="overflow: hidden;">
-                <div class="mr-2.5" v-for="image in offer.images" style="width: 100px;max-height: 60px;">
-                    <button type="button" @click="deleteOfferImage(image, key, offerIndex)" style="position: relative;top: 20px;color: red; font-size: 18px;">
-                        <i class="ki-filled ki-trash-square">
-                        </i>
-                    </button>
-                    <a :href="image.image" target="_blank" style="width: 100px;max-height: 60px;">
-                        <img :src="image.image" width="100px">
-                    </a>
-                </div>
-            </td>
-            <td class="text-gray-800 font-normal">
-                @{{ offer.created_at_date }}
-            </td>
-            <td class="text-gray-800 font-normal">
-                @{{ offer.created_at_time }}
+                @{{ offer.created_at }}
             </td>
         </tr>
     </tbody>

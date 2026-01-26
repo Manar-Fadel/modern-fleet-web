@@ -1,78 +1,198 @@
 @csrf
 
-<div class="row mb-5">
-    <div class="col-6">
-        <label class="form-label">Request</label>
-        <select name="request_id" class="form-select">
-            @foreach($requests as $req)
-                <option value="{{ $req->id }}"
-                    @selected(old('request_id', $heavyVehicleQuotation->request_id ?? '') == $req->id)>
-                    RFQ #{{ $req->id }}
-                </option>
-            @endforeach
-        </select>
+<h3 class="mb-5">Create Quotation for Request #{{ $model->id }} - {{ $model->order_number }}</h3>
+<input type="hidden" name="type" value="heavy_vehicle">
+<table class="table table-bordered align-middle">
+    <thead>
+    <tr class="text-center">
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Year</th>
+        <th>Qty</th>
+        <th>Unit Price</th>
+        <th>Attachment</th>
+        <th>Attachment Price</th>
+        <th>Total Price</th>
+        <th>With VAT?</th>
+        <th>VAT</th>
+        <th>Total With VAT</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach($model->items as $index => $item)
+        <tr class="quotation-row">
+
+            <input type="hidden" name="items[{{ $index }}][item_id]" value="{{ $item->id }}">
+            <input type="hidden" class="quantity" value="{{ $item->quantity }}">
+            <input type="hidden" class="attachments-enabled" value="{{ $item->is_attachments_enabled }}">
+
+            <td>{{ $item->brand->name_en }}</td>
+            <td>{{ $item->model->name_en }}</td>
+            <td>{{ $item->year?->year ?? '-' }}</td>
+            <td class="text-center">{{ $item->quantity }}</td>
+
+            <!-- Unit price -->
+            <td>
+                <input type="number" step="0.01"
+                       class="form-control unit-price"
+                       name="items[{{ $index }}][unit_price]" required>
+            </td>
+
+            <!-- Attachment info -->
+            <td>
+                @if($item->is_attachments_enabled)
+                    <div class="text-success fw-bold">
+                        {{ $item->attachmentType?->name_en }}
+                    </div>
+                    <small class="text-muted">
+                        {{ $item->attachment_description }}
+                    </small>
+                @else
+                    <span class="badge bg-light-secondary">No Attachment</span>
+                @endif
+            </td>
+
+            <!-- Attachment price -->
+            <td>
+                @if($item->is_attachments_enabled)
+                    <input type="number" step="0.01"
+                           class="form-control attachment-price"
+                           name="items[{{ $index }}][attachment_price]"
+                           placeholder="Attachment price">
+                @else
+                    <input type="hidden" class="attachment-price" value="0"
+                           name="items[{{ $index }}][attachment_price]">
+                    <span class="text-muted">—</span>
+                @endif
+            </td>
+
+            <!-- Total -->
+            <td>
+                <input type="number" step="0.01"
+                       class="form-control total-price"
+                       name="items[{{ $index }}][total_price]" readonly>
+            </td>
+
+            <!-- VAT -->
+            <td class="text-center">
+                <input type="checkbox"
+                       class="form-check-input with-vat"
+                       name="items[{{ $index }}][is_with_vat]" value="1">
+            </td>
+
+            <td>
+                <input type="number" step="0.01"
+                       class="form-control vat-amount"
+                       name="items[{{ $index }}][vat_amount]" readonly>
+            </td>
+
+            <td>
+                <input type="number" step="0.01"
+                       class="form-control total-with-vat"
+                       name="items[{{ $index }}][total_with_vat]" readonly>
+            </td>
+
+        </tr>
+    @endforeach
+
+    </tbody>
+</table>
+
+<hr>
+
+<!-- Totals -->
+<div class="row mt-5">
+    <div class="col-md-4">
+        <label>Total Amount</label>
+        <input type="number" class="form-control" id="total_amount" name="total_amount" readonly>
     </div>
 
-    <div class="col-6">
-        <label class="form-label">User</label>
-        <select name="user_id" class="form-select">
-            @foreach($users as $user)
-                <option value="{{ $user->id }}"
-                    @selected(old('user_id', $heavyVehicleQuotation->user_id ?? '') == $user->id)>
-                    {{ $user->name }}
-                </option>
-            @endforeach
-        </select>
+    <div class="col-md-4">
+        <label>Total VAT</label>
+        <input type="number" class="form-control" id="vat_amount" name="vat_amount" readonly>
+    </div>
+
+    <div class="col-md-4">
+        <label>Total With VAT</label>
+        <input type="number" class="form-control" id="total_with_vat" name="total_with_vat" readonly>
     </div>
 </div>
 
-<div class="row mb-5">
-    <div class="col-4">
-        <label class="form-label">Unit Price</label>
-        <input type="number" step="0.01" name="unit_price"
-               value="{{ old('unit_price', $heavyVehicleQuotation->unit_price ?? '') }}"
-               class="form-control" required>
-    </div>
-
-    <div class="col-4">
-        <label class="form-label">Total Price</label>
-        <input type="number" step="0.01" name="total_price"
-               value="{{ old('total_price', $heavyVehicleQuotation->total_price ?? '') }}"
-               class="form-control" required>
-    </div>
-
-    <div class="col-4">
-        <label class="form-label">VAT</label>
-        <select name="is_with_vat" class="form-select">
-            <option value="1" @selected(old('is_with_vat', $heavyVehicleQuotation->is_with_vat ?? '') == 1)>
-                With VAT
-            </option>
-            <option value="0" @selected(old('is_with_vat', $heavyVehicleQuotation->is_with_vat ?? '') == 0)>
-                Without VAT
-            </option>
-        </select>
-    </div>
+<div class="text-end mt-5">
+    <button class="btn btn-primary">Submit Quotation</button>
 </div>
 
-<div class="mb-5">
-    <label class="form-label">Status</label>
-    <select name="status" class="form-select">
-        @foreach($statuses as $s)
-            <option value="{{ $s->name }}"
-                @selected(old('status', $heavyVehicleQuotation->status ?? '') === $s->name)>
-                {{ ucfirst($s->value) }}
-            </option>
-        @endforeach
-    </select>
-</div>
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-<div class="mb-5">
-    <label class="form-label">Description</label>
-    <textarea name="description"
-              rows="3"
-              class="form-control">{{ old('description', $heavyVehicleQuotation->description ?? '') }}</textarea>
-</div>
+            const rows = document.querySelectorAll('.quotation-row');
 
-<div class="text-end">
-    <button class="btn btn-primary">Save</button>
-</div>
+            rows.forEach(row => {
+
+                const qty = parseFloat(row.querySelector('.quantity').value);
+                const unitPriceInput = row.querySelector('.unit-price');
+                const attachmentPriceInput = row.querySelector('.attachment-price');
+                const totalPriceInput = row.querySelector('.total-price');
+                const vatCheckbox = row.querySelector('.with-vat');
+                const vatAmountInput = row.querySelector('.vat-amount');
+                const totalWithVatInput = row.querySelector('.total-with-vat');
+
+                function calculateRow() {
+
+                    const unitPrice = parseFloat(unitPriceInput.value) || 0;
+                    const attachmentPrice = parseFloat(attachmentPriceInput?.value) || 0;
+
+                    const vehicleTotal = qty * unitPrice;
+                    const rowTotal = vehicleTotal + attachmentPrice;
+
+                    totalPriceInput.value = rowTotal.toFixed(2);
+
+                    let vat = 0;
+                    let totalWithVat = rowTotal;
+
+                    if (vatCheckbox.checked) {
+                        vat = rowTotal * 0.15;
+                        totalWithVat = rowTotal + vat;
+                    }
+
+                    vatAmountInput.value = vat.toFixed(2);
+                    totalWithVatInput.value = totalWithVat.toFixed(2);
+
+                    calculateTotals();
+                }
+
+                unitPriceInput.addEventListener('input', calculateRow);
+                if (attachmentPriceInput) {
+                    attachmentPriceInput.addEventListener('input', calculateRow);
+                }
+                vatCheckbox.addEventListener('change', calculateRow);
+            });
+
+            function calculateTotals() {
+
+                let totalAmount = 0;
+                let totalVat = 0;
+                let totalWithVat = 0;
+
+                document.querySelectorAll('.total-price').forEach(el => {
+                    totalAmount += parseFloat(el.value) || 0;
+                });
+
+                document.querySelectorAll('.vat-amount').forEach(el => {
+                    totalVat += parseFloat(el.value) || 0;
+                });
+
+                document.querySelectorAll('.total-with-vat').forEach(el => {
+                    totalWithVat += parseFloat(el.value) || 0;
+                });
+
+                document.getElementById('total_amount').value = totalAmount.toFixed(2);
+                document.getElementById('vat_amount').value = totalVat.toFixed(2);
+                document.getElementById('total_with_vat').value = totalWithVat.toFixed(2);
+            }
+
+        });
+    </script>
+@endpush

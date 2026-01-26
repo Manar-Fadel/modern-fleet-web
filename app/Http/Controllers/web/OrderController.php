@@ -10,9 +10,17 @@ use Illuminate\Support\Facades\Session;
 
 class OrderController
 {
-    public function orderNow():  \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function orderNow($type):  \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        return view('web.order-now');
+        if ($type == 'attachments'){
+            return view('web.attachments.order-now', compact('type'));      // car
+
+        }elseif ($type == 'heavy-vehicle'){
+            return view('web.heavy-vehicles.order-now', compact('type'));      // car
+
+        }else{
+            return view('web.cars.order-now', compact('type'));      // car
+        }
     }
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {

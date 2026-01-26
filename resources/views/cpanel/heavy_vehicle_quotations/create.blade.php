@@ -6,7 +6,7 @@
         </div>
         <div class="card-body">
             <form method="POST"
-                  action="{{ route('admin.heavy-vehicle-quotations.store') }}">
+                  action="{{ route('admin.car-quotations.store', ['id' => $id]) }}">
                 @include('cpanel.heavy_vehicle_quotations._form')
             </form>
         </div>

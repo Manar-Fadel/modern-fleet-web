@@ -192,7 +192,7 @@ return [
     "Engine Capacity" => "سعة المحرك",
     "Engine Power" => "قوة المحرك",
     "Color" => "اللون",
-    "Request the Vehicles You Need" => "اطلب المركبات التي تحتاجها بسهولة",
+    "Request the Vehicles You Need" => "اطلب المركبات الثقيلة التي تحتاجها بسهولة",
     "Specify either Vehicle brand, model & manufacturing year and add quantity you need" => "اختر ماركة المركبة و الموديل وسنة الصنع، وحدّد عدد المركبات المطلوبة.",
     "Company tax number" => "الرقم الضريبي",
     "Trade License Image" => "صورة من السجل التجاري",
@@ -239,6 +239,12 @@ return [
     "Choose attachments type" => "اختر نوع التركيب",
     "Attachment Type" => "نوع التركيبات",
     "Attachment Description" => "وصف التركيبات المطلوبة",
+    "Car Order" => "طلب سيارة",
+    "Heavy Vehicle Order" => "طلب مركبات ثقيلة",
+    "Attachments Order" => "طلب تركيبات",
+    "Order Cars You Need" => "اطلب السيارات التي تحتاجها بسهولة",
+    "You can order multiple attachments for muti vehicles in same order by clicking on Add another brand" => "يمكنك طلب تركيبات لماركات متعددة للسيارات في نفس الطلب, من خلال الضغط على إضافة ماركة أخرى",
+
 
 
 

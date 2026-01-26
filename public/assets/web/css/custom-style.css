@@ -1,6 +1,9 @@
 :root {
     --color-primary: #25285f;
 }
+.btn-black:hover, .btn-black:focus, .btn-black:active{
+    color: white !important;
+}
 .active{
     color: #157f4e !important;
 }

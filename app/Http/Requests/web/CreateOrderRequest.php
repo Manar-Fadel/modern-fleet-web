@@ -27,11 +27,11 @@ class CreateOrderRequest extends FormRequest
             'requests.*.brand_id' => ['required','exists:brands,id'],
             'requests.*.model_id' => ['required','exists:brand_models,id'],
             'requests.*.manufacturing_year_id' => ['nullable','exists:manufacturing_years,id'],
-            'requests.*.quantity' => ['required','integer','min:1'],
+            'requests.*.quantity' => ['nullable','integer','min:1'],
             'requests.*.description' => ['nullable','string','max:2000'],
 
-            'requests.*.is_attachments_enabled' => 'boolean',
-            'requests.*.attachment_type_id' => 'nullable|required_if:requests.*.is_attachments_enabled,1|exists:attachments_types,id',
+            //'requests.*.is_attachments_enabled' => 'boolean',
+            'requests.*.attachment_type_id' => 'nullable|required_if:requests.*.is_attachments_enabled,1|exists:attachment_types,id',
             'requests.*.attachment_description' => 'nullable|required_if:requests.*.is_attachments_enabled,1|string|max:2000',
 
             'requests.*.images' => ['nullable','array'],
